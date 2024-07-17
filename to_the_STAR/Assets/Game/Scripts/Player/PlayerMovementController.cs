@@ -8,13 +8,13 @@ namespace Game.Player
     {
         private Vector2 _moveVector;
         private Rigidbody2D _rb;
-        
+
         private InputAction _moveAction;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
-            _moveAction = GameInputSystem.Instance.InputActions.Player.Move;
+            _moveAction = GameInputSystem.Instance.PlayerActions.Move;
         }
         
         private void Update()

@@ -4,13 +4,20 @@ namespace Game.Input
 {
     public class GameInputSystem : SingletonMonoBehaviour<GameInputSystem>
     {
-        public InputActions InputActions { get; private set; }
+        private InputActions _inputActions; 
+        
+        public InputActions.PlayerActions PlayerActions { get; private set; }
+        public InputActions.UIActions UIActions { get; private set; }
+        
         
         protected override void OnAwake()
         {
-            InputActions = new InputActions();
+            _inputActions = new InputActions();
+
+            PlayerActions = _inputActions.Player;
+            UIActions = _inputActions.UI;
             
-            InputActions.Enable();
+            _inputActions.Enable();
         }
     }
 }
