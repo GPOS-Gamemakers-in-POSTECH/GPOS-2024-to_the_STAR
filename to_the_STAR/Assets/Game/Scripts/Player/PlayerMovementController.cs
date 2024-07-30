@@ -6,7 +6,7 @@ namespace Game.Player
 {
     public class PlayerMovementController : MonoBehaviour
     {
-        private Vector2 _moveVector;
+        public Vector2 _moveVector;
         private Rigidbody2D _rb;
 
         private InputAction _moveAction;
