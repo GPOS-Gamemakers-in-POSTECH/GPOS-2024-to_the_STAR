@@ -11,18 +11,25 @@ namespace Game.Player
         private Rigidbody2D _rb;
 
         private InputAction _moveAction;
+        private InputAction _interactAction;
 
-        public Lever lever;
+        public Lever _lever;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
             _moveAction = GameInputSystem.Instance.PlayerActions.Move;
+            _interactAction = GameInputSystem.Instance.PlayerActions.Interact;
         }
         
         private void Update()
         {
             _moveVector = _moveAction.ReadValue<Vector2>();
+
+            if (_interactAction.IsPressed() == true)
+            {
+                Interaction();
+            } 
         }
 
         private void FixedUpdate()
@@ -33,9 +40,10 @@ namespace Game.Player
 
         private void Interaction()
         {
-            if (lever == null) return;
+            if (_lever == null) return;
 
-            lever.Interaction();
+            _lever.Interaction();
         }
+
     }
 }

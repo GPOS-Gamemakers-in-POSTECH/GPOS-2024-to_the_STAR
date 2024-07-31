@@ -7,7 +7,7 @@ public class Lever : MonoBehaviour
 {
     public Sprite[] sprites; // index 0 : 비활성화, 1 : 활성화
     public GameObject doorAdminister;
-    SpriteRenderer spriteRenderer;
+    SpriteRenderer _sr;
     DoorAdminister _doorAdminister;
     PlayerMovementController player;
     public int door; // 연결되어 있는 문의 번호
@@ -17,7 +17,7 @@ public class Lever : MonoBehaviour
     void Start()
     {
         state = false;
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        _sr = GetComponent<SpriteRenderer>();
         doorAdminister = GameObject.Find("DoorAdminister");
     }
 
@@ -29,7 +29,7 @@ public class Lever : MonoBehaviour
 
             if(player != null)
             {
-                player.lever = this;
+                player._lever = this;
             }
         }
     }
@@ -38,7 +38,7 @@ public class Lever : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            player.lever = null;
+            player._lever = null;
             player = null;
         }
     }
@@ -46,9 +46,9 @@ public class Lever : MonoBehaviour
     public void Interaction() // 이 레버를 작동 시켰을 때
     {
         state = !state;
-        spriteRenderer.flipX = !spriteRenderer.flipX;
+        _sr.flipX = !_sr.flipX;
         int index = state ? 1 : 0;
-        spriteRenderer.sprite = sprites[index];
+        _sr.sprite = sprites[index];
 
         _doorAdminister = doorAdminister.GetComponent<DoorAdminister>();
         _doorAdminister.keys[door][key] = state;
