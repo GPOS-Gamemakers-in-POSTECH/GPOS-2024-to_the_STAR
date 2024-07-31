@@ -143,7 +143,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 269b279352940cb49977ac1caa996993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprites: []
+  sprites:
+  - {fileID: -2121087668, guid: b3843aca0cbb2744dafdab497c28cd78, type: 3}
+  - {fileID: 1926338387, guid: b3843aca0cbb2744dafdab497c28cd78, type: 3}
   doorAdminister: {fileID: 0}
   door: 0
   key: 0

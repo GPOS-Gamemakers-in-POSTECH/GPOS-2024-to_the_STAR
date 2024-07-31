@@ -14,7 +14,6 @@ namespace Game.Player
         private InputAction _interactAction;
 
         public Lever _lever;
-
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
