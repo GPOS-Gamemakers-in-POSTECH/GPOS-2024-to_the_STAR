@@ -6,11 +6,11 @@ namespace Game.Player
 {
     public class PlayerMovementController : MonoBehaviour
     {
-        [SerializeField] private int moveSpeed = 5;
+        [SerializeField] public int moveSpeed = 5;
 
         private InputActions.PlayerActions _playerActions;
         
-        private Vector2 _moveVector;
+        public Vector2 _moveVector;
         private InputAction _moveAction;
         
         private Rigidbody2D _rb;
