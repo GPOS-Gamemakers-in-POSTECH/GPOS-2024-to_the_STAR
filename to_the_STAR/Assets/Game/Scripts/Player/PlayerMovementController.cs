@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Input;
+using UnityEngine.Windows;
 
 namespace Game.Player
 {
@@ -10,6 +11,8 @@ namespace Game.Player
         private Rigidbody2D _rb;
 
         private InputAction _moveAction;
+
+        public Lever lever;
 
         private void Awake()
         {
@@ -26,6 +29,13 @@ namespace Game.Player
         {
             Vector2 currPosition = transform.position;
             _rb.MovePosition(currPosition + _moveVector * Time.deltaTime);
+        }
+
+        private void Interaction()
+        {
+            if (lever == null) return;
+
+            lever.Interaction();
         }
     }
 }
