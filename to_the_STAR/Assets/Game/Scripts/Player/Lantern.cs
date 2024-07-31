@@ -17,10 +17,10 @@ public class Lantern : MonoBehaviour
 
     void Update()
     {
-        Vector2 tempV = player.GetComponent<PlayerMovementController>()._moveVector;
+        Vector2 tempV = player.GetComponent<PlayerMovementController>().getMoveVector();
         if(tempV.x!=0 || tempV.y!=0) playerMoveVector = tempV;
         transform.position = Vector3.Lerp(transform.position, player.transform.position  - new Vector3(playerMoveVector.x, playerMoveVector.y, 0), 
-            Time.deltaTime * player.GetComponent<PlayerMovementController>().moveSpeed);
+            Time.deltaTime * player.GetComponent<PlayerMovementController>().getMoveSpeed());
         lanternLight.position = transform.position;
         lanternLight.rotation = Quaternion.Inverse(player.transform.rotation);
     }

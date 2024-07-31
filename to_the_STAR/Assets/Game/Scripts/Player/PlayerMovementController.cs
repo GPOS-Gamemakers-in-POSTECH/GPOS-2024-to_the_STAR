@@ -6,14 +6,23 @@ namespace Game.Player
 {
     public class PlayerMovementController : MonoBehaviour
     {
-        [SerializeField] public int moveSpeed = 5;
+        [SerializeField] private int moveSpeed = 5;
 
         private InputActions.PlayerActions _playerActions;
         
-        public Vector2 _moveVector;
+        private Vector2 _moveVector;
         private InputAction _moveAction;
         
         private Rigidbody2D _rb;
+
+        public Vector2 getMoveVector()
+        {
+            return _moveVector;
+        }
+        public int getMoveSpeed()
+        {
+            return moveSpeed;
+        }
 
         private void Awake()
         {
