@@ -10,6 +10,7 @@ public class Lever : MonoBehaviour
     SpriteRenderer _sr;
     DoorAdminister _doorAdminister;
     PlayerMovementController player;
+    PlayerData playerData;
     public int door; // 연결되어 있는 문의 번호
     public int key; // 몇 번째 레버인지
     bool state;
@@ -26,8 +27,9 @@ public class Lever : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             player = collision.GetComponent<PlayerMovementController>();
+            playerData = collision.GetComponent<PlayerData>();
 
-            if(player != null)
+            if(player != null && compareRotation(playerData.RotateDir))
             {
                 player._lever = this;
             }
@@ -53,5 +55,11 @@ public class Lever : MonoBehaviour
         _doorAdminister = doorAdminister.GetComponent<DoorAdminister>();
         _doorAdminister.keys[door][key] = state;
         _doorAdminister.StateChanged(door);
+    }
+
+    private bool compareRotation(PlayerRotateDirection _prd)
+    {
+        return (_prd == PlayerRotateDirection.Up && transform.rotation.z == 180) || (_prd == PlayerRotateDirection.Right && transform.rotation.z == 90)
+            || (_prd == PlayerRotateDirection.Down && transform.rotation.z == 0) || (_prd == PlayerRotateDirection.Left && transform.rotation.z == 270);
     }
 }
