@@ -59,7 +59,7 @@ namespace Game.Player
         {
             _moveVector = _moveAction.ReadValue<Vector2>();
 
-            if (_interactAction.IsPressed() == true)
+            if (_interactAction.triggered == true)
             {
                 Interaction();
             } 
