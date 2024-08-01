@@ -57,6 +57,15 @@ namespace UnityEngine.InputSystem
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""841af494-7b70-4912-9fc0-6e2133e73962"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Rotate"",
                     ""type"": ""Button"",
                     ""id"": ""c9df0c2a-9c4d-436f-90d3-866a63ad2c5c"",
@@ -284,6 +293,18 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""groups"": ""XR"",
                     ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+
+                    ""name"": """",
+                    ""id"": ""3aaf2028-48c5-47ac-83d4-b7d840a9112d"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -907,7 +928,9 @@ namespace UnityEngine.InputSystem
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+            m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
             m_Player_Rotate = m_Player.FindAction("Rotate", throwIfNotFound: true);
+
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -984,7 +1007,9 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Look;
         private readonly InputAction m_Player_Fire;
+        private readonly InputAction m_Player_Interact;
         private readonly InputAction m_Player_Rotate;
+        
         public struct PlayerActions
         {
             private @InputActions m_Wrapper;
@@ -992,6 +1017,7 @@ namespace UnityEngine.InputSystem
             public InputAction @Move => m_Wrapper.m_Player_Move;
             public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputAction @Fire => m_Wrapper.m_Player_Fire;
+            public InputAction @Interact => m_Wrapper.m_Player_Interact;
             public InputAction @Rotate => m_Wrapper.m_Player_Rotate;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
@@ -1011,6 +1037,9 @@ namespace UnityEngine.InputSystem
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
                 @Rotate.started += instance.OnRotate;
                 @Rotate.performed += instance.OnRotate;
                 @Rotate.canceled += instance.OnRotate;
@@ -1027,6 +1056,9 @@ namespace UnityEngine.InputSystem
                 @Fire.started -= instance.OnFire;
                 @Fire.performed -= instance.OnFire;
                 @Fire.canceled -= instance.OnFire;
+                @Interact.started -= instance.OnInteract;
+                @Interact.performed -= instance.OnInteract;
+                @Interact.canceled -= instance.OnInteract;
                 @Rotate.started -= instance.OnRotate;
                 @Rotate.performed -= instance.OnRotate;
                 @Rotate.canceled -= instance.OnRotate;
@@ -1215,6 +1247,7 @@ namespace UnityEngine.InputSystem
             void OnMove(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
             void OnFire(InputAction.CallbackContext context);
+            void OnInteract(InputAction.CallbackContext context);
             void OnRotate(InputAction.CallbackContext context);
         }
         public interface IUIActions
