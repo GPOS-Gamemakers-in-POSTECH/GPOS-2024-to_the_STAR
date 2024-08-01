@@ -22,8 +22,12 @@ public class View : MonoBehaviour
     void Update()
     {
         transform.position = Vector3.Lerp(transform.position, playerTransform.position + cameraPosition, Time.deltaTime * cameraMoveSpeed);
-        float cx = Mathf.Clamp(transform.position.x, mapSizeMin.x + width, mapSizeMax.x - width);
-        float cy = Mathf.Clamp(transform.position.y, mapSizeMin.y + height, mapSizeMax.y - height);
+        float playerRot = playerTransform.rotation.eulerAngles.z;
+        float rotateWidth = width;
+        float rotateHeight = height;
+        if (playerRot > 45 && playerRot < 135 || playerRot > 225 && playerRot < 315) { float tmp = rotateWidth; rotateWidth = rotateHeight; rotateHeight = tmp; }
+        float cx = Mathf.Clamp(transform.position.x, mapSizeMin.x + rotateWidth, mapSizeMax.x - rotateWidth);
+        float cy = Mathf.Clamp(transform.position.y, mapSizeMin.y + rotateHeight, mapSizeMax.y - rotateHeight);
         transform.position = new Vector3(cx, cy, transform.position.z);
         transform.rotation = Quaternion.Lerp(transform.rotation, playerTransform.rotation, cameraRotationSpeed);
     }
