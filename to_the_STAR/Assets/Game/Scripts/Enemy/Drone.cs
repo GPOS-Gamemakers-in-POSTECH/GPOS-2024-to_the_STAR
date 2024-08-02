@@ -24,7 +24,7 @@ public class Drone : MonoBehaviour, EnemyInterface
     }
     void Start()
     {
-        transform.rotation = Quaternion.Euler(0, 0, 90 * floor);
+        transform.rotation = Quaternion.Euler(0, 0, 90 * floor - 180);
     }
 
     void Update()
