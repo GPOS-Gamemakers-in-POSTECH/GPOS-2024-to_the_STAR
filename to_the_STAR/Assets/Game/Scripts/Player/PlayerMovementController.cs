@@ -16,6 +16,15 @@ namespace Game.Player
         private InputAction _interactAction;
         private Rigidbody2D _rb;
 
+        public Vector2 getMoveVector()
+        {
+            return _moveVector;
+        }
+        public int getMoveSpeed()
+        {
+            return moveSpeed;
+        }
+
         public Lever _lever;
         private void Awake()
         {
