@@ -140,16 +140,26 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private void Chase()
     {
+        Debug.Log("Chasing!");
         Vector2 playerPosition = player.transform.position;
         float xDis = Mathf.Abs(playerPosition.x - transform.position.x);
         float yDis = Mathf.Abs(playerPosition.y - transform.position.y);
 
-        float distance = floor % 2 == 0 ? xDis : yDis;
-
         bool flag;
+        float distance;
 
-        if (floor % 2 == 0) flag = xDis <= detectionRange && yDis < TILE;
-        else flag = xDis < TILE && yDis <= detectionRange;
+        if(floor % 2 == 0)
+        {
+            distance = xDis;
+            flag = xDis <= detectionRange && yDis < TILE;
+            direction = playerPosition.x > transform.position.x ? 1 : -1;
+        }
+        else
+        {
+            distance = yDis;
+            flag = xDis < TILE && yDis <= detectionRange;
+            direction = playerPosition.y > transform.position.y ? 1 : -1;
+        }
 
         if (!flag)
         {
@@ -158,6 +168,12 @@ public class Dustpan : MonoBehaviour, EnemyInterface
             direction = 0;
         }
         else if (distance <= attackRange) state = State.Attack;
+    }
+
+    private void Attack()
+    {
+        Debug.Log("Attack!");
+        state = State.Chasing;
     }
 
     private bool compareRotation(PlayerRotateDirection _prd)
