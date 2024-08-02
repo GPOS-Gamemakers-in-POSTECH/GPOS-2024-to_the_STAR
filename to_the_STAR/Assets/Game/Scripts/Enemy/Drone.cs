@@ -8,9 +8,15 @@ public class Drone : MonoBehaviour, EnemyInterface
     float hp = 100;
     float attackPower = 100;
     float detectionRange = 5;
-    float speed = 5;
+    float attackRange = 2;
+    float speed = 0.01f;
 
-    int direction = 0; //-1 후진 0 정지 1 전진
+    int direction = 1; //-1 후진 0 정지 1 전진
+    int timer = 0;
+    int attackCooldown = 100;
+    int attackCooldownTimer = 0;
+    int detectionCooldown = 100;
+    GameObject playerObj;
     enum State
     {
         Idle,
@@ -32,23 +38,67 @@ public class Drone : MonoBehaviour, EnemyInterface
     {
         return attackPower;
     }
+    void Move()
+    {
+        transform.position = new Vector3(transform.position.x + moveVector.x * direction, transform.position.y + moveVector.y * direction, transform.position.z);
+    }
+
     void Start()
     {
-        transform.rotation = Quaternion.Euler(0, 0, 90 * floor - 180);
+        transform.rotation = Quaternion.Euler(0, 0, 180 - 90 * floor);
         moveVector.x = -(floor % 2 - 1) * speed; moveVector.y = (floor % 2) * speed;
+        playerObj = GameObject.Find("Player");
     }
 
     void Update()
     {
+        float distanceToPlayer = Mathf.Sqrt((playerObj.transform.position.x - transform.position.x) * (playerObj.transform.position.x - transform.position.x) +
+           (playerObj.transform.position.y - transform.position.y) * (playerObj.transform.position.y - transform.position.y));
+        bool playerDetection = distanceToPlayer < detectionRange; //Todo: 플레이어와 같은 바닥에 있는지 검사해야함
         switch (state)
         {
-            case State.Idle: break;
-            case State.Detection: break;
-            case State.Chasing: break;
-            case State.Attack: break;
-            case State.Stunned: break;
+            case State.Idle:
+                if(playerDetection)
+                {
+                    timer = detectionCooldown;
+                    state = State.Detection;
+                }
+                else if (timer < 0)
+                {
+                    direction = Random.Range(-1, 2);
+                    timer = Random.Range(120, 240);
+                }
+                Move();
+                break;
+            case State.Detection:
+                if (timer < 0)
+                {
+                    if (!playerDetection) state = State.Idle;
+                    else state = State.Chasing;
+                }
+                break;
+            case State.Chasing:
+                //Todo: 플레이어 방향으로 direction 설정
+                if (distanceToPlayer < attackRange && attackCooldownTimer < 0) state = State.Attack;
+                else if (!playerDetection)
+                {
+                    timer = detectionCooldown;
+                    state = State.Detection;
+                }
+                Move();
+                break;
+            case State.Attack: 
+                //Todo: 공격용 오브젝트 생성해야함
+                attackCooldownTimer = attackCooldown;
+                state = State.Detection;
+                break;
+            case State.Stunned:
+                if (timer < 0) state = State.Idle;
+                break;
             case State.Dead: break;
         }
         if (hp < 0) state = State.Dead;
+        attackCooldownTimer--;
+        timer--;
     }
 }
