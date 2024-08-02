@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface EnemyInterface
 {
-    public void getDamage();
+    public void getDamage(float damage);
     public float attack();
 
 }
