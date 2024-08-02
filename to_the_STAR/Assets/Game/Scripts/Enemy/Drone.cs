@@ -10,7 +10,17 @@ public class Drone : MonoBehaviour, EnemyInterface
     float detectionRange = 5;
     float speed = 5;
 
-    int direction = 0;
+    int direction = 0; //-1 후진 0 정지 1 전진
+    enum State
+    {
+        Idle,
+        Detection,
+        Chasing,
+        Attack,
+        Stunned,
+        Dead
+    }
+    State state = State.Idle;
     Vector2 moveVector;
 
     public void getDamage(float damage)
@@ -25,10 +35,20 @@ public class Drone : MonoBehaviour, EnemyInterface
     void Start()
     {
         transform.rotation = Quaternion.Euler(0, 0, 90 * floor - 180);
+        moveVector.x = -(floor % 2 - 1) * speed; moveVector.y = (floor % 2) * speed;
     }
 
     void Update()
     {
-        
+        switch (state)
+        {
+            case State.Idle: break;
+            case State.Detection: break;
+            case State.Chasing: break;
+            case State.Attack: break;
+            case State.Stunned: break;
+            case State.Dead: break;
+        }
+        if (hp < 0) state = State.Dead;
     }
 }
