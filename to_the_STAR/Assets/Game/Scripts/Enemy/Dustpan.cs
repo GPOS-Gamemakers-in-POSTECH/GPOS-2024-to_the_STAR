@@ -22,12 +22,16 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     private float speed = 0.5f;
 
     private int direction = 0;
-    private int dirTimer = 0;
-    private int detectTimer = 0;
+    private int attackTimer = 0;
     private int timer = 0;
+
+    private Vector2 playerPosition;
+    private float xDis;
+    private float yDis;
 
     const float TILE = 1;
     const int DETECT = 150;
+    const int ATTACK = 50;
 
     enum State
     {
@@ -68,26 +72,39 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     private void FixedUpdate()
     {
         Vector2 currPosition = transform.position;
+        playerPosition = player.transform.position;
         _rb.MovePosition(currPosition + direction * _moveVector[floor%2] * (speed * Time.deltaTime));
+
+        currPosition = transform.position;
+        xDis = Mathf.Abs(currPosition.x - playerPosition.x);
+        yDis = Mathf.Abs(currPosition.y - playerPosition.y);
+
 
         switch (state)
         {
             case State.Idle:
                 Move();
+                Debug.Log("Idle");
                 break;
             case State.Detection:
                 Detect();
+                Debug.Log("Detection");
                 break;
             case State.Chasing:
                 Chase();
+                Debug.Log("Chasing");
                 break;
-            case State.Attack: break;
+            case State.Attack:
+                Attack();
+                Debug.Log("Attack");
+                break;
             case State.Stunned: break;
             case State.Dead: break;
         }
         if (hp < 0) state = State.Dead;
 
-        timer--;
+        if (timer >= 0) timer--;
+        if (attackTimer >= 0) attackTimer--;
     }
 
     void Update()
@@ -97,18 +114,14 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private void Move()
     {
-        if (dirTimer >= timer)
+        if (timer < 0)
         {
-            dirTimer = timer - Random.Range(150, 301);
+            timer = Random.Range(150, 301);
             direction = Random.Range(-1, 2);
         }
 
-        Vector2 playerPosition = player.transform.position;
         if (compareRotation(playerData.RotateDir))
         {
-            float xDis = Mathf.Abs(playerPosition.x - transform.position.x);
-            float yDis = Mathf.Abs(playerPosition.y - transform.position.y);
-
             bool flag;
 
             if (floor % 2 == 0) flag = xDis <= detectionRange && yDis < TILE;
@@ -117,7 +130,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
             if (flag)
             {
                 state = State.Detection;
-                detectTimer = timer - DETECT;
+                timer = DETECT;
                 direction = 0;
             }
         }
@@ -125,26 +138,20 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private void Detect()
     {
-        Vector2 playerPosition = player.transform.position;
-        float xDis = Mathf.Abs(playerPosition.x - transform.position.x);
-        float yDis = Mathf.Abs(playerPosition.y - transform.position.y);
-
         bool flag;
 
         if (floor % 2 == 0) flag = xDis <= detectionRange && yDis < TILE;
         else flag = xDis < TILE && yDis <= detectionRange;
 
-        if (!flag) state = State.Idle;
-        else if(detectTimer == timer) state = State.Chasing;
+        if (timer < 0)
+        {
+            if (flag) state = State.Chasing;
+            else state = State.Idle;
+        }
     }
 
     private void Chase()
     {
-        Debug.Log("Chasing!");
-        Vector2 playerPosition = player.transform.position;
-        float xDis = Mathf.Abs(playerPosition.x - transform.position.x);
-        float yDis = Mathf.Abs(playerPosition.y - transform.position.y);
-
         bool flag;
         float distance;
 
@@ -164,16 +171,30 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         if (!flag)
         {
             state = State.Detection;
-            detectTimer = timer - DETECT;
+            timer = DETECT;
             direction = 0;
         }
-        else if (distance <= attackRange) state = State.Attack;
+        else if (distance <= attackRange)
+        {
+            if(attackTimer < 0) state = State.Attack;
+            direction = 0;
+        }
     }
 
     private void Attack()
     {
-        Debug.Log("Attack!");
+        attackTimer = ATTACK;
         state = State.Chasing;
+    }
+
+    public void Stunned()
+    {
+
+    }
+
+    private void Dead()
+    {
+
     }
 
     private bool compareRotation(PlayerRotateDirection _prd)
