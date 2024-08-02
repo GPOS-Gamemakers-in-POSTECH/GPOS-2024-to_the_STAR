@@ -9,8 +9,9 @@ public class Drone : MonoBehaviour, EnemyInterface
     float attackPower = 100;
     float detectionRange = 5;
     float attackRange = 2;
-    float speed = 0.01f;
+    float speed = 0.02f;
 
+    float halfBlockSize = 0.5f;
     int direction = 1; //-1 후진 0 정지 1 전진
     int timer = 0;
     int attackCooldown = 100;
@@ -50,11 +51,13 @@ public class Drone : MonoBehaviour, EnemyInterface
         playerObj = GameObject.Find("Player");
     }
 
-    void Update()
+    void FixedUpdate()
     {
         float distanceToPlayer = Mathf.Sqrt((playerObj.transform.position.x - transform.position.x) * (playerObj.transform.position.x - transform.position.x) +
            (playerObj.transform.position.y - transform.position.y) * (playerObj.transform.position.y - transform.position.y));
-        bool playerDetection = distanceToPlayer < detectionRange; //Todo: 플레이어와 같은 바닥에 있는지 검사해야함
+        bool playerDetection = distanceToPlayer < detectionRange && Mathf.Abs(playerObj.transform.rotation.eulerAngles.z - transform.rotation.eulerAngles.z) < 15;
+        if (floor % 2 == 0 && Mathf.Abs(playerObj.transform.position.y - transform.position.y) > halfBlockSize) playerDetection = false;
+        if (floor % 2 == 1 && Mathf.Abs(playerObj.transform.position.x - transform.position.x) > halfBlockSize) playerDetection = false;
         switch (state)
         {
             case State.Idle:
@@ -78,7 +81,16 @@ public class Drone : MonoBehaviour, EnemyInterface
                 }
                 break;
             case State.Chasing:
-                //Todo: 플레이어 방향으로 direction 설정
+                if(floor % 2 == 0)
+                {
+                    if (playerObj.transform.position.x > transform.position.x) direction = 1;
+                    else direction = -1;
+                }
+                else
+                {
+                    if (playerObj.transform.position.y > transform.position.y) direction = 1;
+                    else direction = -1;
+                }
                 if (distanceToPlayer < attackRange && attackCooldownTimer < 0) state = State.Attack;
                 else if (!playerDetection)
                 {
@@ -90,7 +102,7 @@ public class Drone : MonoBehaviour, EnemyInterface
             case State.Attack: 
                 //Todo: 공격용 오브젝트 생성해야함
                 attackCooldownTimer = attackCooldown;
-                state = State.Detection;
+                state = State.Chasing;
                 break;
             case State.Stunned:
                 if (timer < 0) state = State.Idle;
