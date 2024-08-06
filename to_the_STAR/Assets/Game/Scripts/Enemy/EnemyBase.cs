@@ -2,17 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBase : MonoBehaviour
+public interface EnemyInterface
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public void getDamage(float damage);
+    public float attack();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
