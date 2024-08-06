@@ -10,8 +10,10 @@ public class Weapon_Flamethrower : MonoBehaviour
     bool flameCooldown = false;
     bool flameTurnedOn = false;
     int flameFever = 0;
+    Vector2 playerPos = new Vector2(1, 0);
     const float flameDamageConst = 0.0f;
     const float flameSpeed = 0.1f;
+    const float flameDegRange = 30 * Mathf.Deg2Rad;
     const int flameFrequency = 20;
     const int flameFeverMax = 400;
     const int attackDuration = 200;
@@ -23,7 +25,12 @@ public class Weapon_Flamethrower : MonoBehaviour
 
     void Update()
     {
-        if(flameEnabled && !flameCooldown && Input.GetMouseButtonDown(0))
+        Vector2 playerTmp = GetComponent<PlayerMovementController>().getMoveVector();
+        if (playerTmp.x != 0 || playerTmp.y != 0)
+        {
+            playerPos = playerTmp;
+        }
+        if (flameEnabled && !flameCooldown && Input.GetMouseButtonDown(0))
         {
             flameFever = 0;
             flameTurnedOn = true;
@@ -33,14 +40,9 @@ public class Weapon_Flamethrower : MonoBehaviour
             flameFever++;
             if(flameFever%flameFrequency == 0)
             {
-                Vector2 playerTmp = GetComponent<PlayerMovementController>().getMoveVector();
-                Vector2 playerPos = new Vector2(1, 0);
-                if(playerTmp.x !=0 || playerTmp.y !=0)
-                {
-                    playerPos = playerTmp;
-                }
-                Vector2 mousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-                float angle = Vector2.Angle(Vector2.right, mousePos);
+                Vector2 mousePos = new Vector2(Input.mousePosition.x - transform.position.x, Input.mousePosition.y - transform.position.y);
+                float angle = Vector2.SignedAngle(mousePos, playerPos) * Mathf.Deg2Rad;
+                Debug.Log(angle * Mathf.Rad2Deg);
                 Vector2 flameMove = new Vector2(playerPos.x * Mathf.Cos(angle) - playerPos.y * Mathf.Sin(angle),
                                                 playerPos.x * Mathf.Sin(angle) + playerPos.y * Mathf.Cos(angle));
                 GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.identity);
