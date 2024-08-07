@@ -9,14 +9,15 @@ public class Weapon_Flamethrower : MonoBehaviour
     bool flameEnabled = true;
     bool flameCooldown = false;
     bool flameTurnedOn = false;
-    int flameFever = 0;
+    float flameFever = 0;
+    float flameShotCooldown = 0;
     Vector2 playerPos = new Vector2(1, 0);
     const float flameDamageConst = 0.0f;
-    const float flameSpeed = 0.1f;
+    const float flameSpeed = 12.0f;
     const float flameDegRange = 30 * Mathf.Deg2Rad;
-    const int flameFrequency = 20;
-    const int flameFeverMax = 400;
-    const int attackDuration = 200;
+    const float flameFrequency = 0.1f;
+    const float flameFeverMax = 3.5f;
+    const float attackDuration = 2.5f;
 
     void Start()
     {
@@ -37,26 +38,27 @@ public class Weapon_Flamethrower : MonoBehaviour
         }
         if(flameTurnedOn && Input.GetMouseButton(0))
         {
-            flameFever++;
-            if(flameFever%flameFrequency == 0)
+            flameFever += Time.deltaTime;
+            if(flameShotCooldown < 0)
             {
-                Vector2 mousePos = new Vector2(Input.mousePosition.x - transform.position.x, Input.mousePosition.y - transform.position.y);
+                Vector2 mousePos = new Vector2(Input.mousePosition.x - Screen.width / 2, - Input.mousePosition.y + Screen.height / 2);
                 float angle = Vector2.SignedAngle(mousePos, playerPos) * Mathf.Deg2Rad;
-                Debug.Log(angle * Mathf.Rad2Deg);
                 Vector2 flameMove = new Vector2(playerPos.x * Mathf.Cos(angle) - playerPos.y * Mathf.Sin(angle),
                                                 playerPos.x * Mathf.Sin(angle) + playerPos.y * Mathf.Cos(angle));
                 GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.identity);
-                Attack.GetComponent<PlayerAttackObj>().init(attackDuration, flameDamageConst, flameMove * flameSpeed);
+                Attack.GetComponent<PlayerAttackObj>().init(attackDuration, flameDamageConst, flameMove * flameSpeed, 1);
+                flameShotCooldown = flameFrequency;
             }
             if(flameFever == flameFeverMax)
             {
                 flameTurnedOn = false;
                 flameCooldown = true;
             }
+            flameShotCooldown -= Time.deltaTime;
         }
         if (!flameTurnedOn)
         {
-            flameFever--;
+            flameFever -= Time.deltaTime;
         }
         if(flameFever < 0)
         {
