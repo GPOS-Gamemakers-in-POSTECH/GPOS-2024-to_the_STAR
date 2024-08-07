@@ -6,5 +6,6 @@ public interface EnemyInterface
 {
     public void getDamage(float damage);
     public float attack();
+    public float hpRatio();
 
 }

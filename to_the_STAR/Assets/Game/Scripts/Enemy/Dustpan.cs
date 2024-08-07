@@ -51,6 +51,10 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     {
         return stat.attackPower;
     }
+    public float hpRatio()
+    {
+        return hp / stat.hp;
+    }
 
     void Awake()
     {

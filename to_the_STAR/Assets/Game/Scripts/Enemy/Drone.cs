@@ -36,6 +36,10 @@ public class Drone : MonoBehaviour, EnemyInterface
     {
         return stat.attackPower;
     }
+    public float hpRatio()
+    {
+        return hp / stat.hp;
+    }
     void Move()
     {
         transform.position = new Vector3(transform.position.x + moveVector.x * direction * Time.deltaTime, transform.position.y + moveVector.y * direction* Time.deltaTime, transform.position.z);
