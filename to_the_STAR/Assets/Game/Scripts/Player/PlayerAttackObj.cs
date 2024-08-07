@@ -9,6 +9,7 @@ public class PlayerAttackObj : MonoBehaviour
     float damage = 0;
     int attackType = 0; //0: 해머, 1: 화염방사기
     Vector2 moveVector;
+    Transform lightObj;
 
     public void init(float t, float d, Vector2 m, int tp)
     {
@@ -17,6 +18,10 @@ public class PlayerAttackObj : MonoBehaviour
         damage = d;
         moveVector = m;
         attackType = tp;
+        if (tp == 1)
+        {
+            lightObj = transform.GetChild(0);
+        }
     }
     void Start()
     {
@@ -31,9 +36,11 @@ public class PlayerAttackObj : MonoBehaviour
         if(attackType == 1)
         {
             transform.localScale = new Vector3(duration / maxDuration + 0.1f, duration / maxDuration + 0.1f, 1);
+            lightObj.position = transform.position;
         }
         if (duration < 0)
         {
+            Destroy(lightObj.gameObject);
             Destroy(gameObject);
         }
     }

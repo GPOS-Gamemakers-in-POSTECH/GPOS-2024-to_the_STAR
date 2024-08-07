@@ -2,10 +2,12 @@ using Game.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Weapon_Flamethrower : MonoBehaviour
 {
     [SerializeField] GameObject attackObj;
+    [SerializeField] GameObject lightObj;
     bool flameEnabled = true;
     bool flameCooldown = false;
     bool flameTurnedOn = false;
@@ -16,9 +18,10 @@ public class Weapon_Flamethrower : MonoBehaviour
     const float flameSpeed = 12.0f;
     const float flameDegRange = 30 * Mathf.Deg2Rad;
     const float flameFrequency = 0.1f;
-    const float flameFeverMax = 3.5f;
+    const float flameFeverMax = 2.5f;
     const float attackDuration = 2.5f;
     const float sightLineLenght = 4.0f;
+    const float flameLightRange = 1.0f;
 
     LineRenderer lineRenderer;
 
@@ -54,6 +57,11 @@ public class Weapon_Flamethrower : MonoBehaviour
                 lineRenderer.SetPosition(0, transform.position);
                 lineRenderer.SetPosition(1, transform.position + new Vector3(flameMove.x * sightLineLenght, flameMove.y * sightLineLenght, 0));
                 GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.identity);
+                GameObject Light = Instantiate(lightObj, transform.position, Quaternion.identity);
+                Light.transform.parent = Attack.transform;
+                Light.GetComponent<HardLight2D>().Range = flameLightRange;
+                Light.GetComponent<Light2D>().pointLightInnerRadius = 0;
+                Light.GetComponent<Light2D>().pointLightOuterRadius = flameLightRange;
                 Attack.GetComponent<PlayerAttackObj>().init(attackDuration, flameDamageConst, flameMove * flameSpeed, 1);
                 flameShotCooldown = flameFrequency;
             }

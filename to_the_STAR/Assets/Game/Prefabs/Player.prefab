@@ -218,6 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackObj: {fileID: 6584552416168620802, guid: 0263977c3d5009149b1a2fffe7cf282b, type: 3}
+  lightObj: {fileID: 8623000708449813563, guid: 2fcbc2c357aac8647a346aaffa873480, type: 3}
 --- !u!120 &8060484519806238014
 LineRenderer:
   serializedVersion: 2
