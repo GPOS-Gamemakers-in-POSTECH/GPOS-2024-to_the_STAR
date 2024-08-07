@@ -9,29 +9,25 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     private Rigidbody2D _rb;
 
     [SerializeField] private int floor = 0;
+    [SerializeField] private EnemyStat stat;
 
     GameObject player;
     PlayerMovementController playerMovementController;
     PlayerData playerData;
 
     private Vector2[] _moveVector = { new Vector2(1, 0), new Vector2(0, 1) };
-    private float hp = 20;
-    private float attackPower = 2;
-    private float detectionRange = 5;
-    private float attackRange = 1;
-    private float speed = 0.5f;
+
+    private float hp;
 
     private int direction = 0;
-    private int attackTimer = 0;
-    private int timer = 0;
+    private float attackTimer = 0;
+    private float timer = 0;
 
     private Vector2 playerPosition;
     private float xDis;
     private float yDis;
 
     const float TILE = 1;
-    const int DETECT = 150;
-    const int ATTACK = 50;
 
     enum State
     {
@@ -53,7 +49,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     public float attack()
     {
-        return attackPower;
+        return stat.attackPower;
     }
 
     void Awake()
@@ -64,16 +60,21 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         playerData = player.GetComponent<PlayerData>();
     }
 
-    void Start()
+    void OnEnable()
     {
-
+        hp = stat.hp;
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
+    {
+        
+    }
+
+    void Update()
     {
         Vector2 currPosition = transform.position;
         playerPosition = player.transform.position;
-        _rb.MovePosition(currPosition + direction * _moveVector[floor%2] * (speed * Time.deltaTime));
+        _rb.MovePosition(currPosition + direction * _moveVector[floor % 2] * (stat.speed * Time.deltaTime));
 
         currPosition = transform.position;
         xDis = Mathf.Abs(currPosition.x - playerPosition.x);
@@ -84,32 +85,23 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         {
             case State.Idle:
                 Move();
-                Debug.Log("Idle");
                 break;
             case State.Detection:
                 Detect();
-                Debug.Log("Detection");
                 break;
             case State.Chasing:
                 Chase();
-                Debug.Log("Chasing");
                 break;
             case State.Attack:
                 Attack();
-                Debug.Log("Attack");
                 break;
             case State.Stunned: break;
             case State.Dead: break;
         }
         if (hp < 0) state = State.Dead;
 
-        if (timer >= 0) timer--;
-        if (attackTimer >= 0) attackTimer--;
-    }
-
-    void Update()
-    {
-
+        if (timer >= 0) timer -= Time.deltaTime;
+        if (attackTimer >= 0) attackTimer -= Time.deltaTime;
     }
 
     private void Move()
@@ -124,13 +116,13 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         {
             bool flag;
 
-            if (floor % 2 == 0) flag = xDis <= detectionRange && yDis < TILE;
-            else flag = xDis < TILE && yDis <= detectionRange;
+            if (floor % 2 == 0) flag = xDis <= stat.detectionRange && yDis < TILE;
+            else flag = xDis < TILE && yDis <= stat.detectionRange;
 
             if (flag)
             {
                 state = State.Detection;
-                timer = DETECT;
+                timer = stat.detectionCooldown;
                 direction = 0;
             }
         }
@@ -140,8 +132,8 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     {
         bool flag;
 
-        if (floor % 2 == 0) flag = xDis <= detectionRange && yDis < TILE;
-        else flag = xDis < TILE && yDis <= detectionRange;
+        if (floor % 2 == 0) flag = xDis <= stat.detectionRange && yDis < TILE;
+        else flag = xDis < TILE && yDis <= stat.detectionRange;
 
         if (timer < 0)
         {
@@ -158,23 +150,23 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         if(floor % 2 == 0)
         {
             distance = xDis;
-            flag = xDis <= detectionRange && yDis < TILE;
+            flag = xDis <= stat.detectionRange && yDis < TILE;
             direction = playerPosition.x > transform.position.x ? 1 : -1;
         }
         else
         {
             distance = yDis;
-            flag = xDis < TILE && yDis <= detectionRange;
+            flag = xDis < TILE && yDis <= stat.detectionRange;
             direction = playerPosition.y > transform.position.y ? 1 : -1;
         }
 
         if (!flag)
         {
             state = State.Detection;
-            timer = DETECT;
+            timer = stat.detectionCooldown;
             direction = 0;
         }
-        else if (distance <= attackRange)
+        else if (distance <= stat.attackRange)
         {
             if(attackTimer < 0) state = State.Attack;
             direction = 0;
@@ -183,7 +175,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private void Attack()
     {
-        attackTimer = ATTACK;
+        attackTimer = stat.attackCooldown;
         state = State.Chasing;
     }
 
