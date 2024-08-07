@@ -10,6 +10,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     [SerializeField] private int floor = 0;
     [SerializeField] private EnemyStat stat;
+    [SerializeField] private GameObject attackObj;
 
     GameObject player;
     PlayerMovementController playerMovementController;
@@ -77,10 +78,9 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     void Update()
     {
         Vector2 currPosition = transform.position;
-        playerPosition = player.transform.position;
-        _rb.MovePosition(currPosition + direction * _moveVector[floor % 2] * (stat.speed * Time.deltaTime));
 
         currPosition = transform.position;
+        playerPosition = player.transform.position;
         xDis = Mathf.Abs(currPosition.x - playerPosition.x);
         yDis = Mathf.Abs(currPosition.y - playerPosition.y);
 
@@ -88,16 +88,20 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         switch (state)
         {
             case State.Idle:
-                Move();
+                Idle();
+                Debug.Log("Idle");
                 break;
             case State.Detection:
                 Detect();
+                Debug.Log("Detect");
                 break;
             case State.Chasing:
                 Chase();
+                Debug.Log("Chasing");
                 break;
             case State.Attack:
                 Attack();
+                Debug.Log("Attack");
                 break;
             case State.Stunned: break;
             case State.Dead: break;
@@ -108,11 +112,11 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         if (attackTimer >= 0) attackTimer -= Time.deltaTime;
     }
 
-    private void Move()
+    private void Idle()
     {
         if (timer < 0)
         {
-            timer = Random.Range(150, 301);
+            timer = Random.Range(3.0f, 6.0f);
             direction = Random.Range(-1, 2);
         }
 
@@ -127,9 +131,18 @@ public class Dustpan : MonoBehaviour, EnemyInterface
             {
                 state = State.Detection;
                 timer = stat.detectionCooldown;
-                direction = 0;
+            }
+            else
+            {
+                Move();
             }
         }
+    }
+
+    private void Move()
+    {
+        Vector2 currPosition = transform.position;
+        _rb.MovePosition(currPosition + direction * _moveVector[floor % 2] * (stat.speed * Time.deltaTime));
     }
 
     private void Detect()
@@ -164,22 +177,29 @@ public class Dustpan : MonoBehaviour, EnemyInterface
             direction = playerPosition.y > transform.position.y ? 1 : -1;
         }
 
-        if (!flag)
+        if (flag)
+        {
+            if(distance <= stat.attackRange)
+            {
+                if (attackTimer < 0) state = State.Attack;
+            }
+            else
+            {
+                if(attackTimer < stat.attackCooldown - stat.attackDuration) Move();
+            }
+        }
+        else
         {
             state = State.Detection;
             timer = stat.detectionCooldown;
-            direction = 0;
-        }
-        else if (distance <= stat.attackRange)
-        {
-            if(attackTimer < 0) state = State.Attack;
-            direction = 0;
         }
     }
 
     private void Attack()
     {
         attackTimer = stat.attackCooldown;
+        GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.identity);
+        Attack.GetComponent<EnemyAttackObj>().init(stat.attackDuration, stat.attackPower, new Vector2(0, 0), 0);
         state = State.Chasing;
     }
 
