@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class EnemyHealthBar : MonoBehaviour
 {
+    
     float hp;
+    Vector3 barPrintPos = new Vector3(0, -0.5f);
 
     void Start()
     {
@@ -13,6 +15,8 @@ public class EnemyHealthBar : MonoBehaviour
 
     void Update()
     {
-        
+        hp = GetComponent<EnemyInterface>().hpRatio();
+        Vector3 position = transform.position + barPrintPos;
+
     }
 }
