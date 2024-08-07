@@ -18,10 +18,14 @@ public class Weapon_Flamethrower : MonoBehaviour
     const float flameFrequency = 0.1f;
     const float flameFeverMax = 3.5f;
     const float attackDuration = 2.5f;
+    const float sightLineLenght = 4.0f;
+
+    LineRenderer lineRenderer;
 
     void Start()
     {
-        
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.positionCount = 2;
     }
 
     void Update()
@@ -43,13 +47,17 @@ public class Weapon_Flamethrower : MonoBehaviour
             {
                 Vector2 mousePos = new Vector2(Input.mousePosition.x - Screen.width / 2, - Input.mousePosition.y + Screen.height / 2);
                 float angle = Vector2.SignedAngle(mousePos, playerPos) * Mathf.Deg2Rad;
+                angle = Mathf.Clamp(angle, -flameDegRange, flameDegRange);
                 Vector2 flameMove = new Vector2(playerPos.x * Mathf.Cos(angle) - playerPos.y * Mathf.Sin(angle),
                                                 playerPos.x * Mathf.Sin(angle) + playerPos.y * Mathf.Cos(angle));
+                lineRenderer.enabled = true;
+                lineRenderer.SetPosition(0, transform.position);
+                lineRenderer.SetPosition(1, transform.position + new Vector3(flameMove.x * sightLineLenght, flameMove.y * sightLineLenght, 0));
                 GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.identity);
                 Attack.GetComponent<PlayerAttackObj>().init(attackDuration, flameDamageConst, flameMove * flameSpeed, 1);
                 flameShotCooldown = flameFrequency;
             }
-            if(flameFever == flameFeverMax)
+            if(flameFever > flameFeverMax)
             {
                 flameTurnedOn = false;
                 flameCooldown = true;
@@ -58,6 +66,7 @@ public class Weapon_Flamethrower : MonoBehaviour
         }
         if (!flameTurnedOn)
         {
+            lineRenderer.enabled = false;
             flameFever -= Time.deltaTime;
         }
         if(flameFever < 0)
