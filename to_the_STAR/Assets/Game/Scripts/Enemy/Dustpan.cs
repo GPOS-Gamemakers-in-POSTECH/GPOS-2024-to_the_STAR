@@ -50,11 +50,6 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         hp -= damage;
         return;
     }
-
-    public float attack()
-    {
-        return stat.attackPower;
-    }
     public float hpRatio()
     {
         return hp / stat.hp;

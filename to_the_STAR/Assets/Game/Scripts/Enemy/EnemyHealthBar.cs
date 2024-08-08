@@ -21,8 +21,7 @@ public class EnemyHealthBar : MonoBehaviour
 
     void Start()
     {
-        int floor = GetComponent<EnemyInterface>().getFloor();
-        float angle = transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
+        float angle = (180 - GetComponent<EnemyInterface>().getFloor() * 90) * Mathf.Deg2Rad;
         barPrintPos = rotateVector(barPrintPos, angle);
         barShowPos = rotateVector(barShowPos, angle);
         barMaxPos = rotateVector(barMaxPos, angle);
