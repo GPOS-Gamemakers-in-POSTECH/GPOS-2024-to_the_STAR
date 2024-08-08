@@ -10,4 +10,5 @@ public class EnemyStat : ScriptableObject
     public float speed;
     public float attackCooldown;
     public float detectionCooldown;
+    public float attackDuration;
 }

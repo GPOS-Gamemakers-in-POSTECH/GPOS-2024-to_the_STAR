@@ -27,14 +27,18 @@ public class Drone : MonoBehaviour, EnemyInterface
     State state = State.Idle;
     Vector2 moveVector;
 
+    public int getFloor()
+    {
+        return floor;
+    }
     public void getDamage(float damage)
     {
         hp -= damage;
         return;
     }
-    public float attack()
+    public float hpRatio()
     {
-        return stat.attackPower;
+        return hp / stat.hp;
     }
     void Move()
     {
@@ -72,7 +76,7 @@ public class Drone : MonoBehaviour, EnemyInterface
                 else if (timer < 0)
                 {
                     direction = Random.Range(-1, 2);
-                    timer = Random.Range(120, 240);
+                    timer = Random.Range(3.0f, 5.0f);
                 }
                 Move();
                 break;

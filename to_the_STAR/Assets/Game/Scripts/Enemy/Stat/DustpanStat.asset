@@ -16,4 +16,7 @@ MonoBehaviour:
   attackPower: 2
   detectionRange: 5
   attackRange: 1
-  speed: 0.5
+  speed: 2
+  attackCooldown: 1
+  detectionCooldown: 2
+  attackDuration: 2

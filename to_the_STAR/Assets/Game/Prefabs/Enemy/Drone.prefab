@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5378396432266998368}
   - component: {fileID: 5917942860141308049}
   - component: {fileID: 9176089462198877736}
+  - component: {fileID: 2294796504330346262}
   m_Layer: 0
   m_Name: Drone
   m_TagString: Untagged
@@ -99,3 +100,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2294796504330346262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856636108968421042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b34b7655d103b34e9a002479c91380e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthbarObj: {fileID: 8302434336648194852, guid: e4c95aa9e99366c4692c8b034474cc43, type: 3}
