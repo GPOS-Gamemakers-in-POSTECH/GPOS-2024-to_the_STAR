@@ -28,6 +28,8 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     private float xDis;
     private float yDis;
 
+    private bool attacked;
+
     const float TILE = 1;
 
     enum State
@@ -50,6 +52,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         hp -= damage;
         return;
     }
+
     public float hpRatio()
     {
         return hp / stat.hp;
@@ -95,19 +98,17 @@ public class Dustpan : MonoBehaviour, EnemyInterface
                 break;
             case State.Chasing:
                 Chase();
-                Debug.Log("Chasing");
                 break;
             case State.Attack:
                 Attack();
-                Debug.Log("Attack");
                 break;
             case State.Stunned: break;
             case State.Dead: break;
         }
         if (hp < 0) state = State.Dead;
 
-        if (timer >= 0) timer -= Time.deltaTime;
-        if (attackTimer >= 0) attackTimer -= Time.deltaTime;
+        if (timer > 0) timer -= Time.deltaTime;
+        if (attackTimer > 0) attackTimer -= Time.deltaTime;
     }
 
     private void Idle()
@@ -179,11 +180,16 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         {
             if(distance <= stat.attackRange)
             {
-                if (attackTimer < 0) state = State.Attack;
+                if (attackTimer <= 0)
+                {
+                    attackTimer = stat.attackMotion1Cooldown;
+                    attacked = false;
+                    state = State.Attack;
+                }
             }
             else
             {
-                if(attackTimer < stat.attackCooldown - stat.attackDuration) Move();
+                if(attackTimer <= stat.attackCooldown - stat.attackDuration) Move();
             }
         }
         else
@@ -195,10 +201,20 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private void Attack()
     {
-        attackTimer = stat.attackCooldown;
-        GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.identity);
-        Attack.GetComponent<EnemyAttackObj>().init(stat.attackDuration, stat.attackPower, new Vector2(0, 0), 0);
-        state = State.Chasing;
+        if (attackTimer <= 0 && attacked == false)
+        {
+            Debug.Log("Attack2");
+            GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.identity);
+            Attack.GetComponent<EnemyAttackObj>().init(stat.attackDuration, stat.attackPower, new Vector2(0, 0), EnemyAttackObj.EnemyType.Dustpan);
+            attacked = true;
+            attackTimer = stat.attackMotion2Cooldown;
+        }
+        else if(attackTimer <= 0 && attacked)
+        {
+            attackTimer = stat.attackCooldown;
+            attacked = false;
+            state = State.Chasing;
+        }
     }
 
     public void Stunned()

@@ -30,10 +30,6 @@ public class EnemyAttackObj : MonoBehaviour
     {
         duration -= Time.deltaTime;
         transform.position = new Vector3(transform.position.x + moveVector.x * Time.deltaTime, transform.position.y + moveVector.y * Time.deltaTime, transform.position.z);
-        if (enemyType == EnemyType.Drone)
-        {
-            transform.localScale = new Vector3(duration / maxDuration + 0.1f, duration / maxDuration + 0.1f, 1);
-        }
         if (duration < 0)
         {
             Destroy(gameObject);

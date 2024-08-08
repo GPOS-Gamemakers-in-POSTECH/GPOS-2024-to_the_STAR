@@ -19,4 +19,4 @@ MonoBehaviour:
   speed: 2
   attackCooldown: 1
   detectionCooldown: 2
-  attackDuration: 1
+  attackDuration: 0.5
