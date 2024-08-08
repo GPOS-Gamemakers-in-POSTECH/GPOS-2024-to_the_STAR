@@ -6,6 +6,7 @@ public class Drone : MonoBehaviour, EnemyInterface
 {
     [SerializeField] private int floor = 1; //바닥 기준, 0: up, 1: right, 2: down, 3: left
     [SerializeField] private EnemyStat stat;
+    [SerializeField] private GameObject attackObj;
 
     float hp;
 
@@ -107,7 +108,10 @@ public class Drone : MonoBehaviour, EnemyInterface
                 if (distanceToPlayer > stat.attackRange) Move();
                 break;
             case State.Attack:
-                //Todo: 공격용 오브젝트 생성해야함
+                Vector2 bulletDir = (playerObj.transform.position - transform.position) / distanceToPlayer;
+                float rotZ = Mathf.Atan2(bulletDir.y, bulletDir.x) * Mathf.Rad2Deg;
+                GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.Euler(0, 0, rotZ));
+                Attack.GetComponent<EnemyAttackObj>().init(stat.attackDuration, stat.attackPower, bulletDir * stat.bulletSpeed, EnemyAttackObj.EnemyType.Drone);
                 attackCooldownTimer = stat.attackCooldown;
                 state = State.Chasing;
                 break;

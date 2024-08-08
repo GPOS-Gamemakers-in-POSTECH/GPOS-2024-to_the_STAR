@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &856636108968421042
+--- !u!1 &6584552416168620802
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5378396432266998368}
-  - component: {fileID: 5917942860141308049}
-  - component: {fileID: 9176089462198877736}
-  - component: {fileID: 2294796504330346262}
+  - component: {fileID: 3682629673454704988}
+  - component: {fileID: -4423593056929178598}
+  - component: {fileID: 5785310027344755554}
   m_Layer: 0
-  m_Name: Drone
+  m_Name: DroneAttackObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5378396432266998368
+--- !u!4 &3682629673454704988
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 856636108968421042}
+  m_GameObject: {fileID: 6584552416168620802}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -34,28 +33,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5917942860141308049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 856636108968421042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53bec46629269894aaa0ba11e6c22086, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  floor: 2
-  stat: {fileID: 11400000, guid: 204c1603b9f5d304d83a2402bd4a3fa7, type: 2}
-  attackObj: {fileID: 6584552416168620802, guid: abc11612a56a2e94aaeead0f4abf6992, type: 3}
---- !u!212 &9176089462198877736
+--- !u!212 &-4423593056929178598
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 856636108968421042}
+  m_GameObject: {fileID: 6584552416168620802}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -90,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2cdef8066d7ccea4aacfd20f26a5bf5d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f66af3c582cac9b488d3e7b2b35f5dc5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,16 +85,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2294796504330346262
+--- !u!114 &5785310027344755554
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 856636108968421042}
+  m_GameObject: {fileID: 6584552416168620802}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b34b7655d103b34e9a002479c91380e, type: 3}
+  m_Script: {fileID: 11500000, guid: 25057933290de7747b70aa7e8b583807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthbarObj: {fileID: 8302434336648194852, guid: e4c95aa9e99366c4692c8b034474cc43, type: 3}
