@@ -10,14 +10,11 @@ public class EnemyHealthBar : MonoBehaviour
     LineRenderer barLine;
     float hp;
     float printHp = 1;
-    float barLength = 0.75f;
     float healthbarCooldown = 0;
     const float healthbarCooldownMax = 1;
     Vector3 barPrintPos = new Vector3(0, -0.5f);
     Vector3 barShowPos = new Vector3(-0.5f, 0, -1);
     Vector3 barMaxPos = new Vector3(1, 0, 0);
-
-    bool debug = true;
 
     void Start()
     {
@@ -46,7 +43,7 @@ public class EnemyHealthBar : MonoBehaviour
         hp = GetComponent<EnemyInterface>().hpRatio();
         if (hp < 0) Destroy(healthbar);
         healthbar.transform.position = transform.position + barPrintPos;
-        if (Mathf.Abs(printHp - hp) > 0.01 || debug)
+        if (Mathf.Abs(printHp - hp) > 0.01)
         {
             barSprite.enabled = true;
             barLine.enabled = true;
@@ -54,7 +51,7 @@ public class EnemyHealthBar : MonoBehaviour
             else if (printHp > 0.1) setBarColor(Color.yellow);
             else setBarColor(Color.red);
             barLine.SetPosition(0, healthbar.transform.position + barShowPos);
-            barLine.SetPosition(1, healthbar.transform.position + barShowPos + barMaxPos * hp);
+            barLine.SetPosition(1, healthbar.transform.position + barShowPos + barMaxPos * printHp);
             healthbarCooldown = healthbarCooldownMax;
         }
         else if (healthbarCooldown < 0)
@@ -63,6 +60,6 @@ public class EnemyHealthBar : MonoBehaviour
             barLine.enabled = false;
         }
         healthbarCooldown -= Time.deltaTime;
-        printHp = (printHp - hp) / 2;
+        printHp -= (printHp - hp) / 2;
     }
 }
