@@ -8,4 +8,6 @@ public interface EnemyInterface
     public float attack();
     public float hpRatio();
 
+    public int getFloor();
+
 }

@@ -41,7 +41,10 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     }
 
     State state = State.Idle;
-
+    public int getFloor()
+    {
+        return floor;
+    }
     public void getDamage(float damage)
     {
         hp -= damage;

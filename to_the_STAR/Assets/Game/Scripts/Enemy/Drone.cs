@@ -27,6 +27,10 @@ public class Drone : MonoBehaviour, EnemyInterface
     State state = State.Idle;
     Vector2 moveVector;
 
+    public int getFloor()
+    {
+        return floor;
+    }
     public void getDamage(float damage)
     {
         hp -= damage;
