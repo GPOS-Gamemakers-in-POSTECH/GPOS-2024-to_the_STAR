@@ -28,6 +28,8 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     private float xDis;
     private float yDis;
 
+    private bool attacked;
+
     const float TILE = 1;
 
     enum State
@@ -48,10 +50,6 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         return;
     }
 
-    public float attack()
-    {
-        return stat.attackPower;
-    }
     public float hpRatio()
     {
         return hp / stat.hp;
@@ -97,24 +95,22 @@ public class Dustpan : MonoBehaviour, EnemyInterface
                 break;
             case State.Chasing:
                 Chase();
-                Debug.Log("Chasing");
                 break;
             case State.Attack:
                 Attack();
-                Debug.Log("Attack");
                 break;
             case State.Stunned: break;
             case State.Dead: break;
         }
-        if (hp < 0) state = State.Dead;
+        if (hp <= 0) state = State.Dead;
 
-        if (timer >= 0) timer -= Time.deltaTime;
-        if (attackTimer >= 0) attackTimer -= Time.deltaTime;
+        if (timer > 0) timer -= Time.deltaTime;
+        if (attackTimer > 0) attackTimer -= Time.deltaTime;
     }
 
     private void Idle()
     {
-        if (timer < 0)
+        if (timer <= 0)
         {
             timer = Random.Range(3.0f, 6.0f);
             direction = Random.Range(-1, 2);
@@ -152,7 +148,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         if (floor % 2 == 0) flag = xDis <= stat.detectionRange && yDis < TILE;
         else flag = xDis < TILE && yDis <= stat.detectionRange;
 
-        if (timer < 0)
+        if (timer <= 0)
         {
             if (flag) state = State.Chasing;
             else state = State.Idle;
@@ -181,11 +177,16 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         {
             if(distance <= stat.attackRange)
             {
-                if (attackTimer < 0) state = State.Attack;
+                if (attackTimer <= 0)
+                {
+                    attackTimer = stat.attackMotion1Cooldown;
+                    attacked = false;
+                    state = State.Attack;
+                }
             }
             else
             {
-                if(attackTimer < stat.attackCooldown - stat.attackDuration) Move();
+                if(attackTimer <= stat.attackCooldown - stat.attackDuration) Move();
             }
         }
         else
@@ -197,10 +198,20 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private void Attack()
     {
-        attackTimer = stat.attackCooldown;
-        GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.identity);
-        Attack.GetComponent<EnemyAttackObj>().init(stat.attackDuration, stat.attackPower, new Vector2(0, 0), 0);
-        state = State.Chasing;
+        if (attackTimer <= 0 && attacked == false)
+        {
+            Debug.Log("Attack2");
+            GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.identity);
+            Attack.GetComponent<EnemyAttackObj>().init(stat.attackDuration, stat.attackPower, new Vector2(0, 0), EnemyAttackObj.EnemyType.Dustpan);
+            attacked = true;
+            attackTimer = stat.attackMotion2Cooldown;
+        }
+        else if(attackTimer <= 0 && attacked)
+        {
+            attackTimer = stat.attackCooldown;
+            attacked = false;
+            state = State.Chasing;
+        }
     }
 
     public void Stunned()
