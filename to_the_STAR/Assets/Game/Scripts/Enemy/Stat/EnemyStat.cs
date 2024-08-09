@@ -14,4 +14,5 @@ public class EnemyStat : ScriptableObject
     public float attackMotion1Cooldown;
     public float attackMotion2Cooldown;
     public float bulletSpeed;
+    public float deadCooldown;
 }

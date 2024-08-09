@@ -34,9 +34,20 @@ public class Drone : MonoBehaviour, EnemyInterface
     }
     public void getDamage(float damage, float stunCooldownSet)
     {
-        hp -= damage;
-        state = State.Stunned;
-        timer = stunCooldownSet;
+        if(state != State.Dead)
+        {
+            hp -= damage;
+            if (hp > 0)
+            {
+                state = State.Stunned;
+                timer = stunCooldownSet;
+            }
+            else
+            {
+                state = State.Dead;
+                timer = stat.deadCooldown;
+            }
+        }
         return;
     }
     public float hpRatio()
@@ -65,7 +76,7 @@ public class Drone : MonoBehaviour, EnemyInterface
     {
         float distanceToPlayer = Mathf.Sqrt((playerObj.transform.position.x - transform.position.x) * (playerObj.transform.position.x - transform.position.x) +
            (playerObj.transform.position.y - transform.position.y) * (playerObj.transform.position.y - transform.position.y));
-        bool playerDetection = distanceToPlayer < stat.detectionRange && Mathf.Abs(playerObj.transform.rotation.eulerAngles.z - transform.rotation.eulerAngles.z) < 15;
+        bool playerDetection = distanceToPlayer <= stat.detectionRange && Mathf.Abs(playerObj.transform.rotation.eulerAngles.z - transform.rotation.eulerAngles.z) <= 15;
         if (floor % 2 == 0 && Mathf.Abs(playerObj.transform.position.y - transform.position.y) > halfBlockSize) playerDetection = false;
         if (floor % 2 == 1 && Mathf.Abs(playerObj.transform.position.x - transform.position.x) > halfBlockSize) playerDetection = false;
         switch (state)
@@ -76,7 +87,7 @@ public class Drone : MonoBehaviour, EnemyInterface
                     timer = stat.detectionCooldown;
                     state = State.Detection;
                 }
-                else if (timer < 0)
+                else if (timer <= 0)
                 {
                     direction = Random.Range(-1, 2);
                     timer = Random.Range(3.0f, 5.0f);
@@ -84,7 +95,7 @@ public class Drone : MonoBehaviour, EnemyInterface
                 Move();
                 break;
             case State.Detection:
-                if (timer < 0)
+                if (timer <= 0)
                 {
                     if (!playerDetection) state = State.Idle;
                     else state = State.Chasing;
@@ -101,7 +112,7 @@ public class Drone : MonoBehaviour, EnemyInterface
                     if (playerObj.transform.position.y > transform.position.y) direction = 1;
                     else direction = -1;
                 }
-                if (distanceToPlayer <= stat.attackRange && attackCooldownTimer < 0) state = State.Attack;
+                if (distanceToPlayer <= stat.attackRange && attackCooldownTimer <= 0) state = State.Attack;
                 else if (!playerDetection)
                 {
                     timer = stat.detectionCooldown;
@@ -118,16 +129,21 @@ public class Drone : MonoBehaviour, EnemyInterface
                 state = State.Chasing;
                 break;
             case State.Stunned:
-                if (timer < 0)
+                if (timer <= 0)
                 {
                     if (playerDetection) state = State.Chasing;
-                    else state = State.Detection;
+                    else
+                    {
+                        timer = stat.detectionCooldown;
+                        state = State.Detection;
+                    }
                 }
                 break;
-            case State.Dead: break;
+            case State.Dead:
+                if (timer <= 0) Destroy(gameObject);
+                break;
         }
-        if (hp < 0) state = State.Dead;
-        attackCooldownTimer -= Time.deltaTime;
-        timer -= Time.deltaTime;
+        if(attackCooldownTimer > 0) attackCooldownTimer -= Time.deltaTime;
+        if(timer > 0) timer -= Time.deltaTime;
     }
 }
