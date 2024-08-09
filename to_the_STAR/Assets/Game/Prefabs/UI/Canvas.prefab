@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1614404528238491236}
   - component: {fileID: 188700231856868920}
   - component: {fileID: 6499794954116528358}
+  - component: {fileID: 7794664129875871300}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -49,7 +50,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 5979362041180168098, guid: f8a0070471318c949bb92609da987149, type: 3}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -74,7 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
+  m_ReferencePixelsPerUnit: 1
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
@@ -101,3 +102,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7794664129875871300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7316613891589972838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e0980d52b2bbd4e944cd9ab715dd1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Weapon_Base_Prefab: {fileID: 9068212977160549026, guid: 45a1f86543bfd7b4eb8791874862a5d5, type: 3}
+  Weapon_Hammer_Prefab: {fileID: 9068212977160549026, guid: 5d621a157a30fe64cb0a00d7108aefa2, type: 3}
+  Weapon_Flamethrower_Prefab: {fileID: 9068212977160549026, guid: fd3cf6e431bb79d4db2100396bc0d9ae, type: 3}
