@@ -8,13 +8,13 @@ public class Weapon_Flamethrower : MonoBehaviour
 {
     [SerializeField] GameObject attackObj;
     [SerializeField] GameObject lightObj;
-    bool flameEnabled = true;
+    bool flameEnabled = false;
     bool flameCooldown = false;
     bool flameTurnedOn = false;
     float flameFever = 0;
     float flameShotCooldown = 0;
     Vector2 playerPos = new Vector2(1, 0);
-    const float flameDamageConst = 0.0f;
+    const float flameDamageConst = 1.0f;
     const float flameSpeed = 12.0f;
     const float flameDegRange = 30 * Mathf.Deg2Rad;
     const float flameFrequency = 0.1f;

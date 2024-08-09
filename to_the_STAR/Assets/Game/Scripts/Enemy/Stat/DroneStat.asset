@@ -19,4 +19,7 @@ MonoBehaviour:
   speed: 2
   attackCooldown: 1
   detectionCooldown: 2
-  attackDuration: 0.5
+  attackDuration: 2
+  attackMotion1Cooldown: 0
+  attackMotion2Cooldown: 0
+  bulletSpeed: 10

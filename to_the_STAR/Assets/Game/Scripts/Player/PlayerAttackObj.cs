@@ -40,7 +40,19 @@ public class PlayerAttackObj : MonoBehaviour
         }
         if (duration < 0)
         {
-            Destroy(lightObj.gameObject);
+            if(attackType == 1) Destroy(lightObj.gameObject);
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        EnemyInterface EI;
+        if (collision.CompareTag("Enemy"))
+        {
+            EI = collision.GetComponent<EnemyInterface>();
+            EI.getDamage(damage);
+            if (attackType == 1) Destroy(lightObj.gameObject);
             Destroy(gameObject);
         }
     }
