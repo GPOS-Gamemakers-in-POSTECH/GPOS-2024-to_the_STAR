@@ -8,9 +8,11 @@ public class Weapon_Hammer : MonoBehaviour
     bool hammerEnabled = false;
     float hammerCooldown = 0;
     float hammerCharge = 0;
-    const float hammerDamageConst = 0.0f;
+    const float hammerDamageConst = 100.0f;
     const float hammerCooldownSet = 2.5f;
     const float attackDuration = 1.0f;
+
+    const float stunCooldownSet = 1.0f;
 
     void Start()
     {
@@ -20,14 +22,14 @@ public class Weapon_Hammer : MonoBehaviour
     
     void Update()
     {
-        if(hammerEnabled && hammerCooldown < 0 && hammerCharge < 100 && Input.GetMouseButton(0))
+        if(hammerEnabled && hammerCooldown < 0 && hammerCharge < 10 && Input.GetMouseButton(0))
         {
             hammerCharge += Time.deltaTime;
         }
         if(hammerCharge > 0 && Input.GetMouseButtonUp(0))
         {
             GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.identity);
-            Attack.GetComponent<PlayerAttackObj>().init(attackDuration, hammerDamageConst * hammerCharge / 100, new Vector2(0, 0), 0);
+            Attack.GetComponent<PlayerAttackObj>().init(attackDuration, hammerDamageConst * hammerCharge / 10.0f, new Vector2(0, 0), 0, stunCooldownSet);
             hammerCooldown = hammerCooldownSet;
             hammerCharge = 0;
         }

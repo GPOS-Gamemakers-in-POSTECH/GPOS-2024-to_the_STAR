@@ -47,9 +47,22 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     {
         return floor;
     }
-    public void getDamage(float damage)
+    public void getDamage(float damage, float stunCooldownSet)
     {
-        hp -= damage;
+        if (state != State.Dead)
+        {
+            hp -= damage;
+            if (hp > 0)
+            {
+                state = State.Stunned;
+                timer = stunCooldownSet;
+            }
+            else
+            {
+                state = State.Dead;
+                timer = stat.deadCooldown;
+            }
+        }
         return;
     }
 
@@ -90,11 +103,9 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         {
             case State.Idle:
                 Idle();
-                Debug.Log("Idle");
                 break;
             case State.Detection:
                 Detect();
-                Debug.Log("Detect");
                 break;
             case State.Chasing:
                 Chase();
@@ -102,8 +113,12 @@ public class Dustpan : MonoBehaviour, EnemyInterface
             case State.Attack:
                 Attack();
                 break;
-            case State.Stunned: break;
-            case State.Dead: break;
+            case State.Stunned:
+                Stunned();
+                break;
+            case State.Dead:
+                Dead();
+                break;
         }
         if (hp < 0) state = State.Dead;
 
@@ -146,10 +161,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private void Detect()
     {
-        bool flag;
-
-        if (floor % 2 == 0) flag = xDis <= stat.detectionRange && yDis < TILE;
-        else flag = xDis < TILE && yDis <= stat.detectionRange;
+        bool flag = detectPlayer();
 
         if (timer < 0)
         {
@@ -160,21 +172,8 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private void Chase()
     {
-        bool flag;
-        float distance;
-
-        if(floor % 2 == 0)
-        {
-            distance = xDis;
-            flag = xDis <= stat.detectionRange && yDis < TILE;
-            direction = playerPosition.x > transform.position.x ? 1 : -1;
-        }
-        else
-        {
-            distance = yDis;
-            flag = xDis < TILE && yDis <= stat.detectionRange;
-            direction = playerPosition.y > transform.position.y ? 1 : -1;
-        }
+        bool flag = detectPlayer();
+        float distance = floor % 2 == 0 ? xDis : yDis;
 
         if (flag)
         {
@@ -219,17 +218,46 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     public void Stunned()
     {
-
+        if (timer <= 0)
+        {
+            if (detectPlayer()) state = State.Chasing;
+            else
+            {
+                state = State.Detection;
+                timer = stat.detectionCooldown;
+            }
+        }
     }
 
     private void Dead()
     {
-
+        if (timer <= 0) Destroy(gameObject);
     }
 
     private bool compareRotation(PlayerRotateDirection _prd)
     {
         return (_prd == PlayerRotateDirection.Up && floor == 0) || (_prd == PlayerRotateDirection.Right && floor == 1)
             || (_prd == PlayerRotateDirection.Down && floor == 2) || (_prd == PlayerRotateDirection.Left && floor == 3);
+    }
+
+    private bool detectPlayer()
+    {
+        bool flag;
+        float distance;
+
+        if (floor % 2 == 0)
+        {
+            distance = xDis;
+            flag = xDis <= stat.detectionRange && yDis < TILE;
+            direction = playerPosition.x > transform.position.x ? 1 : -1;
+        }
+        else
+        {
+            distance = yDis;
+            flag = xDis < TILE && yDis <= stat.detectionRange;
+            direction = playerPosition.y > transform.position.y ? 1 : -1;
+        }
+
+        return flag;
     }
 }

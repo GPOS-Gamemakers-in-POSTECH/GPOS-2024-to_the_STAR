@@ -22,3 +22,5 @@ MonoBehaviour:
   attackDuration: 0.1
   attackMotion1Cooldown: 2
   attackMotion2Cooldown: 1
+  bulletSpeed: 0
+  deadCooldown: 3

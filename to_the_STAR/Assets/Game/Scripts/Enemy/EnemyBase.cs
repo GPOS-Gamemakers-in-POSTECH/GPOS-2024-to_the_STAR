@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface EnemyInterface
 {
-    public void getDamage(float damage);
+    public void getDamage(float damage, float stunCooldownSet);
     public float hpRatio();
 
     public int getFloor();
