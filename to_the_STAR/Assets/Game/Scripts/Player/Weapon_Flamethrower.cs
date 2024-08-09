@@ -8,7 +8,7 @@ public class Weapon_Flamethrower : MonoBehaviour
 {
     [SerializeField] GameObject attackObj;
     [SerializeField] GameObject lightObj;
-    bool flameEnabled = false;
+    bool flameEnabled = true;
     bool flameCooldown = false;
     bool flameTurnedOn = false;
     float flameFever = 0;
@@ -22,6 +22,8 @@ public class Weapon_Flamethrower : MonoBehaviour
     const float attackDuration = 2.5f;
     const float sightLineLenght = 4.0f;
     const float flameLightRange = 1.0f;
+
+    const float stunCooldownSet = 0;
 
     LineRenderer lineRenderer;
 
@@ -62,7 +64,7 @@ public class Weapon_Flamethrower : MonoBehaviour
                 Light.GetComponent<HardLight2D>().Range = flameLightRange;
                 Light.GetComponent<Light2D>().pointLightInnerRadius = 0;
                 Light.GetComponent<Light2D>().pointLightOuterRadius = flameLightRange;
-                Attack.GetComponent<PlayerAttackObj>().init(attackDuration, flameDamageConst, flameMove * flameSpeed, 1);
+                Attack.GetComponent<PlayerAttackObj>().init(attackDuration, flameDamageConst, flameMove * flameSpeed, 1, stunCooldownSet);
                 flameShotCooldown = flameFrequency;
             }
             if(flameFever > flameFeverMax)

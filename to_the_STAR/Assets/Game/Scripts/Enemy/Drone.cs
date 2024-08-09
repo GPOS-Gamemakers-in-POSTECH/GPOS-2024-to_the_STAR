@@ -32,9 +32,11 @@ public class Drone : MonoBehaviour, EnemyInterface
     {
         return floor;
     }
-    public void getDamage(float damage)
+    public void getDamage(float damage, float stunCooldownSet)
     {
         hp -= damage;
+        state = State.Stunned;
+        timer = stunCooldownSet;
         return;
     }
     public float hpRatio()
@@ -116,7 +118,11 @@ public class Drone : MonoBehaviour, EnemyInterface
                 state = State.Chasing;
                 break;
             case State.Stunned:
-                if (timer < 0) state = State.Idle;
+                if (timer < 0)
+                {
+                    if (playerDetection) state = State.Chasing;
+                    else state = State.Detection;
+                }
                 break;
             case State.Dead: break;
         }
