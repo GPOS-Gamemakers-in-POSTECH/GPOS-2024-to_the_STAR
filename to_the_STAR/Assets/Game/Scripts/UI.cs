@@ -8,6 +8,12 @@ public class UI : MonoBehaviour
     [SerializeField] Image Weapon_Base_Prefab;
     [SerializeField] Image Weapon_Hammer_Prefab;
     [SerializeField] Image Weapon_Flamethrower_Prefab;
+    [SerializeField] Image Weapon_Select_Prefab;
+
+    [SerializeField] Slider Healthbar_Prefab;
+    [SerializeField] Slider Weapon_Charge_Prefab;
+    [SerializeField] Slider Weapon_Cooldown_Prefab;
+    [SerializeField] Slider Weapon_Fever_Prefab;
 
     GameObject View;
 
@@ -15,6 +21,13 @@ public class UI : MonoBehaviour
     Image Weapon_Hammer;
     Image Weapon_Flamethrower_Base;
     Image Weapon_Flamethrower;
+    Image Weapon_Select;
+
+    Slider Healthbar;
+    Slider Weapon_Hammer_Charge;
+    Slider Weapon_Hammer_Cooldown;
+    Slider Weapon_Flamethrower_Cooldown;
+    Slider Weapon_Flamethrower_Fever;
 
     const float WeaponUI_y = -64f;
     const float WeaponUI_x = 72f;
