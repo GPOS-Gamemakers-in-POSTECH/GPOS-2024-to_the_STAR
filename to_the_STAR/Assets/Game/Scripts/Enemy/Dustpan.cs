@@ -49,9 +49,20 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     }
     public void getDamage(float damage, float stunCooldownSet)
     {
-        hp -= damage;
-        state = State.Stunned;
-        timer = stunCooldownSet;
+        if (state != State.Dead)
+        {
+            hp -= damage;
+            if (hp > 0)
+            {
+                state = State.Stunned;
+                timer = stunCooldownSet;
+            }
+            else
+            {
+                state = State.Dead;
+                timer = stat.deadCooldown;
+            }
+        }
         return;
     }
 
@@ -103,10 +114,11 @@ public class Dustpan : MonoBehaviour, EnemyInterface
                 Attack();
                 break;
             case State.Stunned:
-                Debug.Log("Stunned");
                 Stunned();
                 break;
-            case State.Dead: break;
+            case State.Dead:
+                Dead();
+                break;
         }
         if (hp < 0) state = State.Dead;
 
@@ -219,7 +231,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private void Dead()
     {
-
+        if (timer <= 0) Destroy(gameObject);
     }
 
     private bool compareRotation(PlayerRotateDirection _prd)

@@ -41,6 +41,7 @@ public class EnemyHealthBar : MonoBehaviour
     void Update()
     {
         hp = GetComponent<EnemyInterface>().hpRatio();
+        if (hp <= 0) Destroy(healthbar);
         healthbar.transform.position = transform.position + barPrintPos;
         if (Mathf.Abs(printHp - hp) > 0.01)
         {
