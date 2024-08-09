@@ -42,6 +42,8 @@ public class EnemyHealthBar : MonoBehaviour
     {
         hp = GetComponent<EnemyInterface>().hpRatio();
         healthbar.transform.position = transform.position + barPrintPos;
+        barLine.SetPosition(0, healthbar.transform.position + barShowPos);
+        barLine.SetPosition(1, healthbar.transform.position + barShowPos + barMaxPos * printHp);
         if (Mathf.Abs(printHp - hp) > 0.01)
         {
             barSprite.enabled = true;
@@ -49,8 +51,6 @@ public class EnemyHealthBar : MonoBehaviour
             if (printHp > 0.33) setBarColor(Color.green);
             else if (printHp > 0.1) setBarColor(Color.yellow);
             else setBarColor(Color.red);
-            barLine.SetPosition(0, healthbar.transform.position + barShowPos);
-            barLine.SetPosition(1, healthbar.transform.position + barShowPos + barMaxPos * printHp);
             healthbarCooldown = healthbarCooldownMax;
         }
         else if (healthbarCooldown < 0)
