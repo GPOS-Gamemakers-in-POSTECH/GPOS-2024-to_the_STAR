@@ -51,7 +51,9 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     {
         if (state != State.Dead)
         {
-            hp -= damage;
+            if (hp < damage) hp = 0;
+            else hp -= damage;
+
             if (hp > 0)
             {
                 state = State.Stunned;
@@ -203,7 +205,9 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         if (attackTimer <= 0 && attacked == false)
         {
             Debug.Log("Attack2");
-            GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.identity);
+            Vector3 move = floor % 2 == 0 ? new Vector3(1, 0, 0) : new Vector3(0, 1, 0);
+            move *= direction;
+            GameObject Attack = Instantiate(attackObj, transform.position + move, Quaternion.identity);
             Attack.GetComponent<EnemyAttackObj>().init(stat.attackDuration, stat.attackPower, new Vector2(0, 0), EnemyAttackObj.EnemyType.Dustpan);
             attacked = true;
             attackTimer = stat.attackMotion2Cooldown;

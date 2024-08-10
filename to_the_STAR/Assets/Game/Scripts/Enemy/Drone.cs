@@ -36,7 +36,9 @@ public class Drone : MonoBehaviour, EnemyInterface
     {
         if(state != State.Dead)
         {
-            hp -= damage;
+            if (hp < damage) hp = 0;
+            else hp -= damage;
+
             if (hp > 0)
             {
                 state = State.Stunned;
@@ -44,6 +46,7 @@ public class Drone : MonoBehaviour, EnemyInterface
             }
             else
             {
+                hp = 0;
                 state = State.Dead;
                 timer = stat.deadCooldown;
             }
