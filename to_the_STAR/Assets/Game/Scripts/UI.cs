@@ -53,6 +53,7 @@ public class UI : MonoBehaviour
         Weapon_Select.transform.SetParent(transform);
         Weapon_Select.sprite = Weapon_Select_Prefab.sprite;
         Weapon_Select.material = Weapon_Select_Prefab.material;
+        Weapon_Select.GetComponent<RectTransform>().sizeDelta = WeaponUI_size;
 
         Weapon_Hammer_Base = new GameObject("UI_Hammer_Base").AddComponent<Image>();
         Weapon_Hammer_Base.transform.SetParent(transform);
