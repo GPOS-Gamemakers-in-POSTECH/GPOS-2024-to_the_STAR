@@ -14,6 +14,14 @@ public class Weapon_Hammer : MonoBehaviour
 
     const float stunCooldownSet = 1.0f;
 
+    public float getHammerCooldown()
+    {
+        return hammerCooldown;
+    }
+    public float getHammerCharge()
+    {
+        return hammerCharge;
+    }
     void Start()
     {
 
