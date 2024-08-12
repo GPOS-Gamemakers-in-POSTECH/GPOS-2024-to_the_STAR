@@ -14,12 +14,24 @@ public class Weapon_Hammer : MonoBehaviour
 
     const float stunCooldownSet = 1.0f;
 
+    public float getHammerCooldown()
+    {
+        return hammerCooldown;
+    }
+    public float getHammerCharge()
+    {
+        return hammerCharge;
+    }
+
+    public bool isEnabledHammer()
+    {
+        return hammerEnabled;
+    }
     void Start()
     {
 
     }
 
-    
     void Update()
     {
         if(hammerEnabled && hammerCooldown < 0 && hammerCharge < 10 && Input.GetMouseButton(0))

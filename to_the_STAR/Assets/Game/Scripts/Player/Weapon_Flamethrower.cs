@@ -27,6 +27,19 @@ public class Weapon_Flamethrower : MonoBehaviour
 
     LineRenderer lineRenderer;
 
+    public bool isEnabledFlame()
+    {
+        return flameEnabled;
+    }
+    public float getFlameFever()
+    {
+        return flameFever;
+    }
+    public float getFlameCooldown()
+    {
+        return flameShotCooldown;
+    }
+
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
