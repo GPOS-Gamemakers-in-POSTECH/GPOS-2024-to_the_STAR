@@ -15,6 +15,7 @@ public class Drone : MonoBehaviour, EnemyInterface
     float timer = 0;
     float attackCooldownTimer = 0;
     GameObject playerObj;
+    SpriteRenderer _sr;
 
     enum State
     {
@@ -68,6 +69,7 @@ public class Drone : MonoBehaviour, EnemyInterface
         transform.rotation = Quaternion.Euler(0, 0, 180 - 90 * floor);
         moveVector.x = -(floor % 2 - 1) * stat.speed; moveVector.y = (floor % 2) * stat.speed;
         playerObj = GameObject.Find("Player");
+        _sr = GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()
@@ -146,7 +148,19 @@ public class Drone : MonoBehaviour, EnemyInterface
                 if (timer <= 0) Destroy(gameObject);
                 break;
         }
-        if(attackCooldownTimer > 0) attackCooldownTimer -= Time.deltaTime;
-        if(timer > 0) timer -= Time.deltaTime;
+
+        if (((floor + 1) % 4) / 2 == 0)
+        {
+            if (direction == 1) _sr.flipX = false;
+            else if (direction == -1) _sr.flipX = true;
+        }
+        else
+        {
+            if (direction == 1) _sr.flipX = true;
+            else if (direction == -1) _sr.flipX = false;
+        }
+
+        if (attackCooldownTimer > 0) attackCooldownTimer -= Time.deltaTime;
+        if (timer > 0) timer -= Time.deltaTime;
     }
 }

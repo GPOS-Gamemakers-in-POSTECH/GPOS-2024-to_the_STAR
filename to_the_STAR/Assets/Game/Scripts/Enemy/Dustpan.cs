@@ -13,8 +13,8 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     [SerializeField] private GameObject attackObj;
 
     GameObject player;
-    PlayerMovementController playerMovementController;
     PlayerData playerData;
+    SpriteRenderer _sr;
 
     private Vector2[] _moveVector = { new Vector2(1, 0), new Vector2(0, 1) };
 
@@ -76,8 +76,8 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _sr = GetComponent<SpriteRenderer>();
         player = GameObject.Find("Player");
-        playerMovementController = player.GetComponent<PlayerMovementController>();
         playerData = player.GetComponent<PlayerData>();
     }
 
@@ -122,7 +122,17 @@ public class Dustpan : MonoBehaviour, EnemyInterface
                 Dead();
                 break;
         }
-        if (hp < 0) state = State.Dead;
+
+        if (((floor + 1) % 4) / 2 == 0)
+        {
+            if (direction == 1) _sr.flipX = false;
+            else if (direction == -1) _sr.flipX = true;
+        }
+        else
+        {
+            if (direction == 1) _sr.flipX = true;
+            else if (direction == -1) _sr.flipX = false;
+        }
 
         if (timer > 0) timer -= Time.deltaTime;
         if (attackTimer > 0) attackTimer -= Time.deltaTime;
