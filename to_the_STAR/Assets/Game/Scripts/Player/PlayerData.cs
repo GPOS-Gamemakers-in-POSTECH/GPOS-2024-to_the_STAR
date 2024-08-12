@@ -12,6 +12,40 @@ namespace Game.Player
     
     public class PlayerData : MonoBehaviour
     {
+        float Hp = 100.0f;
+        const float maxHp = 100.0f;
+
+        public void playerDamage(float damage)
+        {
+            Hp -= damage;
+        }
+        public float playerHp()
+        {
+            return Hp;
+        }
+
+        public float hammerCharge()
+        {
+            return 0;
+        }
+
+        public float hammerCooldown()
+        {
+            return 0;
+        }
+
+        public float flamethrowerCooldown()
+        {
+            return 0;
+        }
+        public float flamethrowerFever()
+        {
+            return 0;
+        }
+        public int weaponSelection()
+        {
+            return 0;
+        }
         public PlayerRotateDirection RotateDir
         {
             get
