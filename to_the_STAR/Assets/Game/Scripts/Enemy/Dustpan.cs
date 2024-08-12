@@ -22,7 +22,6 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private int direction = 0;
     private float attackTimer = 0;
-    private float lookAround = 0;
     private float timer = 0;
 
     private Vector2 playerPosition;
@@ -158,8 +157,6 @@ public class Dustpan : MonoBehaviour, EnemyInterface
             {
                 state = State.Detection;
                 timer = stat.detectionCooldown;
-                lookingAround();
-                direction = 0;
             }
             else
             {
@@ -178,13 +175,6 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     {
         bool flag = detectPlayer();
 
-        if(timer < lookAround && timer > 0.4f)
-        {
-            _sr.flipX = !_sr.flipX;
-            lookingAround();
-        }
-
-
         if (timer < 0)
         {
             if (flag) state = State.Chasing;
@@ -196,7 +186,6 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     {
         bool flag = detectPlayer();
         float distance = floor % 2 == 0 ? xDis : yDis;
-        setDirection();
 
         if (flag)
         {
@@ -218,8 +207,6 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         {
             state = State.Detection;
             timer = stat.detectionCooldown;
-            lookingAround();
-            direction = 0;
         }
     }
 
@@ -252,8 +239,6 @@ public class Dustpan : MonoBehaviour, EnemyInterface
             {
                 state = State.Detection;
                 timer = stat.detectionCooldown;
-                lookingAround();
-                direction = 0;
             }
         }
     }
@@ -278,24 +263,15 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         {
             distance = xDis;
             flag = xDis <= stat.detectionRange && yDis < TILE;
+            direction = playerPosition.x > transform.position.x ? 1 : -1;
         }
         else
         {
             distance = yDis;
             flag = xDis < TILE && yDis <= stat.detectionRange;
+            direction = playerPosition.y > transform.position.y ? 1 : -1;
         }
 
         return flag;
-    }
-
-    private void setDirection()
-    {
-        if(floor % 2 == 0) direction = playerPosition.x > transform.position.x ? 1 : -1;
-        else direction = playerPosition.y > transform.position.y ? 1 : -1;
-    }
-
-    private void lookingAround()
-    {
-        lookAround = timer - Random.Range(0.8f, 1.2f);
     }
 }

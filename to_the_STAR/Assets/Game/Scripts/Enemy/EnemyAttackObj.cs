@@ -38,11 +38,8 @@ public class EnemyAttackObj : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Game.Player.PlayerData _pd;
         if (collision.CompareTag("Player"))
         {
-            _pd = collision.GetComponent<Game.Player.PlayerData>();
-            _pd.playerDamage(damage);
             Destroy(gameObject);
         }
     }
