@@ -2,12 +2,14 @@ using Game.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 
 public class Weapon_Flamethrower : MonoBehaviour
 {
     [SerializeField] GameObject attackObj;
     [SerializeField] GameObject lightObj;
+    GameObject player;
     bool flameEnabled = true;
     bool flameCooldown = false;
     bool flameTurnedOn = false;
@@ -31,6 +33,7 @@ public class Weapon_Flamethrower : MonoBehaviour
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
+        player = GameObject.Find("Player");
     }
 
     void Update()
@@ -50,11 +53,14 @@ public class Weapon_Flamethrower : MonoBehaviour
             flameFever += Time.deltaTime;
             if(flameShotCooldown < 0)
             {
-                Vector2 mousePos = new Vector2(Input.mousePosition.x - Screen.width / 2, - Input.mousePosition.y + Screen.height / 2);
-                float angle = Vector2.SignedAngle(mousePos, playerPos) * Mathf.Deg2Rad;
+                Debug.Log(playerPos);
+                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                mousePos = new Vector2(mousePos.x - player.transform.position.x, mousePos.y - player.transform.position.y);
+
+                float angle = Vector2.SignedAngle(playerPos, mousePos) * Mathf.Deg2Rad;
                 angle = Mathf.Clamp(angle, -flameDegRange, flameDegRange);
-                Vector2 flameMove = new Vector2(playerPos.x * Mathf.Cos(angle) - playerPos.y * Mathf.Sin(angle),
-                                                playerPos.x * Mathf.Sin(angle) + playerPos.y * Mathf.Cos(angle));
+                Vector2 flameMove = VectorRotate(playerPos, angle);
+
                 lineRenderer.enabled = true;
                 lineRenderer.SetPosition(0, transform.position);
                 lineRenderer.SetPosition(1, transform.position + new Vector3(flameMove.x * sightLineLenght, flameMove.y * sightLineLenght, 0));
@@ -87,5 +93,15 @@ public class Weapon_Flamethrower : MonoBehaviour
         {
             flameTurnedOn = false;
         }
+    }
+
+    private Vector2 VectorRotate(Vector2 tmp, float angle)
+    {
+        return new Vector2(tmp.x * Mathf.Cos(angle) - tmp.y * Mathf.Sin(angle), tmp.x * Mathf.Sin(angle) + tmp.y * Mathf.Cos(angle));
+    }
+
+    public void DirVectorUpdate(float angle)
+    {
+        playerPos = VectorRotate(playerPos, angle * Mathf.Deg2Rad);
     }
 }
