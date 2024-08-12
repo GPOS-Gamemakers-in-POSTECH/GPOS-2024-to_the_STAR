@@ -147,25 +147,18 @@ public class Dustpan : MonoBehaviour, EnemyInterface
             direction = Random.Range(-1, 2);
         }
 
-        if (compareRotation(playerData.RotateDir))
+        if (detectPlayer())
         {
-            bool flag;
-
-            if (floor % 2 == 0) flag = xDis <= stat.detectionRange && yDis < TILE;
-            else flag = xDis < TILE && yDis <= stat.detectionRange;
-
-            if (flag)
-            {
-                state = State.Detection;
-                timer = stat.detectionCooldown;
-                lookingAround();
-                direction = 0;
-            }
-            else
-            {
-                Move();
-            }
+            state = State.Detection;
+            timer = stat.detectionCooldown;
+            lookingAround();
+            direction = 0;
         }
+        else
+        {
+            Move();
+        }
+
     }
 
     private void Move()
@@ -176,8 +169,6 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private void Detect()
     {
-        bool flag = detectPlayer();
-
         if(timer < lookAround && timer > 0.4f)
         {
             _sr.flipX = !_sr.flipX;
@@ -187,18 +178,17 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
         if (timer < 0)
         {
-            if (flag) state = State.Chasing;
+            if (detectPlayer()) state = State.Chasing;
             else state = State.Idle;
         }
     }
 
     private void Chase()
     {
-        bool flag = detectPlayer();
         float distance = floor % 2 == 0 ? xDis : yDis;
         setDirection();
 
-        if (flag)
+        if (detectPlayer())
         {
             if(distance <= stat.attackRange)
             {
@@ -285,7 +275,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
             flag = xDis < TILE && yDis <= stat.detectionRange;
         }
 
-        return flag;
+        return flag && compareRotation(playerData.RotateDir);
     }
 
     private void setDirection()
