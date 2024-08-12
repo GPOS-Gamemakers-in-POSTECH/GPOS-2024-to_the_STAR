@@ -14,6 +14,7 @@ public class Drone : MonoBehaviour, EnemyInterface
     int direction = 1; //-1 후진 0 정지 1 전진
     float timer = 0;
     float attackCooldownTimer = 0;
+    float lookAround = 0;
     GameObject playerObj;
     SpriteRenderer _sr;
 
@@ -91,6 +92,8 @@ public class Drone : MonoBehaviour, EnemyInterface
                 {
                     timer = stat.detectionCooldown;
                     state = State.Detection;
+                    lookingAround();
+                    direction = 0;
                 }
                 else if (timer <= 0)
                 {
@@ -100,6 +103,11 @@ public class Drone : MonoBehaviour, EnemyInterface
                 Move();
                 break;
             case State.Detection:
+                if(timer < lookAround && timer > 0.4f)
+                {
+                    _sr.flipX = !_sr.flipX;
+                    lookingAround();
+                }
                 if (timer <= 0)
                 {
                     if (!playerDetection) state = State.Idle;
@@ -122,6 +130,8 @@ public class Drone : MonoBehaviour, EnemyInterface
                 {
                     timer = stat.detectionCooldown;
                     state = State.Detection;
+                    lookingAround();
+                    direction = 0;
                 }
                 if (distanceToPlayer > stat.attackRange) Move();
                 break;
@@ -141,6 +151,8 @@ public class Drone : MonoBehaviour, EnemyInterface
                     {
                         timer = stat.detectionCooldown;
                         state = State.Detection;
+                        lookingAround();
+                        direction = 0;
                     }
                 }
                 break;
@@ -162,5 +174,10 @@ public class Drone : MonoBehaviour, EnemyInterface
 
         if (attackCooldownTimer > 0) attackCooldownTimer -= Time.deltaTime;
         if (timer > 0) timer -= Time.deltaTime;
+    }
+
+    private void lookingAround()
+    {
+        lookAround = timer - Random.Range(0.8f, 1.2f);
     }
 }
