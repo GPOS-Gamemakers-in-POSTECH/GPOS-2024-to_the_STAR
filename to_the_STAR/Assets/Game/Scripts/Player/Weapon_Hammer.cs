@@ -22,12 +22,16 @@ public class Weapon_Hammer : MonoBehaviour
     {
         return hammerCharge;
     }
+
+    public bool isEnabledHammer()
+    {
+        return hammerEnabled;
+    }
     void Start()
     {
 
     }
 
-    
     void Update()
     {
         if(hammerEnabled && hammerCooldown < 0 && hammerCharge < 10 && Input.GetMouseButton(0))

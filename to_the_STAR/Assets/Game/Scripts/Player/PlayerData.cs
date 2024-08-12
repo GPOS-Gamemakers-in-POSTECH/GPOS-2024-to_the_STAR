@@ -44,7 +44,9 @@ namespace Game.Player
         }
         public int weaponSelection()
         {
-            return 0;
+            if (GetComponent<Weapon_Hammer>().isEnabledHammer()) return 0;
+            if (GetComponent<Weapon_Flamethrower>().isEnabledFlame()) return 1;
+            return -1;
         }
         public PlayerRotateDirection RotateDir
         {

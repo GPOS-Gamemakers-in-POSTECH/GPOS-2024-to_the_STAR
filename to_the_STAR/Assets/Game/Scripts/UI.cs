@@ -42,7 +42,7 @@ public class UI : MonoBehaviour
     float hammerCooldown = 0.0f;
     float flamethrowerCooldown = 0.0f;
     float flamethrowerFever = 0.0f;
-    int weaponSelect = 0;
+    int whatWeapon = 0;
 
     void Start()
     {
@@ -53,7 +53,7 @@ public class UI : MonoBehaviour
         Weapon_Select.transform.SetParent(transform);
         Weapon_Select.sprite = Weapon_Select_Prefab.sprite;
         Weapon_Select.material = Weapon_Select_Prefab.material;
-        Weapon_Select.GetComponent<RectTransform>().sizeDelta = WeaponUI_size;
+        Weapon_Select.GetComponent<RectTransform>().sizeDelta = WeaponUI_size * 1.2f;
 
         Weapon_Hammer_Base = new GameObject("UI_Hammer_Base").AddComponent<Image>();
         Weapon_Hammer_Base.transform.SetParent(transform);
@@ -104,11 +104,18 @@ public class UI : MonoBehaviour
     void Update()
     {
         transform.position = View.transform.position;
-        weaponSelect = Player.GetComponent<PlayerData>().weaponSelection();
+
+        whatWeapon = Player.GetComponent<PlayerData>().weaponSelection();
+        Weapon_Select.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x * (whatWeapon + 1) + WeaponUI_x_gap * whatWeapon, WeaponUI_y);
+
         playerHp = Player.GetComponent<PlayerData>().playerHp();
+
         hammerCharge = Player.GetComponent<PlayerData>().hammerCharge();
+
         hammerCooldown = Player.GetComponent<PlayerData>().hammerCooldown();
+
         flamethrowerCooldown = Player.GetComponent<PlayerData>().flamethrowerCooldown();
+
         flamethrowerFever = Player.GetComponent<PlayerData>().flamethrowerFever();
 
     }
