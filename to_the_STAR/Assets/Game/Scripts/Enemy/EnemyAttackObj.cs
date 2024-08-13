@@ -1,3 +1,4 @@
+using Game.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,6 +42,8 @@ public class EnemyAttackObj : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            PlayerData _pd = collision.GetComponent<PlayerData>();
+            _pd.playerDamage(damage);
             Destroy(gameObject);
         }
     }
