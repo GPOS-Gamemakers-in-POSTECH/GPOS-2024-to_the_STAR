@@ -23,6 +23,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     private int direction = 0;
     private float attackTimer = 0;
     private float timer = 0;
+    private float lookAround = 0;
 
     private Vector2 playerPosition;
     private float xDis;
@@ -272,5 +273,10 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         }
 
         return flag && compareRotation(playerData.RotateDir);
+    }
+
+    private void lookingAround()
+    {
+        lookAround = timer - Random.Range(0.8f, 1.2f);
     }
 }
