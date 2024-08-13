@@ -16,6 +16,8 @@ public class EnemyHealthBar : MonoBehaviour
     Vector3 barShowPos = new Vector3(-0.5f, 0, -1);
     Vector3 barMaxPos = new Vector3(1, 0, 0);
 
+    bool flag = false;
+
     void Start()
     {
         float angle = (180 - GetComponent<EnemyInterface>().getFloor() * 90) * Mathf.Deg2Rad;
@@ -41,25 +43,29 @@ public class EnemyHealthBar : MonoBehaviour
     void Update()
     {
         hp = GetComponent<EnemyInterface>().hpRatio();
-        if (hp <= 0) Destroy(healthbar);
-        healthbar.transform.position = transform.position + barPrintPos;
-        barLine.SetPosition(0, healthbar.transform.position + barShowPos);
-        barLine.SetPosition(1, healthbar.transform.position + barShowPos + barMaxPos * printHp);
-        if (Mathf.Abs(printHp - hp) > 0.01)
+        if (hp <= 0 && flag) Destroy(healthbar);
+        else
         {
-            barSprite.enabled = true;
-            barLine.enabled = true;
-            if (printHp > 0.33) setBarColor(Color.green);
-            else if (printHp > 0.1) setBarColor(Color.yellow);
-            else setBarColor(Color.red);
-            healthbarCooldown = healthbarCooldownMax;
+            healthbar.transform.position = transform.position + barPrintPos;
+            barLine.SetPosition(0, healthbar.transform.position + barShowPos);
+            barLine.SetPosition(1, healthbar.transform.position + barShowPos + barMaxPos * printHp);
+            if (Mathf.Abs(printHp - hp) > 0.01)
+            {
+                barSprite.enabled = true;
+                barLine.enabled = true;
+                if (printHp > 0.33) setBarColor(Color.green);
+                else if (printHp > 0.1) setBarColor(Color.yellow);
+                else setBarColor(Color.red);
+                healthbarCooldown = healthbarCooldownMax;
+            }
+            else if (healthbarCooldown < 0)
+            {
+                barSprite.enabled = false;
+                barLine.enabled = false;
+                if (hp <= 0) flag = true;
+            }
+            healthbarCooldown -= Time.deltaTime;
+            printHp -= (printHp - hp) / 2;
         }
-        else if (healthbarCooldown < 0)
-        {
-            barSprite.enabled = false;
-            barLine.enabled = false;
-        }
-        healthbarCooldown -= Time.deltaTime;
-        printHp -= (printHp - hp) / 2;
     }
 }
