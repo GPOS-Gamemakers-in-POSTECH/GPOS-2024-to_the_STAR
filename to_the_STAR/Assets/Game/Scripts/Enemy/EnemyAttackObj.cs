@@ -7,7 +7,8 @@ public class EnemyAttackObj : MonoBehaviour
     public enum EnemyType
     {
         Dustpan,
-        Drone
+        Drone,
+        Goliath
     };
 
     private EnemyType enemyType;
