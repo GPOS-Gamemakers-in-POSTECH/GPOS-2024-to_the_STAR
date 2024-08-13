@@ -85,26 +85,32 @@ public class UI : MonoBehaviour
 
         Healthbar = new GameObject("UI_Healthbar").AddComponent<Slider>();
         Healthbar.transform.SetParent(transform);
+        Healthbar.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x_gap, WeaponUI_y * 2);
+        Healthbar.targetGraphic = Healthbar_Prefab.targetGraphic;
 
         Weapon_Hammer_Charge = new GameObject("UI_Hammer_Charge").AddComponent<Slider>();
         Weapon_Hammer_Charge.transform.SetParent(transform);
         Weapon_Hammer_Charge.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x, WeaponUI_y);
         Weapon_Hammer_Charge.GetComponent<RectTransform>().sizeDelta = WeaponUI_size;
+        Weapon_Hammer_Charge.targetGraphic = Weapon_Charge_Prefab.targetGraphic;
 
         Weapon_Hammer_Cooldown = new GameObject("UI_Hammer_Cooldown").AddComponent<Slider>();
         Weapon_Hammer_Cooldown.transform.SetParent(transform);
         Weapon_Hammer_Cooldown.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x, WeaponUI_y);
         Weapon_Hammer_Cooldown.GetComponent<RectTransform>().sizeDelta = WeaponUI_size;
+        Weapon_Hammer_Cooldown.targetGraphic = Weapon_Cooldown_Prefab.targetGraphic;
 
         Weapon_Flamethrower_Cooldown = new GameObject("UI_Flamethrower_Cooldown").AddComponent<Slider>();
         Weapon_Flamethrower_Cooldown.transform.SetParent(transform);
         Weapon_Flamethrower_Cooldown.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x * 2 + WeaponUI_x_gap, WeaponUI_y);
         Weapon_Flamethrower_Cooldown.GetComponent<RectTransform>().sizeDelta = WeaponUI_size;
+        Weapon_Flamethrower_Cooldown.targetGraphic = Weapon_Cooldown_Prefab.targetGraphic;
 
         Weapon_Flamethrower_Fever = new GameObject("UI_Flamethrower_Fever").AddComponent<Slider>();
         Weapon_Flamethrower_Fever.transform.SetParent(transform);
         Weapon_Flamethrower_Fever.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x * 2 + WeaponUI_x_gap, WeaponUI_y);
         Weapon_Flamethrower_Fever.GetComponent<RectTransform>().sizeDelta = WeaponUI_size;
+        Weapon_Flamethrower_Fever.targetGraphic = Weapon_Fever_Prefab.targetGraphic;
 
     }
 
@@ -117,14 +123,19 @@ public class UI : MonoBehaviour
         Weapon_Select.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x * (whatWeapon + 1) + WeaponUI_x_gap * whatWeapon, WeaponUI_y);
 
         playerHp = Player.GetComponent<PlayerData>().playerHp();
+        Healthbar.value = playerHp;
 
         hammerCharge = Player.GetComponent<PlayerData>().hammerCharge();
+        Weapon_Hammer_Charge.value = hammerCharge;
 
         hammerCooldown = Player.GetComponent<PlayerData>().hammerCooldown();
+        Weapon_Hammer_Cooldown.value = hammerCooldown;
 
         flamethrowerCooldown = Player.GetComponent<PlayerData>().flamethrowerCooldown();
+        Weapon_Flamethrower_Cooldown.value = flamethrowerCooldown;
 
         flamethrowerFever = Player.GetComponent<PlayerData>().flamethrowerFever();
+        Weapon_Flamethrower_Fever.value = flamethrowerFever;
 
     }
 }

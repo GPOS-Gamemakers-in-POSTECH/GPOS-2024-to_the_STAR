@@ -21,7 +21,7 @@ namespace Game.Player
         }
         public float playerHp()
         {
-            return Hp;
+            return Hp/maxHp;
         }
 
         public float hammerCharge()
