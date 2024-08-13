@@ -118,7 +118,7 @@ MonoBehaviour:
   Weapon_Hammer_Prefab: {fileID: 9068212977160549026, guid: 5d621a157a30fe64cb0a00d7108aefa2, type: 3}
   Weapon_Flamethrower_Prefab: {fileID: 9068212977160549026, guid: fd3cf6e431bb79d4db2100396bc0d9ae, type: 3}
   Weapon_Select_Prefab: {fileID: 7984798872984927464, guid: caf95b7fcc75d3f4db40b67ba56ba2c9, type: 3}
-  Healthbar_Prefab: {fileID: 4099434547850995077, guid: da2441cce6e27e04c811969db3368ecf, type: 3}
-  Weapon_Charge_Prefab: {fileID: 4099434547850995077, guid: 6a75ef3d1caf94c47bbcf672aac23485, type: 3}
-  Weapon_Cooldown_Prefab: {fileID: 4099434547850995077, guid: 23d2e5f1a45de304bb021fa869a18bbc, type: 3}
-  Weapon_Fever_Prefab: {fileID: 4099434547850995077, guid: feb9d26da8154db45a2bfa3f763ae0a9, type: 3}
+  Healthbar_Prefab: {fileID: 4150680361023654744, guid: 3697560a357658d44a3eeba3a693a61f, type: 3}
+  Weapon_Charge_Prefab: {fileID: 4150680361023654744, guid: 18cc7f18df22abb4aa5da11e67b50e60, type: 3}
+  Weapon_Cooldown_Prefab: {fileID: 4150680361023654744, guid: 63ba93cd0ef7ae6459a579b58150ec4f, type: 3}
+  Weapon_Fever_Prefab: {fileID: 4150680361023654744, guid: 99cf6b18a05e35c4791e946b7f0ba457, type: 3}

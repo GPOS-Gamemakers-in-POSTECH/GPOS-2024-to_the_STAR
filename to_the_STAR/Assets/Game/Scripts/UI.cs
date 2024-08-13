@@ -11,10 +11,10 @@ public class UI : MonoBehaviour
     [SerializeField] Image Weapon_Flamethrower_Prefab;
     [SerializeField] Image Weapon_Select_Prefab;
 
-    [SerializeField] Slider Healthbar_Prefab;
-    [SerializeField] Slider Weapon_Charge_Prefab;
-    [SerializeField] Slider Weapon_Cooldown_Prefab;
-    [SerializeField] Slider Weapon_Fever_Prefab;
+    [SerializeField] Image Healthbar_Prefab;
+    [SerializeField] Image Weapon_Charge_Prefab;
+    [SerializeField] Image Weapon_Cooldown_Prefab;
+    [SerializeField] Image Weapon_Fever_Prefab;
 
     GameObject View;
     GameObject Player;
@@ -25,16 +25,17 @@ public class UI : MonoBehaviour
     Image Weapon_Flamethrower;
     Image Weapon_Select;
 
-    Slider Healthbar;
-    Slider Weapon_Hammer_Charge;
-    Slider Weapon_Hammer_Cooldown;
-    Slider Weapon_Flamethrower_Cooldown;
-    Slider Weapon_Flamethrower_Fever;
+    Image Healthbar;
+    Image Weapon_Hammer_Charge;
+    Image Weapon_Hammer_Cooldown;
+    Image Weapon_Flamethrower_Cooldown;
+    Image Weapon_Flamethrower_Fever;
 
     const float WeaponUI_y = -64f;
     const float WeaponUI_x = 72f;
     const float WeaponUI_x_gap = 36f;
     Vector2 WeaponUI_size = new Vector2(1.5f, 1.5f);
+    Vector2 Healthbar_size = new Vector2(1.0f, 1.0f);
     Vector2 ScreenSize = new Vector2(-Screen.width / 2, Screen.height / 2);
 
     float playerHp = 0.0f;
@@ -83,36 +84,59 @@ public class UI : MonoBehaviour
         Weapon_Flamethrower.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x * 2 + WeaponUI_x_gap, WeaponUI_y);
         Weapon_Flamethrower.GetComponent<RectTransform>().sizeDelta = WeaponUI_size;
 
-        Healthbar = new GameObject("UI_Healthbar").AddComponent<Slider>();
+        Healthbar = new GameObject("UI_Healthbar").AddComponent<Image>();
         Healthbar.transform.SetParent(transform);
+        Healthbar.sprite = Healthbar_Prefab.sprite;
+        Healthbar.material = Healthbar_Prefab.material;
         Healthbar.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x_gap, WeaponUI_y * 2);
-        Healthbar.targetGraphic = Healthbar_Prefab.targetGraphic;
+        Healthbar.GetComponent<RectTransform>().sizeDelta = Healthbar_size;
+        Healthbar.type = Image.Type.Filled;
+        Healthbar.fillMethod = Image.FillMethod.Horizontal;
+        Healthbar.fillOrigin = (int) Image.OriginHorizontal.Left;
 
-        Weapon_Hammer_Charge = new GameObject("UI_Hammer_Charge").AddComponent<Slider>();
+        Weapon_Hammer_Charge = new GameObject("UI_Hammer_Charge").AddComponent<Image>();
         Weapon_Hammer_Charge.transform.SetParent(transform);
+        Weapon_Hammer_Charge.sprite = Weapon_Charge_Prefab.sprite;
+        Weapon_Hammer_Charge.material = Weapon_Charge_Prefab.material;
         Weapon_Hammer_Charge.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x, WeaponUI_y);
         Weapon_Hammer_Charge.GetComponent<RectTransform>().sizeDelta = WeaponUI_size;
-        Weapon_Hammer_Charge.targetGraphic = Weapon_Charge_Prefab.targetGraphic;
+        Weapon_Hammer_Charge.type = Image.Type.Filled;
+        Color hcc = Weapon_Hammer_Charge.GetComponent<Image>().color;
+        Weapon_Hammer_Charge.GetComponent<Image>().color = new Color(hcc.r, hcc.g, hcc.b, 0.5f);
 
-        Weapon_Hammer_Cooldown = new GameObject("UI_Hammer_Cooldown").AddComponent<Slider>();
+        Weapon_Hammer_Cooldown = new GameObject("UI_Hammer_Cooldown").AddComponent<Image>();
         Weapon_Hammer_Cooldown.transform.SetParent(transform);
+        Weapon_Hammer_Cooldown.sprite = Weapon_Cooldown_Prefab.sprite;
+        Weapon_Hammer_Cooldown.material = Weapon_Cooldown_Prefab.material;
         Weapon_Hammer_Cooldown.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x, WeaponUI_y);
         Weapon_Hammer_Cooldown.GetComponent<RectTransform>().sizeDelta = WeaponUI_size;
-        Weapon_Hammer_Cooldown.targetGraphic = Weapon_Cooldown_Prefab.targetGraphic;
+        Weapon_Hammer_Cooldown.type = Image.Type.Filled;
+        Color fcd = Weapon_Hammer_Cooldown.GetComponent<Image>().color;
+        Weapon_Hammer_Cooldown.GetComponent<Image>().color = new Color(fcd.r, fcd.g, fcd.b, 0.25f);
 
-        Weapon_Flamethrower_Cooldown = new GameObject("UI_Flamethrower_Cooldown").AddComponent<Slider>();
+        Weapon_Flamethrower_Cooldown = new GameObject("UI_Flamethrower_Cooldown").AddComponent<Image>();
         Weapon_Flamethrower_Cooldown.transform.SetParent(transform);
+        Weapon_Flamethrower_Cooldown.sprite = Weapon_Cooldown_Prefab.sprite;
+        Weapon_Flamethrower_Cooldown.material = Weapon_Cooldown_Prefab.material;
         Weapon_Flamethrower_Cooldown.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x * 2 + WeaponUI_x_gap, WeaponUI_y);
         Weapon_Flamethrower_Cooldown.GetComponent<RectTransform>().sizeDelta = WeaponUI_size;
-        Weapon_Flamethrower_Cooldown.targetGraphic = Weapon_Cooldown_Prefab.targetGraphic;
+        Weapon_Flamethrower_Cooldown.type = Image.Type.Filled;
+        Color fcc = Weapon_Flamethrower_Cooldown.GetComponent<Image>().color;
+        Weapon_Flamethrower_Cooldown.GetComponent<Image>().color = new Color(fcc.r, fcc.g, fcc.b, 0.25f);
 
-        Weapon_Flamethrower_Fever = new GameObject("UI_Flamethrower_Fever").AddComponent<Slider>();
+        Weapon_Flamethrower_Fever = new GameObject("UI_Flamethrower_Fever").AddComponent<Image>();
         Weapon_Flamethrower_Fever.transform.SetParent(transform);
+        Weapon_Flamethrower_Fever.sprite = Weapon_Fever_Prefab.sprite;
+        Weapon_Flamethrower_Fever.material = Weapon_Fever_Prefab.material;
         Weapon_Flamethrower_Fever.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x * 2 + WeaponUI_x_gap, WeaponUI_y);
         Weapon_Flamethrower_Fever.GetComponent<RectTransform>().sizeDelta = WeaponUI_size;
-        Weapon_Flamethrower_Fever.targetGraphic = Weapon_Fever_Prefab.targetGraphic;
+        Weapon_Flamethrower_Fever.type = Image.Type.Filled;
+        Color ffc = Weapon_Flamethrower_Fever.GetComponent<Image>().color;
+        Weapon_Flamethrower_Fever.GetComponent<Image>().color = new Color(ffc.r, ffc.g, ffc.b, 0.5f);
 
     }
+
+    float max(float a, float b) { return a > b ? a : b; }
 
 
     void Update()
@@ -123,19 +147,19 @@ public class UI : MonoBehaviour
         Weapon_Select.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x * (whatWeapon + 1) + WeaponUI_x_gap * whatWeapon, WeaponUI_y);
 
         playerHp = Player.GetComponent<PlayerData>().playerHp();
-        Healthbar.value = playerHp;
+        Healthbar.fillAmount = playerHp;
 
-        hammerCharge = Player.GetComponent<PlayerData>().hammerCharge();
-        Weapon_Hammer_Charge.value = hammerCharge;
+        hammerCharge = max(0,Player.GetComponent<PlayerData>().hammerCharge());
+        Weapon_Hammer_Charge.fillAmount = hammerCharge;
 
-        hammerCooldown = Player.GetComponent<PlayerData>().hammerCooldown();
-        Weapon_Hammer_Cooldown.value = hammerCooldown;
+        hammerCooldown = max(0,Player.GetComponent<PlayerData>().hammerCooldown());
+        Weapon_Hammer_Cooldown.fillAmount = hammerCooldown;
 
-        flamethrowerCooldown = Player.GetComponent<PlayerData>().flamethrowerCooldown();
-        Weapon_Flamethrower_Cooldown.value = flamethrowerCooldown;
+        //flamethrowerCooldown = max(0, Player.GetComponent<PlayerData>().flamethrowerCooldown());
+        //Weapon_Flamethrower_Cooldown.fillAmount = flamethrowerCooldown;
 
-        flamethrowerFever = Player.GetComponent<PlayerData>().flamethrowerFever();
-        Weapon_Flamethrower_Fever.value = flamethrowerFever;
+        flamethrowerFever = max(0, Player.GetComponent<PlayerData>().flamethrowerFever());
+        Weapon_Flamethrower_Fever.fillAmount = flamethrowerFever;
 
     }
 }
