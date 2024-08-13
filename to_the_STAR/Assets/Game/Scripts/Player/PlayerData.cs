@@ -26,25 +26,27 @@ namespace Game.Player
 
         public float hammerCharge()
         {
-            return 0;
+            return GetComponent<Weapon_Hammer>().getHammerCharge();
         }
 
         public float hammerCooldown()
         {
-            return 0;
+            return GetComponent<Weapon_Hammer>().getHammerCooldown();
         }
 
         public float flamethrowerCooldown()
         {
-            return 0;
+            return GetComponent<Weapon_Flamethrower>().getFlameCooldown();
         }
         public float flamethrowerFever()
         {
-            return 0;
+            return GetComponent<Weapon_Flamethrower>().getFlameFever();
         }
         public int weaponSelection()
         {
-            return 0;
+            if (GetComponent<Weapon_Hammer>().isEnabledHammer()) return 0;
+            if (GetComponent<Weapon_Flamethrower>().isEnabledFlame()) return 1;
+            return -1;
         }
         public PlayerRotateDirection RotateDir
         {
