@@ -88,15 +88,23 @@ public class UI : MonoBehaviour
 
         Weapon_Hammer_Charge = new GameObject("UI_Hammer_Charge").AddComponent<Slider>();
         Weapon_Hammer_Charge.transform.SetParent(transform);
+        Weapon_Hammer_Charge.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x, WeaponUI_y);
+        Weapon_Hammer_Charge.GetComponent<RectTransform>().sizeDelta = WeaponUI_size;
 
         Weapon_Hammer_Cooldown = new GameObject("UI_Hammer_Cooldown").AddComponent<Slider>();
         Weapon_Hammer_Cooldown.transform.SetParent(transform);
+        Weapon_Hammer_Cooldown.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x, WeaponUI_y);
+        Weapon_Hammer_Cooldown.GetComponent<RectTransform>().sizeDelta = WeaponUI_size;
 
         Weapon_Flamethrower_Cooldown = new GameObject("UI_Flamethrower_Cooldown").AddComponent<Slider>();
         Weapon_Flamethrower_Cooldown.transform.SetParent(transform);
+        Weapon_Flamethrower_Cooldown.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x * 2 + WeaponUI_x_gap, WeaponUI_y);
+        Weapon_Flamethrower_Cooldown.GetComponent<RectTransform>().sizeDelta = WeaponUI_size;
 
         Weapon_Flamethrower_Fever = new GameObject("UI_Flamethrower_Fever").AddComponent<Slider>();
         Weapon_Flamethrower_Fever.transform.SetParent(transform);
+        Weapon_Flamethrower_Fever.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x * 2 + WeaponUI_x_gap, WeaponUI_y);
+        Weapon_Flamethrower_Fever.GetComponent<RectTransform>().sizeDelta = WeaponUI_size;
 
     }
 
