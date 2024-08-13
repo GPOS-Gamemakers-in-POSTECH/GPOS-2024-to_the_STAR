@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Game.Player;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,7 @@ public class UI : MonoBehaviour
     [SerializeField] Slider Weapon_Fever_Prefab;
 
     GameObject View;
+    GameObject Player;
 
     Image Weapon_Hammer_Base;
     Image Weapon_Hammer;
