@@ -92,7 +92,7 @@ public class UI : MonoBehaviour
         Healthbar.GetComponent<RectTransform>().sizeDelta = Healthbar_size;
         Healthbar.type = Image.Type.Filled;
         Healthbar.fillMethod = Image.FillMethod.Horizontal;
-        Healthbar.fillOrigin = (int) Image.OriginHorizontal.Left;
+        Healthbar.fillOrigin = (int)Image.OriginHorizontal.Left;
 
         Weapon_Hammer_Charge = new GameObject("UI_Hammer_Charge").AddComponent<Image>();
         Weapon_Hammer_Charge.transform.SetParent(transform);
@@ -103,6 +103,8 @@ public class UI : MonoBehaviour
         Weapon_Hammer_Charge.type = Image.Type.Filled;
         Color hcc = Weapon_Hammer_Charge.GetComponent<Image>().color;
         Weapon_Hammer_Charge.GetComponent<Image>().color = new Color(hcc.r, hcc.g, hcc.b, 0.5f);
+        Weapon_Hammer_Charge.fillMethod = Image.FillMethod.Vertical;
+        Weapon_Hammer_Charge.fillOrigin = (int)Image.OriginVertical.Bottom;
 
         Weapon_Hammer_Cooldown = new GameObject("UI_Hammer_Cooldown").AddComponent<Image>();
         Weapon_Hammer_Cooldown.transform.SetParent(transform);
@@ -123,6 +125,9 @@ public class UI : MonoBehaviour
         Weapon_Flamethrower_Cooldown.type = Image.Type.Filled;
         Color fcc = Weapon_Flamethrower_Cooldown.GetComponent<Image>().color;
         Weapon_Flamethrower_Cooldown.GetComponent<Image>().color = new Color(fcc.r, fcc.g, fcc.b, 0.25f);
+
+        Weapon_Flamethrower_Cooldown.enabled = false;
+
 
         Weapon_Flamethrower_Fever = new GameObject("UI_Flamethrower_Fever").AddComponent<Image>();
         Weapon_Flamethrower_Fever.transform.SetParent(transform);
@@ -149,11 +154,25 @@ public class UI : MonoBehaviour
         playerHp = Player.GetComponent<PlayerData>().playerHp();
         Healthbar.fillAmount = playerHp;
 
+        if(whatWeapon == 0)
+        {
+            Weapon_Hammer_Charge.enabled = true;
+            Weapon_Hammer_Cooldown.enabled = true;
+            Weapon_Flamethrower_Fever.enabled = false;
+        }
+
         hammerCharge = max(0,Player.GetComponent<PlayerData>().hammerCharge());
         Weapon_Hammer_Charge.fillAmount = hammerCharge;
 
         hammerCooldown = max(0,Player.GetComponent<PlayerData>().hammerCooldown());
         Weapon_Hammer_Cooldown.fillAmount = hammerCooldown;
+
+        if(whatWeapon == 1)
+        {
+            Weapon_Hammer_Charge.enabled = false;
+            Weapon_Hammer_Cooldown.enabled = false;
+            Weapon_Flamethrower_Fever.enabled = true;
+        }
 
         //flamethrowerCooldown = max(0, Player.GetComponent<PlayerData>().flamethrowerCooldown());
         //Weapon_Flamethrower_Cooldown.fillAmount = flamethrowerCooldown;
