@@ -13,8 +13,8 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     [SerializeField] private GameObject attackObj;
 
     GameObject player;
-    PlayerMovementController playerMovementController;
     PlayerData playerData;
+    SpriteRenderer _sr;
 
     private Vector2[] _moveVector = { new Vector2(1, 0), new Vector2(0, 1) };
 
@@ -23,6 +23,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     private int direction = 0;
     private float attackTimer = 0;
     private float timer = 0;
+    private float lookAround = 0;
 
     private Vector2 playerPosition;
     private float xDis;
@@ -51,7 +52,9 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     {
         if (state != State.Dead)
         {
-            hp -= damage;
+            if (hp < damage) hp = 0;
+            else hp -= damage;
+
             if (hp > 0)
             {
                 state = State.Stunned;
@@ -74,8 +77,8 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _sr = GetComponent<SpriteRenderer>();
         player = GameObject.Find("Player");
-        playerMovementController = player.GetComponent<PlayerMovementController>();
         playerData = player.GetComponent<PlayerData>();
     }
 
@@ -120,7 +123,17 @@ public class Dustpan : MonoBehaviour, EnemyInterface
                 Dead();
                 break;
         }
-        if (hp < 0) state = State.Dead;
+
+        if (((floor + 1) % 4) / 2 == 0)
+        {
+            if (direction == 1) _sr.flipX = false;
+            else if (direction == -1) _sr.flipX = true;
+        }
+        else
+        {
+            if (direction == 1) _sr.flipX = true;
+            else if (direction == -1) _sr.flipX = false;
+        }
 
         if (timer > 0) timer -= Time.deltaTime;
         if (attackTimer > 0) attackTimer -= Time.deltaTime;
@@ -134,23 +147,18 @@ public class Dustpan : MonoBehaviour, EnemyInterface
             direction = Random.Range(-1, 2);
         }
 
-        if (compareRotation(playerData.RotateDir))
+        if (detectPlayer())
         {
-            bool flag;
-
-            if (floor % 2 == 0) flag = xDis <= stat.detectionRange && yDis < TILE;
-            else flag = xDis < TILE && yDis <= stat.detectionRange;
-
-            if (flag)
-            {
-                state = State.Detection;
-                timer = stat.detectionCooldown;
-            }
-            else
-            {
-                Move();
-            }
+            state = State.Detection;
+            timer = stat.detectionCooldown;
+            lookingAround();
+            direction = 0;
         }
+        else
+        {
+            Move();
+        }
+
     }
 
     private void Move()
@@ -161,21 +169,25 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private void Detect()
     {
-        bool flag = detectPlayer();
+        if(timer < lookAround && timer > 0.4f)
+        {
+            _sr.flipX = !_sr.flipX;
+            lookingAround();
+        }
+
 
         if (timer < 0)
         {
-            if (flag) state = State.Chasing;
+            if (detectPlayer()) state = State.Chasing;
             else state = State.Idle;
         }
     }
 
     private void Chase()
     {
-        bool flag = detectPlayer();
         float distance = floor % 2 == 0 ? xDis : yDis;
 
-        if (flag)
+        if (detectPlayer())
         {
             if(distance <= stat.attackRange)
             {
@@ -203,7 +215,9 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         if (attackTimer <= 0 && attacked == false)
         {
             Debug.Log("Attack2");
-            GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.identity);
+            Vector3 move = floor % 2 == 0 ? new Vector3(1, 0, 0) : new Vector3(0, 1, 0);
+            move *= direction;
+            GameObject Attack = Instantiate(attackObj, transform.position + move, Quaternion.identity);
             Attack.GetComponent<EnemyAttackObj>().init(stat.attackDuration, stat.attackPower, new Vector2(0, 0), EnemyAttackObj.EnemyType.Dustpan);
             attacked = true;
             attackTimer = stat.attackMotion2Cooldown;
@@ -258,6 +272,11 @@ public class Dustpan : MonoBehaviour, EnemyInterface
             direction = playerPosition.y > transform.position.y ? 1 : -1;
         }
 
-        return flag;
+        return flag && compareRotation(playerData.RotateDir);
+    }
+
+    private void lookingAround()
+    {
+        lookAround = timer - Random.Range(0.8f, 1.2f);
     }
 }

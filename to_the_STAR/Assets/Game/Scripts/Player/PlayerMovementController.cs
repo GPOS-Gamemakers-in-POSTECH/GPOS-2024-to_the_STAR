@@ -16,6 +16,8 @@ namespace Game.Player
         private InputAction _interactAction;
         private Rigidbody2D _rb;
 
+        private Weapon_Flamethrower _flameThrower;
+
         public Vector2 getMoveVector()
         {
             return _moveVector;
@@ -32,6 +34,7 @@ namespace Game.Player
             _moveAction = GameInputSystem.Instance.PlayerActions.Move;
             _interactAction = GameInputSystem.Instance.PlayerActions.Interact;
             _playerActions = GameInputSystem.Instance.PlayerActions;
+            _flameThrower = GetComponent<Weapon_Flamethrower>();
         }
 
         private void OnEnable()
@@ -57,16 +60,21 @@ namespace Game.Player
             {
                 case > 0:
                     transform.Rotate(Vector3.forward, 90);
+                    _flameThrower.DirVectorUpdate(90);
                     break;
                 case < 0:
                     transform.Rotate(Vector3.forward, -90);
+                    _flameThrower.DirVectorUpdate(-90);
                     break;
             }
         }
         
         private void Update()
         {
-            _moveVector = _moveAction.ReadValue<Vector2>();
+            float angle = _rb.rotation * Mathf.Deg2Rad;
+            Vector2 tmp = _moveAction.ReadValue<Vector2>();
+            _moveVector = new Vector2(tmp.x * Mathf.Cos(angle) - tmp.y * Mathf.Sin(angle),
+                                      tmp.x * Mathf.Sin(angle) + tmp.y * Mathf.Cos(angle));
 
             if (_interactAction.triggered == true)
             {

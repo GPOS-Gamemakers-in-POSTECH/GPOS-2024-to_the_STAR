@@ -49,7 +49,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 5979362041180168098, guid: f8a0070471318c949bb92609da987149, type: 3}
+  m_Camera: {fileID: 0}
   m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -117,3 +117,8 @@ MonoBehaviour:
   Weapon_Base_Prefab: {fileID: 9068212977160549026, guid: 45a1f86543bfd7b4eb8791874862a5d5, type: 3}
   Weapon_Hammer_Prefab: {fileID: 9068212977160549026, guid: 5d621a157a30fe64cb0a00d7108aefa2, type: 3}
   Weapon_Flamethrower_Prefab: {fileID: 9068212977160549026, guid: fd3cf6e431bb79d4db2100396bc0d9ae, type: 3}
+  Weapon_Select_Prefab: {fileID: 7984798872984927464, guid: caf95b7fcc75d3f4db40b67ba56ba2c9, type: 3}
+  Healthbar_Prefab: {fileID: 4150680361023654744, guid: 3697560a357658d44a3eeba3a693a61f, type: 3}
+  Weapon_Charge_Prefab: {fileID: 4150680361023654744, guid: 18cc7f18df22abb4aa5da11e67b50e60, type: 3}
+  Weapon_Cooldown_Prefab: {fileID: 4150680361023654744, guid: 63ba93cd0ef7ae6459a579b58150ec4f, type: 3}
+  Weapon_Fever_Prefab: {fileID: 4150680361023654744, guid: 99cf6b18a05e35c4791e946b7f0ba457, type: 3}
