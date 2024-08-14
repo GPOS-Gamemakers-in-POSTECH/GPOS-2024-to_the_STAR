@@ -12,16 +12,17 @@ public class Weapon_Hammer : MonoBehaviour
     const float hammerDamageConst = 100.0f;
     const float hammerCooldownSet = 2.5f;
     const float attackDuration = 1.0f;
+    const float hammerChargeMax = 10.0f;
 
     const float stunCooldownSet = 3.0f;
 
     public float getHammerCooldown()
     {
-        return hammerCooldown;
+        return hammerCooldown / hammerCooldownSet;
     }
     public float getHammerCharge()
     {
-        return hammerCharge;
+        return hammerCharge / hammerChargeMax;
     }
 
     public bool isEnabledHammer()
@@ -35,7 +36,7 @@ public class Weapon_Hammer : MonoBehaviour
 
     void Update()
     {
-        if(hammerEnabled && hammerCooldown < 0 && hammerCharge < 10 && Input.GetMouseButton(0))
+        if(hammerEnabled && hammerCooldown < 0 && hammerCharge < hammerChargeMax && Input.GetMouseButton(0))
         {
             hammerCharge += Time.deltaTime;
         }

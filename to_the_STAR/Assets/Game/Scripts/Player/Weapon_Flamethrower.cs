@@ -35,11 +35,11 @@ public class Weapon_Flamethrower : MonoBehaviour
     }
     public float getFlameFever()
     {
-        return flameFever;
+        return flameFever / flameFeverMax;
     }
     public float getFlameCooldown()
     {
-        return flameShotCooldown;
+        return flameShotCooldown / flameFrequency;
     }
 
     void Start()
