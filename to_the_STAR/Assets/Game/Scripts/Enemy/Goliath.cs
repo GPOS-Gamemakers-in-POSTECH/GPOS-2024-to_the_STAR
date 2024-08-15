@@ -1,6 +1,8 @@
 using Game.Player;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class Goliath : MonoBehaviour, EnemyInterface
@@ -10,15 +12,26 @@ public class Goliath : MonoBehaviour, EnemyInterface
     [SerializeField] private int floor;
     [SerializeField] private GameObject attackObj;
 
+    [SerializeField] private GameObject[] Legs;
+
+    GameObject LeftLeg1;
+    GameObject LeftLeg2;
+    GameObject RightLeg1;
+    GameObject RightLeg2;
+
     GameObject player;
     PlayerData playerData;
     SpriteRenderer _sr;
 
-    private Vector2[] _moveVector = { new Vector2(1, 0), new Vector2(0, 1) };
+    private Vector3 _up = new Vector3(0, 1, 0);
+    private Vector3 _down = new Vector3(0, -1, 0);
+    private Vector3 _right = new Vector3(1, 0, 0);
+    private Vector3 _left = new Vector3(-1, 0, 0);
 
     private const float maxHp = 1000;
     private const float detectionRange = 10;
     private float hp;
+    private float speed = 0.15f;
 
     private int direction = 0;
     private float attackTimer = 0;
@@ -27,11 +40,18 @@ public class Goliath : MonoBehaviour, EnemyInterface
 
     private const float deadCooldown = 3;
 
+    private const float legMovementX = 0.3f;
+    private const float legMovementY = 0.2f;
+    private const float walkCooldown = 0.3f;
+
     private Vector2 playerPosition;
     private float xDis;
     private float yDis;
 
-    private bool attacked;
+    private bool attacked = false;
+    private bool isWalking = false;
+    private int walkN = 0;
+    private int walkState = 0;
 
     const float TILE = 1;
 
@@ -83,6 +103,16 @@ public class Goliath : MonoBehaviour, EnemyInterface
         _sr = GetComponent<SpriteRenderer>();
         player = GameObject.Find("Player");
         playerData = player.GetComponent<PlayerData>();
+
+        _up = VectorRotate(_up, transform.rotation.z);
+        _down = VectorRotate(_down, transform.rotation.z);
+        _right = VectorRotate(_right, transform.rotation.z);
+        _left = VectorRotate(_left, transform.rotation.z);
+
+        LeftLeg1 = Instantiate(Legs[0], transform.position + VectorAdd(-0.3f, -0.1f, 0.1f), Quaternion.identity); // 왼쪽 다리 뒷부분
+        LeftLeg2 = Instantiate(Legs[0], transform.position + VectorAdd(-0.2f, -0.1f, -0.1f), Quaternion.identity); // 왼쪽 다리 앞부분
+        RightLeg1 = Instantiate(Legs[1], transform.position + VectorAdd(0.2f, -0.1f, 0.1f), Quaternion.identity); // 오른쪽 다리 뒷부분
+        RightLeg2 = Instantiate(Legs[1], transform.position + VectorAdd(0.3f, -0.1f, -0.1f), Quaternion.identity); // 오른쪽 다리 앞부분
     }
 
     void OnEnable()
@@ -103,7 +133,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
         switch (state)
         {
             case State.Idle:
-                Move();
+                Idle();
                 break;
             case State.Detection:
                 break;
@@ -134,7 +164,76 @@ public class Goliath : MonoBehaviour, EnemyInterface
 
     private void Move()
     {
+        transform.position = transform.position + VectorAdd(speed, 0) * Time.deltaTime * direction;
+        switch (walkState)
+        {
+            case 0:
+                LeftLeg1.transform.position = LeftLeg1.transform.position + VectorAdd(direction * legMovementX, legMovementY) * Time.deltaTime;
+                RightLeg2.transform.position = RightLeg2.transform.position + VectorAdd(direction * legMovementX, legMovementY) * Time.deltaTime;
+                if (timer <= 0) { walkState++; timer = walkCooldown; }
+                break;
+            case 1:
+                LeftLeg1.transform.position = LeftLeg1.transform.position + VectorAdd(direction * legMovementX, -legMovementY) * Time.deltaTime;
+                RightLeg2.transform.position = RightLeg2.transform.position + VectorAdd(direction * legMovementX, -legMovementY) * Time.deltaTime;
+                if (timer <= 0) { walkState++; timer = walkCooldown; }
+                break;
+            case 2:
+                LeftLeg2.transform.position = LeftLeg2.transform.position + VectorAdd(direction * legMovementX, legMovementY) * Time.deltaTime;
+                RightLeg1.transform.position = RightLeg1.transform.position + VectorAdd(direction * legMovementX, legMovementY) * Time.deltaTime;
+                if (timer <= 0) { walkState++; timer = walkCooldown; }
+                break;
+            case 3:
+                LeftLeg2.transform.position = LeftLeg2.transform.position + VectorAdd(direction * legMovementX, -legMovementY) * Time.deltaTime;
+                RightLeg1.transform.position = RightLeg1.transform.position + VectorAdd(direction * legMovementX, -legMovementY) * Time.deltaTime;
+                if (timer <= 0) { walkState++; }
+                break;
+            case 4:
+                isWalking = false;
+                walkState = 0;
+                walkN--;
+                break;
+        }
+    }
 
+    private void Idle()
+    {
+        if (isWalking)
+        {
+            Move();
+        }
+        else
+        {
+            if (timer <= 0)
+            {
+                if (detectPlayer())
+                {
+                    walkN = 1;
+                    state = State.Chasing;
+                }
+                else
+                {
+                    if(walkN == 0) direction = Random.Range(-1, 2);
+                    if (direction != 0)
+                    {
+                        if(walkN == 0) walkN = Random.Range(3, 7);
+                        timer = walkCooldown;
+                        isWalking = true;
+                    }
+                    else
+                    {
+                        timer = Random.Range(3.0f, 5.0f);
+                    }
+                }
+            }
+        }
+    }
+
+    private void init()
+    {
+        LeftLeg1.transform.position = transform.position + VectorAdd(-0.3f, -0.1f, 0.1f);
+        LeftLeg2.transform.position = transform.position + VectorAdd(-0.2f, -0.1f, -0.1f);
+        RightLeg1.transform.position = transform.position + VectorAdd(0.2f, -0.1f, 0.1f);
+        RightLeg2.transform.position = transform.position + VectorAdd(0.3f, -0.1f, -0.1f);
     }
 
     private bool detectPlayer()
@@ -171,5 +270,15 @@ public class Goliath : MonoBehaviour, EnemyInterface
     private void lookingAround()
     {
         lookAround = timer - Random.Range(0.8f, 1.2f);
+    }
+
+    private Vector3 VectorRotate(Vector3 tmp, float angle)
+    {
+        return new Vector3(tmp.x * Mathf.Cos(angle) - tmp.y * Mathf.Sin(angle), tmp.x * Mathf.Sin(angle) + tmp.y * Mathf.Cos(angle), 0);
+    }
+
+    private Vector3 VectorAdd(float x, float y, float z = 0)
+    {
+        return x * _right + y * _up + new Vector3(0, 0, z);
     }
 }
