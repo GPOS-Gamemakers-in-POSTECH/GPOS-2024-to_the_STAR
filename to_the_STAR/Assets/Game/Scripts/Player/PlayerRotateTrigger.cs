@@ -8,7 +8,8 @@ namespace Game.Player
         {
             if(other.gameObject.tag == "TurningPoint")
             {
-                Debug.Log("MAP");
+                int turningType = other.gameObject.GetComponent<TurningPointSet>().getType();
+                Debug.Log(turningType);
             }
         }
     }
