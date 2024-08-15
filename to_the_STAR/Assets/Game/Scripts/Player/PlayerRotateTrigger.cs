@@ -6,7 +6,10 @@ namespace Game.Player
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log("Triggered");
+            if(other.gameObject.tag == "TurningPoint")
+            {
+                Debug.Log("MAP");
+            }
         }
     }
 }
