@@ -49,11 +49,14 @@ public class PlayerAttackObj : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        EnemyInterface EI;
         if (collision.CompareTag("Enemy"))
         {
-            EI = collision.GetComponent<EnemyInterface>();
+            EnemyInterface EI = collision.GetComponent<EnemyInterface>();
             EI.getDamage(damage, stunCooldownSet);
+            if (attackType == 1) Destroy(lightObj.gameObject);
+            Destroy(gameObject);
+        }else if (collision.CompareTag("Map"))
+        {
             if (attackType == 1) Destroy(lightObj.gameObject);
             Destroy(gameObject);
         }
