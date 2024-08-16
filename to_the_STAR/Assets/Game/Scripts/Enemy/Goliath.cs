@@ -29,7 +29,12 @@ public class Goliath : MonoBehaviour, EnemyInterface
     private Vector3 _left = new Vector3(-1, 0, 0);
 
     private const float maxHp = 1000;
-    private const float detectionRange = 10;
+    private const float detectionRange = 4.0f;
+    private const float detectionCooldown = 3.0f;
+    private const float attackRange = 0.5f;
+    private const float attackMotion1Cooldown = 2.0f;
+    private const float attackDuration = 0.5f;
+    private const float attackCooldown = 4.0f;
     private float hp;
     private float speed = 0.15f;
 
@@ -78,12 +83,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
             if (hp < damage) hp = 0;
             else hp -= damage;
 
-            if (hp > 0)
-            {
-                state = State.Stunned;
-                timer = stunCooldownSet;
-            }
-            else
+            if (hp <= 0)
             {
                 state = State.Dead;
                 timer = deadCooldown;
@@ -124,6 +124,19 @@ public class Goliath : MonoBehaviour, EnemyInterface
     {
         Vector2 currPosition = transform.position;
 
+        /*RaycastHit2D rightRay = Physics2D.Raycast(transform.position, _right, 1.0f, LayerMask.GetMask("Map"));
+        RaycastHit2D leftRay = Physics2D.Raycast(transform.position, _left, 1.0f, LayerMask.GetMask("Map"));
+
+        if(isWalking && ((rightRay.distance < 0.7f && direction == 1) || (leftRay.distance < 0.7f && direction == -1)))
+        {
+            Debug.Log(rightRay.distance);
+            Debug.Log(leftRay.distance);
+            timer = Random.Range(3.0f, 5.0f);
+            isWalking = false;
+            walkN = 0;
+            init();
+        }*/
+
         currPosition = transform.position;
         playerPosition = player.transform.position;
         xDis = Mathf.Abs(currPosition.x - playerPosition.x);
@@ -136,10 +149,13 @@ public class Goliath : MonoBehaviour, EnemyInterface
                 Idle();
                 break;
             case State.Detection:
+                Detect();
                 break;
             case State.Chasing:
+                Chase();
                 break;
             case State.Attack:
+                Attack();
                 break;
             case State.Stunned:
                 break;
@@ -191,6 +207,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
                 isWalking = false;
                 walkState = 0;
                 walkN--;
+                init();
                 break;
         }
     }
@@ -207,8 +224,11 @@ public class Goliath : MonoBehaviour, EnemyInterface
             {
                 if (detectPlayer())
                 {
-                    walkN = 1;
-                    state = State.Chasing;
+                    walkN = 0;
+                    state = State.Detection;
+                    timer = detectionCooldown;
+                    lookingAround();
+                    direction = 0;
                 }
                 else
                 {
@@ -226,6 +246,73 @@ public class Goliath : MonoBehaviour, EnemyInterface
                 }
             }
         }
+    }
+
+    private void Detect()
+    {
+        if (timer < lookAround && timer > 0.4f)
+        {
+            _sr.flipX = !_sr.flipX;
+            lookingAround();
+        }
+
+
+        if (timer < 0)
+        {
+            if (detectPlayer())
+            {
+                walkN = 1;
+                state = State.Chasing;
+            }
+            else state = State.Idle;
+        }
+    }
+
+    private void Chase()
+    {
+        if (isWalking)
+        {
+            Move();
+        }
+        else
+        {
+            float distance = floor % 2 == 0 ? xDis : yDis;
+            setDirection();
+
+            if (detectPlayer())
+            {
+                if (distance <= attackRange)
+                {
+                    if (attackTimer <= 0)
+                    {
+                        attackTimer = attackMotion1Cooldown;
+                        attacked = false;
+                        state = State.Attack;
+                    }
+                }
+                else
+                {
+                    if (attackTimer <= attackCooldown - attackDuration)
+                    {
+                        isWalking = true;
+                        walkN = 1;
+                        timer = walkCooldown;
+                    }
+                }
+            }
+            else
+            {
+                state = State.Detection;
+                timer = detectionCooldown;
+                lookingAround();
+                direction = 0;
+            }
+        }
+    }
+
+    private void Attack()
+    {
+        state = State.Chasing;
     }
 
     private void init()

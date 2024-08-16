@@ -217,7 +217,6 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     {
         if (attackTimer <= 0 && attacked == false)
         {
-            Debug.Log("Attack2");
             Vector3 move = floor % 2 == 0 ? new Vector3(1, 0, 0) : new Vector3(0, 1, 0);
             move *= direction;
             GameObject Attack = Instantiate(attackObj, transform.position + move, Quaternion.identity);
