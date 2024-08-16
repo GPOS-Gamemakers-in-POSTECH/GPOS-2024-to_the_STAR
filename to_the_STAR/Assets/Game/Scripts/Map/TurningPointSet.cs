@@ -15,9 +15,32 @@ public class TurningPointSet : MonoBehaviour
         }
     }
 
+
+    /* getType에서 반환하는 값
+     * 바깥쪽 코너      안쪽코너
+     * -------------   -------------
+     * | 1       2 |   | 5       6 |  
+     * | 3       4 |   | 7       8 | 
+     * -------------   -------------
+     *                 ////////// 
+     *    ------       ///|------
+     *    |/////       ///|
+     *    |/////       ///|
+     * */
     public int getType()
     {
-        return type;
+        switch (type)
+        {
+            case 128: return 1;
+            case 32: return 2;
+            case 2: return 3;
+            case 8: return 4;
+            case 62: return 5;
+            case 143: return 6;
+            case 248: return 7;
+            case 227: return 8;
+            default: return 0;
+        }
     }
 
     void Update()
