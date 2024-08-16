@@ -66,6 +66,7 @@ public class Drone : MonoBehaviour, EnemyInterface
 
     void Start()
     {
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Enemy"));
         hp = stat.hp;
         transform.rotation = Quaternion.Euler(0, 0, 180 - 90 * floor);
         moveVector.x = -(floor % 2 - 1) * stat.speed; moveVector.y = (floor % 2) * stat.speed;

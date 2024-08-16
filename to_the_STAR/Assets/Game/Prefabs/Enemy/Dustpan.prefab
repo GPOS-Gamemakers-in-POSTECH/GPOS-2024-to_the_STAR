@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7833064274520579302}
   - component: {fileID: -299693450416230641}
   - component: {fileID: 3173056946052516695}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dustpan
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
