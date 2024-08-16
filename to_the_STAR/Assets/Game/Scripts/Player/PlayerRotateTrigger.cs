@@ -9,55 +9,64 @@ namespace Game.Player
         Quaternion Right = Quaternion.Euler(new Vector3(0, 0, 90));
         Quaternion Left = Quaternion.Euler(new Vector3(0, 0, 270));
 
+        Vector3 Up_V = new Vector3(0, 1.05f, 0);
+        Vector3 Down_V = new Vector3(0, -1.05f, 0);
+        Vector3 Right_V = new Vector3(1.05f, 0, 0);
+        Vector3 Left_V = new Vector3(-1.05f, 0, 0);
+
         private void Rotate(Quaternion to)
         {
             transform.rotation = to;
         }
-        private void OnTriggerEnter2D(Collider2D other)
+        private void Move(Vector3 go)
+        {
+            transform.position = transform.position + go;
+        }
+        private void OnTriggerStay2D(Collider2D other)
         {
             if(other.gameObject.tag == "TurningPoint")
             {
                 int turningType = other.gameObject.GetComponent<TurningPointSet>().getType();
                 PlayerRotateDirection floor = GetComponent<PlayerData>().RotateDir;
-                if(turningType != 0 ) transform.position = other.gameObject.transform.position;
+                if (turningType != 0) transform.position = other.gameObject.transform.position;
                 if(floor == PlayerRotateDirection.Up)
                 {
                     switch (turningType)
                     {
-                        case 3: Rotate(Right); break;
-                        case 4: Rotate(Left); break;
-                        case 5: Rotate(Left); break;
-                        case 6: Rotate(Right); break;
+                        case 3: Rotate(Right); Move(Up_V); break;
+                        case 4: Rotate(Left); Move(Up_V); break;
+                        case 5: Rotate(Left); Move(Down_V); break;
+                        case 6: Rotate(Right); Move(Down_V); break;
                     }
                 }
                 else if(floor == PlayerRotateDirection.Right)
                 {
                     switch (turningType)
                     {
-                        case 1: Rotate(Down); break;
-                        case 3: Rotate(Up); break;
-                        case 6: Rotate(Up); break;
-                        case 8: Rotate(Down); break;
+                        case 1: Rotate(Down); Move(Right_V); break;
+                        case 3: Rotate(Up); Move(Right_V); break;
+                        case 6: Rotate(Up); Move(Left_V); break;
+                        case 8: Rotate(Down); Move(Left_V); break;
                     }
                 }
                 else if(floor == PlayerRotateDirection.Down)
                 {
                     switch (turningType)
                     {
-                        case 1: Rotate(Right); break;
-                        case 2: Rotate(Left); break;
-                        case 7: Rotate(Left); break;
-                        case 8: Rotate(Right); break;
+                        case 1: Rotate(Right); Move(Down_V); break;
+                        case 2: Rotate(Left); Move(Down_V); break;
+                        case 7: Rotate(Left); Move(Up_V); break;
+                        case 8: Rotate(Right); Move(Up_V); break;
                     }
                 }
                 else if(floor == PlayerRotateDirection.Left) 
                 {
                     switch (turningType)
                     {
-                        case 2: Rotate(Down); break;
-                        case 4: Rotate(Up); break;
-                        case 5: Rotate(Up); break;
-                        case 7: Rotate(Down); break;
+                        case 2: Rotate(Down); Move(Left_V); break;
+                        case 4: Rotate(Up); Move(Left_V); break;
+                        case 5: Rotate(Up); Move(Right_V); break;
+                        case 7: Rotate(Down); Move(Right_V); break;
                     }
                 }
             }
