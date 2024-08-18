@@ -55,7 +55,7 @@ namespace Game.Player
         private void OnRotatePerformed(InputAction.CallbackContext context)
         {
             var rotateValue = context.ReadValue<float>();
-
+            /*
             switch (rotateValue)
             {
                 case > 0:
@@ -67,6 +67,7 @@ namespace Game.Player
                     _flameThrower.DirVectorUpdate(-90);
                     break;
             }
+            */
         }
         
         private void Update()
