@@ -29,6 +29,8 @@ public class Goliath : MonoBehaviour, EnemyInterface
     private Vector3 _right = new Vector3(1, 0, 0);
     private Vector3 _left = new Vector3(-1, 0, 0);
 
+    private Vector3 dis;
+
     private const float maxHp = 1000;
     private const float detectionRange = 4.0f;
     private const float detectionCooldown = 3.0f;
@@ -148,9 +150,10 @@ public class Goliath : MonoBehaviour, EnemyInterface
 
         currPosition = transform.position;
         playerPosition = player.transform.position;
-        xDis = Mathf.Abs(currPosition.x - playerPosition.x);
-        yDis = Mathf.Abs(currPosition.y - playerPosition.y);
-
+        dis = currPosition - playerPosition;
+        dis += VectorAdd(0, -2);
+        xDis = Mathf.Abs(dis.x);
+        yDis = Mathf.Abs(dis.y);
 
         switch (state)
         {
