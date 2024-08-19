@@ -113,12 +113,12 @@ TextureImporter:
       name: edge_effect_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 36
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 9
+        y: 2
+        width: 20
+        height: 27
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: edge_effect_1
       rect:
         serializedVersion: 2
-        x: 36
-        y: 0
-        width: 36
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 45
+        y: 2
+        width: 20
+        height: 27
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -155,12 +155,12 @@ TextureImporter:
       name: edge_effect_2
       rect:
         serializedVersion: 2
-        x: 72
-        y: 0
-        width: 36
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 81
+        y: 2
+        width: 17
+        height: 21
+      alignment: 9
+      pivot: {x: 0.5, y: 0.64285713}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -176,12 +176,12 @@ TextureImporter:
       name: edge_effect_3
       rect:
         serializedVersion: 2
-        x: 108
-        y: 0
-        width: 36
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 117
+        y: 2
+        width: 17
+        height: 17
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7941176}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

@@ -113,12 +113,12 @@ TextureImporter:
       name: char_dash_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 48
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 3
+        y: 2
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5, y: 0.6944444}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: char_dash_1
       rect:
         serializedVersion: 2
-        x: 48
-        y: 0
-        width: 48
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 51
+        y: 2
+        width: 19
+        height: 17
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7352941}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -155,12 +155,12 @@ TextureImporter:
       name: char_dash_2
       rect:
         serializedVersion: 2
-        x: 96
-        y: 0
-        width: 48
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 99
+        y: 2
+        width: 21
+        height: 17
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7352941}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -176,12 +176,12 @@ TextureImporter:
       name: char_dash_3
       rect:
         serializedVersion: 2
-        x: 144
-        y: 0
-        width: 48
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 147
+        y: 2
+        width: 27
+        height: 17
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7352941}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -197,12 +197,12 @@ TextureImporter:
       name: char_dash_4
       rect:
         serializedVersion: 2
-        x: 192
-        y: 0
-        width: 48
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 195
+        y: 2
+        width: 27
+        height: 17
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7352941}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -218,12 +218,12 @@ TextureImporter:
       name: char_dash_5
       rect:
         serializedVersion: 2
-        x: 240
-        y: 0
-        width: 48
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 243
+        y: 2
+        width: 22
+        height: 17
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7352941}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -239,12 +239,12 @@ TextureImporter:
       name: char_dash_6
       rect:
         serializedVersion: 2
-        x: 288
-        y: 0
-        width: 48
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 291
+        y: 2
+        width: 19
+        height: 17
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7352941}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
