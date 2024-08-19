@@ -10,7 +10,8 @@ public class Goliath : MonoBehaviour, EnemyInterface
     private Rigidbody2D _rb;
 
     [SerializeField] private int floor;
-    [SerializeField] private GameObject attackObj;
+    [SerializeField] private GameObject attackObj1;
+    [SerializeField] private GameObject attackObj2;
 
     [SerializeField] private GameObject[] Legs;
 
@@ -34,7 +35,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
     private const float attackRange = 2.0f;
     private const float attackMotion1Cooldown = 1.0f;
     private const float attackMotion2Cooldown = 0.1f;
-    private const float attackDuration = 0.5f;
+    private const float attackDuration = 2.0f;
     private const float attackCooldown = 4.0f;
     private const float attackPower = 10.0f;
     private float hp;
@@ -115,6 +116,11 @@ public class Goliath : MonoBehaviour, EnemyInterface
         LeftLeg2 = Instantiate(Legs[0], transform.position + VectorAdd(-0.4f, -0.2f, -0.1f), Quaternion.identity); // 왼쪽 다리 앞부분
         RightLeg1 = Instantiate(Legs[1], transform.position + VectorAdd(0.4f, -0.2f, 0.1f), Quaternion.identity); // 오른쪽 다리 뒷부분
         RightLeg2 = Instantiate(Legs[1], transform.position + VectorAdd(0.6f, -0.2f, -0.1f), Quaternion.identity); // 오른쪽 다리 앞부분
+
+        LeftLeg1.GetComponent<GoliathLeg>().init(this);
+        LeftLeg2.GetComponent<GoliathLeg>().init(this);
+        RightLeg1.GetComponent<GoliathLeg>().init(this);
+        RightLeg2.GetComponent<GoliathLeg>().init(this);
     }
 
     void OnEnable()
@@ -320,6 +326,14 @@ public class Goliath : MonoBehaviour, EnemyInterface
             if(attackTimer <= 0)
             {
                 init();
+
+                Vector3 legCenter = direction == 1 ? RightLeg1.transform.position : LeftLeg2.transform.position;
+                legCenter += VectorAdd(direction * 0.57f, -1.8f);
+                GameObject Attack1 = Instantiate(attackObj2, legCenter + VectorAdd(0.5f, 0), Quaternion.identity);
+                GameObject Attack2 = Instantiate(attackObj2, legCenter + VectorAdd(-0.5f, 0), Quaternion.identity);
+                Attack1.GetComponent<EnemyAttackObj>().init(attackDuration, attackPower * 0.3f, VectorAdd(legMovementX * 1.5f, 0), EnemyAttackObj.EnemyType.Goliath);
+                Attack2.GetComponent<EnemyAttackObj>().init(attackDuration, attackPower * 0.3f, VectorAdd(-legMovementX * 1.5f, 0), EnemyAttackObj.EnemyType.Goliath);
+
                 state = State.Chasing;
                 isAttacking = false;
                 attackTimer = attackCooldown;
@@ -342,8 +356,11 @@ public class Goliath : MonoBehaviour, EnemyInterface
         {
             if (attackTimer <= 0)
             {
-                GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.identity);
-                Attack.GetComponent<EnemyAttackObj>().init(attackDuration, attackPower, new Vector2(0, 0), EnemyAttackObj.EnemyType.Dustpan);
+                Vector3 legPos = direction == 1 ? RightLeg1.transform.position : LeftLeg2.transform.position;
+                Vector3 tmp = VectorAdd(direction * 0.57f, -1.8f);
+                GameObject Attack = Instantiate(attackObj1, legPos + tmp, Quaternion.identity);
+                Attack.GetComponent<EnemyAttackObj>().init(attackMotion2Cooldown, attackPower, VectorAdd(0, -legMovementY * 20), EnemyAttackObj.EnemyType.Goliath);
+
                 attackTimer = attackMotion2Cooldown;
                 isAttacking = true;
             }

@@ -17,9 +17,9 @@ public class EnemyAttackObj : MonoBehaviour
     float duration = 0;
     float maxDuration = 1;
     float damage = 0;
-    Vector2 moveVector;
+    Vector3 moveVector;
 
-    public void init(float t, float d, Vector2 m, EnemyType tp)
+    public void init(float t, float d, Vector3 m, EnemyType tp)
     {
         duration = t;
         maxDuration = t;
@@ -31,7 +31,7 @@ public class EnemyAttackObj : MonoBehaviour
     void Update()
     {
         duration -= Time.deltaTime;
-        transform.position = new Vector3(transform.position.x + moveVector.x * Time.deltaTime, transform.position.y + moveVector.y * Time.deltaTime, transform.position.z);
+        transform.position = transform.position + moveVector * Time.deltaTime;
         if (duration < 0)
         {
             Destroy(gameObject);

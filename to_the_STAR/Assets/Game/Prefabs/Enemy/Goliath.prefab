@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -190,7 +190,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floor: 2
-  attackObj: {fileID: 6584552416168620802, guid: cdc072e68b0695d4a8d2900ee57e70eb, type: 3}
+  attackObj1: {fileID: 6584552416168620802, guid: cdc072e68b0695d4a8d2900ee57e70eb, type: 3}
+  attackObj2: {fileID: 6584552416168620802, guid: 50adc82802e4c4a4da9f6cd0ef008053, type: 3}
   Legs:
   - {fileID: 2977414090565635797, guid: e8e3544e01c75864ca87a812841612f0, type: 3}
   - {fileID: 5239440915575926513, guid: 772fd6b4063a6de4cb73bc5fa226ba28, type: 3}
