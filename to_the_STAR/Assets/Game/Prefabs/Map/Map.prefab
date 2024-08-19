@@ -406,7 +406,7 @@ GameObject:
   - component: {fileID: 663080013924434424}
   - component: {fileID: 6434791223055676737}
   - component: {fileID: 3094453332894637838}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FloorTilemap
   m_TagString: Map
   m_Icon: {fileID: 0}
