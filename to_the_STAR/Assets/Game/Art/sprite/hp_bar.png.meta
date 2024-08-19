@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0fb2db9e583ef8846b81b1fe0cdcd122
+guid: 6af1c33862083cd4a9392e7e0ea07532
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dustbin_attack_0
+      name: hp_bar_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 8
         width: 48
-        height: 24
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 72b5e9ef55e62dc468f4aa8c383a6036
-      internalID: -234803693
+      spriteID: 9210a127a4bb7664e85686522be1769a
+      internalID: -878804085
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dustbin_attack_1
+      name: hp_bar_1
       rect:
         serializedVersion: 2
         x: 48
-        y: 0
+        y: 8
         width: 48
-        height: 24
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12c8f9c41fdf9c442924f3781a2a3824
-      internalID: -1319060217
+      spriteID: f5ccf8f73725cd1409f3cdbd3d7f87cc
+      internalID: 1910328483
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dustbin_attack_2
+      name: hp_bar_2
       rect:
         serializedVersion: 2
         x: 96
-        y: 0
+        y: 8
         width: 48
-        height: 24
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c2ec3b6da4e46c4449eb7fe101e35ffc
-      internalID: -411056526
+      spriteID: 2b139f4a61102f342b1e27cb1258db66
+      internalID: 1018572647
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dustbin_attack_3
+      name: hp_bar_3
       rect:
         serializedVersion: 2
         x: 144
-        y: 0
+        y: 8
         width: 48
-        height: 24
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7ea847af4e0ee2d4e82716e277f0066e
-      internalID: -1016879026
+      spriteID: 43d37fb9fe264d549a6aece325ed56ae
+      internalID: 1053924348
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dustbin_attack_4
+      name: hp_bar_4
       rect:
         serializedVersion: 2
         x: 192
-        y: 0
+        y: 8
         width: 48
-        height: 24
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,20 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f21da00415c8a8e4eb88cf65447a0fd2
-      internalID: 2099290976
+      spriteID: 7fcd4523c5d484e45b5be8266aa35be1
+      internalID: -1168071584
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dustbin_attack_5
+      name: hp_bar_5
       rect:
         serializedVersion: 2
         x: 240
-        y: 0
+        y: 8
         width: 48
-        height: 24
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,20 +229,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 05963a3585f5d1947b368a3a50f0068a
-      internalID: -1342066410
+      spriteID: ee91e000e26286844862d82bf3e703a3
+      internalID: 86175891
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dustbin_attack_6
+      name: hp_bar_6
       rect:
         serializedVersion: 2
         x: 288
-        y: 0
+        y: 8
         width: 48
-        height: 24
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,20 +250,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3427c87b4bc87fd4db1c52bba080f917
-      internalID: 747474824
+      spriteID: 4327efb3c5bc7214bb8cfbad14934cb1
+      internalID: -1388167674
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dustbin_attack_7
+      name: hp_bar_7
       rect:
         serializedVersion: 2
         x: 336
-        y: 0
+        y: 8
         width: 48
-        height: 24
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -271,8 +271,155 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8ca0eddffb628514085997d5ebef483d
-      internalID: -154970991
+      spriteID: f7d805a5c51423c41ba12a101974e7bd
+      internalID: 196650299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hp_bar_8
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 8
+        width: 48
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59f9f289afab4e14abcf201c85c79dd6
+      internalID: 203662857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hp_bar_9
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 8
+        width: 48
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3cc39fcebed6a445830068933f7a8a8
+      internalID: 1138532891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hp_bar_10
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 8
+        width: 48
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c85713adf2683c1449709bdcdf331389
+      internalID: -1192381222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hp_bar_11
+      rect:
+        serializedVersion: 2
+        x: 528
+        y: 8
+        width: 48
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53a1379ee18274b4ea484d0cdc7d7414
+      internalID: 901447844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hp_bar_12
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 8
+        width: 48
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cabdc3ce1a6ad042882d76fa3702833
+      internalID: -700113397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hp_bar_13
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 8
+        width: 48
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd818b35c953fff4bb63286886dcb70f
+      internalID: 420796932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hp_bar_14
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 8
+        width: 48
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bed4dd023a5c5a14ba42a3c71be9f2ee
+      internalID: -1078191686
       vertices: []
       indices: 
       edges: []
@@ -288,14 +435,21 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      dustbin_attack_0: -234803693
-      dustbin_attack_1: -1319060217
-      dustbin_attack_2: -411056526
-      dustbin_attack_3: -1016879026
-      dustbin_attack_4: 2099290976
-      dustbin_attack_5: -1342066410
-      dustbin_attack_6: 747474824
-      dustbin_attack_7: -154970991
+      hp_bar_0: -878804085
+      hp_bar_1: 1910328483
+      hp_bar_10: -1192381222
+      hp_bar_11: 901447844
+      hp_bar_12: -700113397
+      hp_bar_13: 420796932
+      hp_bar_14: -1078191686
+      hp_bar_2: 1018572647
+      hp_bar_3: 1053924348
+      hp_bar_4: -1168071584
+      hp_bar_5: 86175891
+      hp_bar_6: -1388167674
+      hp_bar_7: 196650299
+      hp_bar_8: 203662857
+      hp_bar_9: 1138532891
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

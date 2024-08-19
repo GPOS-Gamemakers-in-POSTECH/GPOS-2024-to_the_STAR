@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0fb2db9e583ef8846b81b1fe0cdcd122
+guid: 9256018ac0315be49ae728c2df476af9
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,12 +110,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dustbin_attack_0
+      name: reload_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 48
+        width: 24
         height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -124,19 +124,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 72b5e9ef55e62dc468f4aa8c383a6036
-      internalID: -234803693
+      spriteID: 39fbc395ab2587d41a00c68a35770c39
+      internalID: 1523831419
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dustbin_attack_1
+      name: reload_1
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7604d5fb47d922b4888bba5a6a4f046b
+      internalID: 367389225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reload_2
       rect:
         serializedVersion: 2
         x: 48
         y: 0
-        width: 48
+        width: 24
         height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -145,19 +166,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12c8f9c41fdf9c442924f3781a2a3824
-      internalID: -1319060217
+      spriteID: d5c6de3b6355efb4baac637bd6242993
+      internalID: -52557915
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dustbin_attack_2
+      name: reload_3
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5d3f482b1e4729458d430a531688198
+      internalID: -547742304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reload_4
       rect:
         serializedVersion: 2
         x: 96
         y: 0
-        width: 48
+        width: 24
         height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -166,19 +208,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c2ec3b6da4e46c4449eb7fe101e35ffc
-      internalID: -411056526
+      spriteID: 8980048391c347c43b4c094c81e0d099
+      internalID: -203151202
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dustbin_attack_3
+      name: reload_5
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b16908510632ddc41a18f598403fb3d3
+      internalID: -1677686674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reload_6
       rect:
         serializedVersion: 2
         x: 144
         y: 0
-        width: 48
+        width: 24
         height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -187,19 +250,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7ea847af4e0ee2d4e82716e277f0066e
-      internalID: -1016879026
+      spriteID: e4da12749dda44049906b7a1808add25
+      internalID: -874268358
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dustbin_attack_4
+      name: reload_7
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16a6cf5cf0c01b04dafc0b4e4e5aeda5
+      internalID: 1912770319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reload_8
       rect:
         serializedVersion: 2
         x: 192
         y: 0
-        width: 48
+        width: 24
         height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -208,19 +292,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f21da00415c8a8e4eb88cf65447a0fd2
-      internalID: 2099290976
+      spriteID: 06cee00abf39304479b8c1fcae56e4bd
+      internalID: -1654985918
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dustbin_attack_5
+      name: reload_9
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b24b8dad59097948a4a696e0cf0ecbd
+      internalID: 818305045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reload_10
       rect:
         serializedVersion: 2
         x: 240
         y: 0
-        width: 48
+        width: 24
         height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -229,19 +334,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 05963a3585f5d1947b368a3a50f0068a
-      internalID: -1342066410
+      spriteID: 05a1417fa3f7ea94181740ad6bdea6bd
+      internalID: 1336087153
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dustbin_attack_6
+      name: reload_11
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b3776609fc47b941821b23b493b2d19
+      internalID: -1822375478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reload_12
       rect:
         serializedVersion: 2
         x: 288
         y: 0
-        width: 48
+        width: 24
         height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -250,19 +376,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3427c87b4bc87fd4db1c52bba080f917
-      internalID: 747474824
+      spriteID: 11a1fef0d85b34745a6566b6f2b29116
+      internalID: 1680671774
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dustbin_attack_7
+      name: reload_13
       rect:
         serializedVersion: 2
-        x: 336
+        x: 312
         y: 0
-        width: 48
+        width: 24
         height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -271,8 +397,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8ca0eddffb628514085997d5ebef483d
-      internalID: -154970991
+      spriteID: 50e379fcc61349e4f831d89703d99663
+      internalID: 2094579518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reload_14
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db2319af76118374b8c4398ba0109afe
+      internalID: 1238028675
       vertices: []
       indices: 
       edges: []
@@ -288,14 +435,21 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      dustbin_attack_0: -234803693
-      dustbin_attack_1: -1319060217
-      dustbin_attack_2: -411056526
-      dustbin_attack_3: -1016879026
-      dustbin_attack_4: 2099290976
-      dustbin_attack_5: -1342066410
-      dustbin_attack_6: 747474824
-      dustbin_attack_7: -154970991
+      reload_0: 1523831419
+      reload_1: 367389225
+      reload_10: 1336087153
+      reload_11: -1822375478
+      reload_12: 1680671774
+      reload_13: 2094579518
+      reload_14: 1238028675
+      reload_2: -52557915
+      reload_3: -547742304
+      reload_4: -203151202
+      reload_5: -1677686674
+      reload_6: -874268358
+      reload_7: 1912770319
+      reload_8: -1654985918
+      reload_9: 818305045
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
