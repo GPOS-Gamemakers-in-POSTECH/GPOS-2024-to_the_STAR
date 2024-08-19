@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4996173341339833128}
   - component: {fileID: 1128246488178738972}
-  - component: {fileID: 7833064274520579302}
   - component: {fileID: -299693450416230641}
   - component: {fileID: 3173056946052516695}
   - component: {fileID: 4099798825267315375}
+  - component: {fileID: 3362448747445838957}
   m_Layer: 6
   m_Name: Goliath
   m_TagString: Enemy
@@ -88,19 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7833064274520579302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8734039578838546502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b34b7655d103b34e9a002479c91380e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthbarObj: {fileID: 8302434336648194852, guid: e4c95aa9e99366c4692c8b034474cc43, type: 3}
 --- !u!50 &-299693450416230641
 Rigidbody2D:
   serializedVersion: 4
@@ -195,3 +182,16 @@ MonoBehaviour:
   Legs:
   - {fileID: 2977414090565635797, guid: e8e3544e01c75864ca87a812841612f0, type: 3}
   - {fileID: 5239440915575926513, guid: 772fd6b4063a6de4cb73bc5fa226ba28, type: 3}
+--- !u!114 &3362448747445838957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8734039578838546502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b34b7655d103b34e9a002479c91380e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthbarObj: {fileID: 8302434336648194852, guid: d78b22cdd90b19444987a5b032b0a5ea, type: 3}

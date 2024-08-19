@@ -38,7 +38,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
     private const float attackDuration = 2.0f;
     private const float attackCooldown = 4.0f;
     private const float attackPower = 10.0f;
-    private float hp;
+    private float hp = 1000;
     private float speed = 0.3f;
 
     private int direction = 0;
@@ -130,6 +130,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
 
     void Update()
     {
+        Debug.Log(hp);
         Vector2 currPosition = transform.position;
 
         /*RaycastHit2D rightRay = Physics2D.Raycast(transform.position, _right, 1.0f, LayerMask.GetMask("Map"));
@@ -188,7 +189,6 @@ public class Goliath : MonoBehaviour, EnemyInterface
 
     private void Move()
     {
-        Debug.Log("m");
         transform.position = transform.position + VectorAdd(speed, 0) * Time.deltaTime * direction;
         switch (walkState)
         {
