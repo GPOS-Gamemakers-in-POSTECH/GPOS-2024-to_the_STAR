@@ -18,7 +18,6 @@ GameObject:
   - component: {fileID: -5262689595323353950}
   - component: {fileID: -7964698469404024357}
   - component: {fileID: 8060484519806238014}
-  - component: {fileID: 4776174233980706821}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -133,6 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  DashDetect: {fileID: 394705895337042637, guid: 59568ff650581cc49a0a970e3a922300, type: 3}
   _lever: {fileID: 0}
 --- !u!114 &3169071456490633776
 MonoBehaviour:
@@ -337,16 +337,3 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &4776174233980706821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1462736967672762920}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87d68f4d12296bb4a8703b7aa2bf1784, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DashDetect: {fileID: 394705895337042637, guid: 59568ff650581cc49a0a970e3a922300, type: 3}
