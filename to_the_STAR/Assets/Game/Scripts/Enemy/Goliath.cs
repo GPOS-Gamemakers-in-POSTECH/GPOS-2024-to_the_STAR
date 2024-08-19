@@ -134,18 +134,16 @@ public class Goliath : MonoBehaviour, EnemyInterface
     {
         Vector2 currPosition = transform.position;
 
-        /*RaycastHit2D rightRay = Physics2D.Raycast(transform.position, _right, 1.0f, LayerMask.GetMask("Map"));
-        RaycastHit2D leftRay = Physics2D.Raycast(transform.position, _left, 1.0f, LayerMask.GetMask("Map"));
+        RaycastHit2D rightRay = Physics2D.Raycast(transform.position, _right, 2.0f, LayerMask.GetMask("Map"));
+        RaycastHit2D leftRay = Physics2D.Raycast(transform.position, _left, 2.0f, LayerMask.GetMask("Map"));
 
-        if(isWalking && ((rightRay.distance < 0.7f && direction == 1) || (leftRay.distance < 0.7f && direction == -1)))
+        if (isWalking && ((rightRay.collider != null && rightRay.distance < 1.5f && direction == 1) || (leftRay.collider != null && leftRay.distance < 1.5f && direction == -1)))
         {
-            Debug.Log(rightRay.distance);
-            Debug.Log(leftRay.distance);
             timer = Random.Range(3.0f, 5.0f);
             isWalking = false;
             walkN = 0;
             init();
-        }*/
+        }
 
         currPosition = transform.position;
         playerPosition = player.transform.position;
