@@ -35,6 +35,11 @@ namespace Game.Player
             return moveSpeed;
         }
 
+        public float getDash()
+        {
+            return dash;
+        }
+
         public Lever _lever;
         private void Awake()
         {

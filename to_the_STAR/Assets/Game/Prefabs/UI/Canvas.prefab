@@ -122,3 +122,4 @@ MonoBehaviour:
   Weapon_Charge_Prefab: {fileID: 4150680361023654744, guid: 18cc7f18df22abb4aa5da11e67b50e60, type: 3}
   Weapon_Cooldown_Prefab: {fileID: 4150680361023654744, guid: 63ba93cd0ef7ae6459a579b58150ec4f, type: 3}
   Weapon_Fever_Prefab: {fileID: 4150680361023654744, guid: 99cf6b18a05e35c4791e946b7f0ba457, type: 3}
+  Dash_Prefab: {fileID: 7984798872984927464, guid: 90d430a5d791bf74d9d85cd5566bbb18, type: 3}
