@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -5262689595323353950}
   - component: {fileID: -7964698469404024357}
   - component: {fileID: 8060484519806238014}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -132,6 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  DashDetect: {fileID: 394705895337042637, guid: 59568ff650581cc49a0a970e3a922300, type: 3}
   _lever: {fileID: 0}
 --- !u!114 &3169071456490633776
 MonoBehaviour:

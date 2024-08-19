@@ -22,8 +22,8 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private int direction = 0;
     private float attackTimer = 0;
-    private float timer = 0;
     private float lookAround = 0;
+    private float timer = 0;
 
     private Vector2 playerPosition;
     private float xDis;
@@ -89,7 +89,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     void FixedUpdate()
     {
-        
+
     }
 
     void Update()
@@ -169,7 +169,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private void Detect()
     {
-        if(timer < lookAround && timer > 0.4f)
+        if (timer < lookAround && timer > 0.4f)
         {
             _sr.flipX = !_sr.flipX;
             lookingAround();
@@ -186,10 +186,11 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     private void Chase()
     {
         float distance = floor % 2 == 0 ? xDis : yDis;
+        setDirection();
 
         if (detectPlayer())
         {
-            if(distance <= stat.attackRange)
+            if (distance <= stat.attackRange)
             {
                 if (attackTimer <= 0)
                 {
@@ -200,13 +201,15 @@ public class Dustpan : MonoBehaviour, EnemyInterface
             }
             else
             {
-                if(attackTimer <= stat.attackCooldown - stat.attackDuration) Move();
+                if (attackTimer <= stat.attackCooldown - stat.attackDuration) Move();
             }
         }
         else
         {
             state = State.Detection;
             timer = stat.detectionCooldown;
+            lookingAround();
+            direction = 0;
         }
     }
 
@@ -214,7 +217,6 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     {
         if (attackTimer <= 0 && attacked == false)
         {
-            Debug.Log("Attack2");
             Vector3 move = floor % 2 == 0 ? new Vector3(1, 0, 0) : new Vector3(0, 1, 0);
             move *= direction;
             GameObject Attack = Instantiate(attackObj, transform.position + move, Quaternion.identity);
@@ -222,7 +224,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
             attacked = true;
             attackTimer = stat.attackMotion2Cooldown;
         }
-        else if(attackTimer <= 0 && attacked)
+        else if (attackTimer <= 0 && attacked)
         {
             attackTimer = stat.attackCooldown;
             attacked = false;
@@ -239,6 +241,8 @@ public class Dustpan : MonoBehaviour, EnemyInterface
             {
                 state = State.Detection;
                 timer = stat.detectionCooldown;
+                lookingAround();
+                direction = 0;
             }
         }
     }
@@ -263,16 +267,20 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         {
             distance = xDis;
             flag = xDis <= stat.detectionRange && yDis < TILE;
-            direction = playerPosition.x > transform.position.x ? 1 : -1;
         }
         else
         {
             distance = yDis;
             flag = xDis < TILE && yDis <= stat.detectionRange;
-            direction = playerPosition.y > transform.position.y ? 1 : -1;
         }
 
         return flag && compareRotation(playerData.RotateDir);
+    }
+
+    private void setDirection()
+    {
+        if (floor % 2 == 0) direction = playerPosition.x > transform.position.x ? 1 : -1;
+        else direction = playerPosition.y > transform.position.y ? 1 : -1;
     }
 
     private void lookingAround()

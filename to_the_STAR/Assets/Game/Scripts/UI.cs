@@ -16,6 +16,8 @@ public class UI : MonoBehaviour
     [SerializeField] Image Weapon_Cooldown_Prefab;
     [SerializeField] Image Weapon_Fever_Prefab;
 
+    [SerializeField] Image Dash_Prefab;
+
     GameObject View;
     GameObject Player;
 
@@ -31,6 +33,9 @@ public class UI : MonoBehaviour
     Image Weapon_Flamethrower_Cooldown;
     Image Weapon_Flamethrower_Fever;
 
+    Image[] Dash = new Image[3];
+    string[] dashName = new string[3];
+
     const float WeaponUI_y = -64f;
     const float WeaponUI_x = 72f;
     const float WeaponUI_x_gap = 36f;
@@ -45,8 +50,12 @@ public class UI : MonoBehaviour
     float flamethrowerFever = 0.0f;
     int whatWeapon = 0;
 
+    float dashPoint = 3.0f;
+
     void Start()
     {
+        dashName[0] = "1"; dashName[1] = "2"; dashName[2] = "3";
+
         View = GameObject.Find("Main Camera");
         Player = GameObject.Find("Player");
 
@@ -128,7 +137,6 @@ public class UI : MonoBehaviour
 
         Weapon_Flamethrower_Cooldown.enabled = false;
 
-
         Weapon_Flamethrower_Fever = new GameObject("UI_Flamethrower_Fever").AddComponent<Image>();
         Weapon_Flamethrower_Fever.transform.SetParent(transform);
         Weapon_Flamethrower_Fever.sprite = Weapon_Fever_Prefab.sprite;
@@ -139,6 +147,16 @@ public class UI : MonoBehaviour
         Color ffc = Weapon_Flamethrower_Fever.GetComponent<Image>().color;
         Weapon_Flamethrower_Fever.GetComponent<Image>().color = new Color(ffc.r, ffc.g, ffc.b, 0.5f);
 
+        for(int i = 0; i < 3; i++)
+        {
+            Dash[i] = new GameObject("UI_Dash" + dashName[i]).AddComponent<Image>();
+            Dash[i].transform.SetParent(transform);
+            Dash[i].sprite = Dash_Prefab.sprite;
+            Dash[i].material = Dash_Prefab.material;
+            Dash[i].GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x_gap * i, WeaponUI_y * 2 + WeaponUI_x_gap);
+            Dash[i].GetComponent<RectTransform>().sizeDelta = Healthbar_size;
+            Dash[i].type = Image.Type.Filled;
+        }
     }
 
     float max(float a, float b) { return a > b ? a : b; }
@@ -180,5 +198,10 @@ public class UI : MonoBehaviour
         flamethrowerFever = max(0, Player.GetComponent<PlayerData>().flamethrowerFever());
         Weapon_Flamethrower_Fever.fillAmount = flamethrowerFever;
 
+        dashPoint = Player.GetComponent<PlayerMovementController>().getDash();
+        for(int i = 0; i < 3; i++)
+        {
+            Dash[i].fillAmount = dashPoint - i;
+        }
     }
 }
