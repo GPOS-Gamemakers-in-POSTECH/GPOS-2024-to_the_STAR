@@ -132,7 +132,6 @@ public class Goliath : MonoBehaviour, EnemyInterface
 
     void Update()
     {
-        Debug.Log(hp);
         Vector2 currPosition = transform.position;
 
         /*RaycastHit2D rightRay = Physics2D.Raycast(transform.position, _right, 1.0f, LayerMask.GetMask("Map"));

@@ -52,7 +52,6 @@ public class EnemyHealthBar : MonoBehaviour
     void Update()
     {
         hp = GetComponent<EnemyInterface>().hpRatio();
-        Debug.Log(hp);
         if (hp <= 0 && flag) Destroy(healthbar);
         else
         {
