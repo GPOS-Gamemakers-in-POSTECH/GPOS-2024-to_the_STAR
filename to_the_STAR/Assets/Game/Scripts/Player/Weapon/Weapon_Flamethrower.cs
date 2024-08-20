@@ -29,7 +29,21 @@ public class Weapon_Flamethrower : MonoBehaviour
 
     LineRenderer lineRenderer;
     Animator _ani;
+    public void enable()
+    {
+        flameEnabled = true;
+    }
 
+    public void disable()
+    {
+        flameEnabled = false;
+        flameTurnedOn = false;
+    }
+
+    public bool isTurnOn()
+    {
+        return flameTurnedOn;
+    }
     public bool isEnabledFlame()
     {
         return flameEnabled;

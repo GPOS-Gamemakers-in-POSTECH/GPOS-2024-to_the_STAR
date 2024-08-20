@@ -18,6 +18,21 @@ public class Weapon_Hammer : MonoBehaviour
 
     Animator _ani;
 
+    public void enable()
+    {
+        hammerEnabled = true;
+    }
+
+    public void disable()
+    {
+        hammerEnabled = false;
+    }
+
+    public bool isCharging()
+    {
+        return hammerCharge != 0;
+    }
+
     public float getHammerCooldown()
     {
         return hammerCooldown / hammerCooldownSet;
