@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyHealthBar : MonoBehaviour
 {
+    [SerializeField] string type;
     [SerializeField] GameObject healthbarObj;
     GameObject healthbar;
     SpriteRenderer barSprite;
@@ -17,9 +18,17 @@ public class EnemyHealthBar : MonoBehaviour
     Vector3 barMaxPos = new Vector3(1, 0, 0);
 
     bool flag = false;
+    float length = 1.0f;
 
     void Start()
     {
+        if(type == "Elite")
+        {
+            barPrintPos = new Vector3(0, 1.0f);
+            barShowPos = new Vector3(-1, 0, -1);
+            length = 2.0f;
+        }
+
         float angle = (180 - GetComponent<EnemyInterface>().getFloor() * 90) * Mathf.Deg2Rad;
         barPrintPos = rotateVector(barPrintPos, angle);
         barShowPos = rotateVector(barShowPos, angle);
@@ -48,8 +57,8 @@ public class EnemyHealthBar : MonoBehaviour
         {
             healthbar.transform.position = transform.position + barPrintPos;
             barLine.SetPosition(0, healthbar.transform.position + barShowPos);
-            barLine.SetPosition(1, healthbar.transform.position + barShowPos + barMaxPos * printHp);
-            if (Mathf.Abs(printHp - hp) > 0.01)
+            barLine.SetPosition(1, healthbar.transform.position + barShowPos + barMaxPos * printHp * length);
+            if (Mathf.Abs(printHp - hp) > 0.0001f)
             {
                 barSprite.enabled = true;
                 barLine.enabled = true;
