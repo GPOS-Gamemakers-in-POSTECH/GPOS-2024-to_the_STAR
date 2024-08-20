@@ -15,6 +15,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     GameObject player;
     PlayerData playerData;
     SpriteRenderer _sr;
+    Animator _ani;
 
     private Vector2[] _moveVector = { new Vector2(1, 0), new Vector2(0, 1) };
 
@@ -30,6 +31,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     private float yDis;
 
     private bool attacked;
+    private bool isMoving = false;
 
     const float TILE = 1;
 
@@ -52,6 +54,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     {
         if (state != State.Dead)
         {
+            _ani.SetTrigger("Damaged");
             if (hp < damage) hp = 0;
             else hp -= damage;
 
@@ -78,6 +81,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     {
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
+        _ani = GetComponent<Animator>();
         player = GameObject.Find("Player");
         playerData = player.GetComponent<PlayerData>();
     }
@@ -87,14 +91,11 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         hp = stat.hp;
     }
 
-    void FixedUpdate()
-    {
-
-    }
-
     void Update()
     {
         Vector2 currPosition = transform.position;
+
+        isMoving = false;
 
         currPosition = transform.position;
         playerPosition = player.transform.position;
@@ -137,6 +138,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
         if (timer > 0) timer -= Time.deltaTime;
         if (attackTimer > 0) attackTimer -= Time.deltaTime;
+        _ani.SetBool("Move", isMoving);
     }
 
     private void Idle()
@@ -163,6 +165,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private void Move()
     {
+        isMoving = true;
         Vector2 currPosition = transform.position;
         _rb.MovePosition(currPosition + direction * _moveVector[floor % 2] * (stat.speed * Time.deltaTime));
     }
@@ -217,6 +220,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     {
         if (attackTimer <= 0 && attacked == false)
         {
+            _ani.SetTrigger("Attack");
             Vector3 move = floor % 2 == 0 ? new Vector3(1, 0, 0) : new Vector3(0, 1, 0);
             move *= direction;
             GameObject Attack = Instantiate(attackObj, transform.position + move, Quaternion.identity);
@@ -249,6 +253,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private void Dead()
     {
+        _ani.SetBool("Dead", true);
         if (timer <= 0) Destroy(gameObject);
     }
 

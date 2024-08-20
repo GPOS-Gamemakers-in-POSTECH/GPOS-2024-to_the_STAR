@@ -28,6 +28,7 @@ public class Weapon_Flamethrower : MonoBehaviour
     const float stunCooldownSet = 0;
 
     LineRenderer lineRenderer;
+    Animator _ani;
 
     public bool isEnabledFlame()
     {
@@ -47,6 +48,7 @@ public class Weapon_Flamethrower : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
         player = GameObject.Find("Player");
+        _ani = GetComponent<Animator>();
     }
 
     void Update()
@@ -66,7 +68,7 @@ public class Weapon_Flamethrower : MonoBehaviour
             flameFever += Time.deltaTime;
             if(flameShotCooldown < 0)
             {
-                Debug.Log(playerPos);
+                _ani.SetTrigger("Attack_Flamethrower");
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 mousePos = new Vector2(mousePos.x - player.transform.position.x, mousePos.y - player.transform.position.y);
 

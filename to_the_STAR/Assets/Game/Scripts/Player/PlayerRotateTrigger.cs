@@ -28,6 +28,7 @@ namespace Game.Player
             {
                 int turningType = other.gameObject.GetComponent<TurningPointSet>().getType();
                 PlayerRotateDirection floor = GetComponent<PlayerData>().RotateDir;
+                GetComponent<PlayerMovementController>().turn();
                 if (turningType != 0) transform.position = other.gameObject.transform.position;
                 if(floor == PlayerRotateDirection.Up)
                 {

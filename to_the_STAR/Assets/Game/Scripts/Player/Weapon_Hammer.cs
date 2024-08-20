@@ -16,6 +16,8 @@ public class Weapon_Hammer : MonoBehaviour
 
     const float stunCooldownSet = 3.0f;
 
+    Animator _ani;
+
     public float getHammerCooldown()
     {
         return hammerCooldown / hammerCooldownSet;
@@ -31,7 +33,7 @@ public class Weapon_Hammer : MonoBehaviour
     }
     void Start()
     {
-        
+        _ani = GetComponent<Animator>();
     }
 
     void Update()
@@ -42,6 +44,7 @@ public class Weapon_Hammer : MonoBehaviour
         }
         if(hammerCharge > 0 && Input.GetMouseButtonUp(0))
         {
+            _ani.SetTrigger("Attack_Hammer");
             GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.identity);
             Attack.GetComponent<PlayerAttackObj>().init(attackDuration, hammerDamageConst * hammerCharge / 10.0f, new Vector2(0, 0), 0, stunCooldownSet * hammerCharge / 10);
             hammerCooldown = hammerCooldownSet;
