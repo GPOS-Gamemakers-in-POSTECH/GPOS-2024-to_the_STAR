@@ -17,7 +17,8 @@ GameObject:
   - component: {fileID: -5262689595323353950}
   - component: {fileID: -7964698469404024357}
   - component: {fileID: 8060484519806238014}
-  - component: {fileID: -4459361544950784130}
+  - component: {fileID: 908600579319459626}
+  - component: {fileID: 2052183522982230012}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -289,8 +290,29 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!61 &-4459361544950784130
-BoxCollider2D:
+--- !u!95 &908600579319459626
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462736967672762920}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9c6bee8a4a593cc4194aadcd3884bae7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!60 &2052183522982230012
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -331,6 +353,14 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.29605317, y: 0.23114033}
+      - {x: -0.17017262, y: -0.06560573}
+      - {x: -0.17122489, y: -0.26629677}
+      - {x: -0.2921058, y: -0.52478075}
+      - {x: 0.29276204, y: -0.52478075}
+      - {x: 0.1658974, y: -0.26896027}
+      - {x: 0.1670455, y: -0.06539723}
+      - {x: 0.25263244, y: 0.23114033}
+  m_UseDelaunayMesh: 0
