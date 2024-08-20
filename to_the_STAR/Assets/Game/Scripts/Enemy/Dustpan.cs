@@ -22,6 +22,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     private float hp;
 
     private int direction = 0;
+    private int preDir = 0; // 벽 충돌시 그 방향으로 가지 않게 하기 위한 것 (충돌하지 않았다면 0, 충돌했다면 충돌했을 당시의 이동 방향)
     private float attackTimer = 0;
     private float lookAround = 0;
     private float timer = 0;
@@ -104,7 +105,8 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
         if ((ray1.collider != null && ray1.distance < 0.5f && direction == 1) || (ray2.collider != null && ray2.distance < 0.5f && direction == -1))
         {
-            timer = Random.Range(3.0f, 5.0f);
+            timer = Random.Range(2.0f, 4.0f);
+            preDir = direction;
             direction = 0;
             Debug.Log("asdf");
         }
@@ -156,8 +158,17 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     {
         if (timer < 0)
         {
-            timer = Random.Range(3.0f, 6.0f);
-            direction = Random.Range(-1, 2);
+            timer = Random.Range(2.0f, 4.0f);
+            if(preDir == 0)
+            {
+                if (direction != 0) direction = 0;
+                else direction = Random.Range(-1, 2);
+            }
+            else
+            {
+                direction = -preDir;
+                preDir = 0;
+            }
         }
 
         if (detectPlayer())
@@ -302,5 +313,14 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     private void lookingAround()
     {
         lookAround = timer - Random.Range(0.8f, 1.2f);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("TurningPoint") && collision.GetComponent<TurningPointSet>().getType() < 5)
+        {
+            direction *= -1;
+            timer = Random.Range(0.5f, 1.0f);
+        }
     }
 }

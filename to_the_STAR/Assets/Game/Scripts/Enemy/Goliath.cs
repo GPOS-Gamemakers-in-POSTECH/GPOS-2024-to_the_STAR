@@ -44,6 +44,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
     private float speed = 0.3f;
 
     private int direction = 0;
+    private int preDir = 0;
     private float attackTimer = 0;
     private float lookAround = 0;
     private float timer = 0;
@@ -139,6 +140,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
 
         if (isWalking && ((rightRay.collider != null && rightRay.distance < 1.5f && direction == 1) || (leftRay.collider != null && leftRay.distance < 1.5f && direction == -1)))
         {
+            preDir = direction;
             timer = Random.Range(3.0f, 5.0f);
             isWalking = false;
             walkN = 0;
@@ -240,17 +242,33 @@ public class Goliath : MonoBehaviour, EnemyInterface
                 }
                 else
                 {
-                    if(walkN == 0) direction = Random.Range(-1, 2);
-                    if (direction != 0)
+                    if (preDir == 0)
                     {
-                        if(walkN == 0) walkN = Random.Range(3, 7);
-                        timer = walkCooldown;
-                        isWalking = true;
+                        if (walkN == 0)
+                        {
+                            if (direction == 0) direction = Random.Range(-1, 2);
+                            else direction = 0;
+                        }
+                        if (direction != 0)
+                        {
+                            if (walkN == 0) walkN = Random.Range(3, 7);
+                            timer = walkCooldown;
+                            isWalking = true;
+                        }
+                        else
+                        {
+                            timer = Random.Range(3.0f, 5.0f);
+                        }
                     }
                     else
                     {
-                        timer = Random.Range(3.0f, 5.0f);
+                        direction = -preDir;
+                        walkN = Random.Range(3, 7);
+                        timer = walkCooldown;
+                        isWalking = true;
+                        preDir = 0;
                     }
+                    Debug.Log(direction);
                 }
             }
         }
@@ -272,7 +290,11 @@ public class Goliath : MonoBehaviour, EnemyInterface
                 walkN = 1;
                 state = State.Chasing;
             }
-            else state = State.Idle;
+            else
+            {
+                walkN = 0;
+                state = State.Idle;
+            }
         }
     }
 
@@ -431,5 +453,16 @@ public class Goliath : MonoBehaviour, EnemyInterface
     private Vector3 VectorAdd(float x, float y, float z = 0)
     {
         return x * _right + y * _up + new Vector3(0, 0, z);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("TurningPoint") && collision.GetComponent<TurningPointSet>().getType() < 5)
+        {
+            timer = Random.Range(3.0f, 5.0f);
+            isWalking = false;
+            walkN = 0;
+            init();
+        }
     }
 }
