@@ -167,7 +167,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     {
         isMoving = true;
         Vector2 currPosition = transform.position;
-        _rb.MovePosition(currPosition + direction * _moveVector[floor % 2] * (stat.speed * Time.deltaTime));
+        transform.position = currPosition + direction * _moveVector[floor % 2] * (stat.speed * Time.deltaTime);
     }
 
     private void Detect()
