@@ -18,7 +18,7 @@ public class Weapon_Flamethrower : MonoBehaviour
     Vector2 playerPos = new Vector2(1, 0);
     const float flameDamageConst = 1.0f;
     const float flameSpeed = 12.0f;
-    const float flameDegRange = 30 * Mathf.Deg2Rad;
+    const float flameDegRange = 30;
     const float flameFrequency = 0.1f;
     const float flameFeverMax = 2.5f;
     const float attackDuration = 2.5f;
@@ -86,8 +86,10 @@ public class Weapon_Flamethrower : MonoBehaviour
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 mousePos = new Vector2(mousePos.x - player.transform.position.x, mousePos.y - player.transform.position.y);
 
-                float angle = Vector2.SignedAngle(playerPos, mousePos) * Mathf.Deg2Rad;
-                angle = Mathf.Clamp(angle, -flameDegRange, flameDegRange);
+                float angle = Vector2.SignedAngle(playerPos, mousePos);
+                if ((playerPos.x + playerPos.y > 0) ^ (transform.rotation.eulerAngles.z == 180 || transform.rotation.eulerAngles.z == 270)) angle = Mathf.Clamp(angle, -flameDegRange, 90);
+                else angle = Mathf.Clamp(angle, -90, flameDegRange);
+                angle *= Mathf.Deg2Rad;
                 Vector2 flameMove = VectorRotate(playerPos, angle);
 
                 lineRenderer.enabled = true;
