@@ -113,8 +113,50 @@ TextureImporter:
       name: dustbin_die_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 2
+        x: 4
+        y: 0
+        width: 16
+        height: 21
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5952381}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a4e4cdf81db0f94db4218216890737a
+      internalID: 785762074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dustbin_die_1
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 0
+        width: 16
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.625}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 518f81a545db2f04eb956b86d17fc0e6
+      internalID: -715561042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dustbin_die_2
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 0
         width: 16
         height: 19
       alignment: 9
@@ -124,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7b1592a9d5b0a9940b405e2c5b0b50b1
-      internalID: 1917892323
+      spriteID: 03ec5b9f1d845ee4bae3aaf3301d1d21
+      internalID: 1142820173
       vertices: []
       indices: 
       edges: []
@@ -141,7 +183,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      dustbin_die_0: 1917892323
+      dustbin_die_0: 785762074
+      dustbin_die_1: -715561042
+      dustbin_die_2: 1142820173
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
