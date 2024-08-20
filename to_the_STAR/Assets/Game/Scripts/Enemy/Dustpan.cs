@@ -97,7 +97,18 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
         isMoving = false;
 
-        currPosition = transform.position;
+        Vector3 tmp = floor % 2 == 0 ? new Vector3(1, 0, 0) : new Vector3(0, 1, 0);
+
+        RaycastHit2D ray1 = Physics2D.Raycast(currPosition, tmp, 1.0f, LayerMask.GetMask("Map"));
+        RaycastHit2D ray2 = Physics2D.Raycast(currPosition, -tmp, 1.0f, LayerMask.GetMask("Map"));
+
+        if ((ray1.collider != null && ray1.distance < 0.5f && direction == 1) || (ray2.collider != null && ray2.distance < 0.5f && direction == -1))
+        {
+            timer = Random.Range(3.0f, 5.0f);
+            direction = 0;
+            Debug.Log("asdf");
+        }
+
         playerPosition = player.transform.position;
         xDis = Mathf.Abs(currPosition.x - playerPosition.x);
         yDis = Mathf.Abs(currPosition.y - playerPosition.y);

@@ -145,7 +145,6 @@ public class Goliath : MonoBehaviour, EnemyInterface
             init();
         }
 
-        currPosition = transform.position;
         playerPosition = player.transform.position;
         dis = currPosition - playerPosition;
         dis += VectorAdd(0, -2);
