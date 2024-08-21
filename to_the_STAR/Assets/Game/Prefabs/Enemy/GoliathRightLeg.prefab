@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6137848411202633506}
   - component: {fileID: 4863020651535036028}
-  - component: {fileID: -4341723129227494449}
   - component: {fileID: 1745556914588266779}
+  - component: {fileID: 2140950184221668412}
   m_Layer: 6
   m_Name: GoliathRightLeg
   m_TagString: Enemy
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 471317503, guid: 6cc653a40426784439f3bf000ac3c990, type: 3}
+  m_Sprite: {fileID: -920097034, guid: b18fa958161be3040b7c9578d79f0a8b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,8 +86,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &-4341723129227494449
-BoxCollider2D:
+--- !u!114 &1745556914588266779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5239440915575926513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0656d2dea3102240a99b42a2f27608f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!60 &2140950184221668412
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -118,28 +130,23 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.234375, y: -0.453125}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 1}
-    oldSize: {x: 0.46875, y: 0.90625}
+    oldSize: {x: 1.8333334, y: 2.3333333}
     newSize: {x: 0.46875, y: 0.90625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.46875, y: 0.90625}
-  m_EdgeRadius: 0
---- !u!114 &1745556914588266779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5239440915575926513}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0656d2dea3102240a99b42a2f27608f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Points:
+    m_Paths:
+    - - {x: 0.9165536, y: 0}
+      - {x: 1.625297, y: -1.6254385}
+      - {x: 1.833036, y: -1.6777718}
+      - {x: 1.833333, y: -2.3333335}
+      - {x: 0.2089462, y: -2.3333335}
+      - {x: 0.3003413, y: -1.625687}
+      - {x: 0.1251684, y: -0.00027338415}
+  m_UseDelaunayMesh: 0
