@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8768c187b39be0b479f3daec39a01696
+guid: be8fd5279cefecc42b70900e45c82c54
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: weapon_ui_0
+      name: Goliath_idle_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 2
-        width: 24
-        height: 24
+        x: 24
+        y: 70
+        width: 78
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 14442bbce9916b54a93fb74827f92fd4
-      internalID: 1815737531
+      spriteID: 57ee87e1e58974e4cb1de76d1e22a2cb
+      internalID: -1425683534
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: weapon_ui_1
+      name: Goliath_idle_1
       rect:
         serializedVersion: 2
-        x: 29
-        y: 1
-        width: 26
-        height: 26
+        x: 8
+        y: 8
+        width: 44
+        height: 56
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,8 +145,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d720ca731a44b9e40a77951b58b378d6
-      internalID: 1027749085
+      spriteID: 3cbc0fc8d07af6c4ca1bde1e236bd869
+      internalID: -1709822908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Goliath_idle_2
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 8
+        width: 45
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f24a1c7cd7522b49a99879ec8f493b8
+      internalID: 810384733
       vertices: []
       indices: 
       edges: []
@@ -162,8 +183,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      weapon_ui_0: 1815737531
-      weapon_ui_1: 1027749085
+      Goliath_idle_0: -1425683534
+      Goliath_idle_1: -1709822908
+      Goliath_idle_2: 810384733
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8768c187b39be0b479f3daec39a01696
+guid: 92d2865e53e857848a6e8828828ea43d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: weapon_ui_0
+      name: dash_gadge_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 2
-        width: 24
-        height: 24
+        x: 32
+        y: 13
+        width: 13
+        height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 14442bbce9916b54a93fb74827f92fd4
-      internalID: 1815737531
+      spriteID: 49478abdbb359684d91ac624195191a1
+      internalID: -7887673
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: weapon_ui_1
+      name: dash_gadge_1
       rect:
         serializedVersion: 2
-        x: 29
-        y: 1
-        width: 26
-        height: 26
+        x: 80
+        y: 13
+        width: 13
+        height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d720ca731a44b9e40a77951b58b378d6
-      internalID: 1027749085
+      spriteID: a5d53145030844e4a92d92f16e0b470d
+      internalID: 1783275974
       vertices: []
       indices: 
       edges: []
@@ -162,8 +162,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      weapon_ui_0: 1815737531
-      weapon_ui_1: 1027749085
+      dash_gadge_0: -7887673
+      dash_gadge_1: 1783275974
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
