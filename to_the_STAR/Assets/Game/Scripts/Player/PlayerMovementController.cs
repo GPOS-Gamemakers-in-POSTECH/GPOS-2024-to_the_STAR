@@ -122,7 +122,7 @@ namespace Game.Player
             if(dashAble != null)
             {
                 bool isEnable = dashAble.GetComponent<DashDetector>().isEnable();
-                if (isEnable)
+                if (isEnable && !GetComponent<Weapon_Hammer>().isMouseInputted())
                 {
                     transform.position = dashAble.transform.position;
                     dash -= 1;
