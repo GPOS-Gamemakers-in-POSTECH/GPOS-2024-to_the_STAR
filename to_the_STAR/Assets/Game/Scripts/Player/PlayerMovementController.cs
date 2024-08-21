@@ -26,6 +26,9 @@ namespace Game.Player
 
         private float dash = 3.0f;
         private const float dashMax = 3.0f;
+        private const float dashLength = 1.25f;
+
+        private int dashCount = 0;
 
         public Vector2 getMoveVector()
         {
@@ -104,7 +107,7 @@ namespace Game.Player
             if (_moveVector.sqrMagnitude > 0)
             {
                 GetComponent<SpriteRenderer>().flipX = (_moveVector.x + _moveVector.y > 0) ^ (transform.rotation.eulerAngles.z == 180 || transform.rotation.eulerAngles.z == 270);
-                lastMove = _moveVector * 1.25f;
+                lastMove = _moveVector * dashLength / 10;
                 _ani.SetBool("Move", true);
             }
             else
@@ -115,11 +118,7 @@ namespace Game.Player
             {
                 Interaction();
             }
-            if (_dashAction.triggered == true && dash > 1)
-            {
-                dashAble = Instantiate(DashDetect, transform.position + new Vector3(lastMove.x, lastMove.y, 0), Quaternion.identity);
-            }
-            if(dashAble != null)
+            if (dashAble != null && dashCount < 0)
             {
                 bool isEnable = dashAble.GetComponent<DashDetector>().isEnable();
                 if (isEnable && !GetComponent<Weapon_Hammer>().isMouseInputted())
@@ -130,6 +129,13 @@ namespace Game.Player
                 }
                 Destroy(dashAble);
             }
+            if (_dashAction.triggered == true && dash > 1)
+            {
+                dashAble = Instantiate(DashDetect, transform.position + new Vector3(lastMove.x, lastMove.y, 0), Quaternion.identity);
+                dashAble.GetComponent<DashDetector>().setMove(new Vector2(lastMove.x, lastMove.y));
+                dashCount = 10;
+            }
+            dashCount--;
         }
 
         private void FixedUpdate()

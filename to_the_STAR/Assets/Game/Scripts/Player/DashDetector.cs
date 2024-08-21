@@ -5,7 +5,12 @@ using UnityEngine;
 public class DashDetector : MonoBehaviour
 {
     bool dashEnable = true;
-    private void OnTriggerStay2D(Collider2D other)
+
+    Vector2 move;
+
+    public void setMove(Vector2 v) { move = v; }
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Map")
         {
@@ -13,6 +18,10 @@ public class DashDetector : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        transform.position = transform.position + new Vector3(move.x, move.y, 0);
+    }
     public bool isEnable()
     {
         return dashEnable;
