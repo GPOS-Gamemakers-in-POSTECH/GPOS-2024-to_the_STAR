@@ -15,12 +15,14 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     GameObject player;
     PlayerData playerData;
     SpriteRenderer _sr;
+    Animator _ani;
 
     private Vector2[] _moveVector = { new Vector2(1, 0), new Vector2(0, 1) };
 
     private float hp;
 
     private int direction = 0;
+    private int preDir = 0; // 벽 충돌시 그 방향으로 가지 않게 하기 위한 것 (충돌하지 않았다면 0, 충돌했다면 충돌했을 당시의 이동 방향)
     private float attackTimer = 0;
     private float lookAround = 0;
     private float timer = 0;
@@ -30,6 +32,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     private float yDis;
 
     private bool attacked;
+    private bool isMoving = false;
 
     const float TILE = 1;
 
@@ -52,6 +55,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     {
         if (state != State.Dead)
         {
+            _ani.SetTrigger("Damaged");
             if (hp < damage) hp = 0;
             else hp -= damage;
 
@@ -78,6 +82,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     {
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
+        _ani = GetComponent<Animator>();
         player = GameObject.Find("Player");
         playerData = player.GetComponent<PlayerData>();
     }
@@ -87,16 +92,25 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         hp = stat.hp;
     }
 
-    void FixedUpdate()
-    {
-
-    }
-
     void Update()
     {
         Vector2 currPosition = transform.position;
 
-        currPosition = transform.position;
+        isMoving = false;
+
+        Vector3 tmp = floor % 2 == 0 ? new Vector3(1, 0, 0) : new Vector3(0, 1, 0);
+
+        RaycastHit2D ray1 = Physics2D.Raycast(currPosition, tmp, 1.0f, LayerMask.GetMask("Map"));
+        RaycastHit2D ray2 = Physics2D.Raycast(currPosition, -tmp, 1.0f, LayerMask.GetMask("Map"));
+
+        if ((ray1.collider != null && ray1.distance < 0.5f && direction == 1) || (ray2.collider != null && ray2.distance < 0.5f && direction == -1))
+        {
+            timer = Random.Range(2.0f, 4.0f);
+            preDir = direction;
+            direction = 0;
+            Debug.Log("asdf");
+        }
+
         playerPosition = player.transform.position;
         xDis = Mathf.Abs(currPosition.x - playerPosition.x);
         yDis = Mathf.Abs(currPosition.y - playerPosition.y);
@@ -137,14 +151,24 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
         if (timer > 0) timer -= Time.deltaTime;
         if (attackTimer > 0) attackTimer -= Time.deltaTime;
+        _ani.SetBool("Move", isMoving);
     }
 
     private void Idle()
     {
         if (timer < 0)
         {
-            timer = Random.Range(3.0f, 6.0f);
-            direction = Random.Range(-1, 2);
+            timer = Random.Range(2.0f, 4.0f);
+            if(preDir == 0)
+            {
+                if (direction != 0) direction = 0;
+                else direction = Random.Range(-1, 2);
+            }
+            else
+            {
+                direction = -preDir;
+                preDir = 0;
+            }
         }
 
         if (detectPlayer())
@@ -163,8 +187,9 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private void Move()
     {
+        isMoving = true;
         Vector2 currPosition = transform.position;
-        _rb.MovePosition(currPosition + direction * _moveVector[floor % 2] * (stat.speed * Time.deltaTime));
+        transform.position = currPosition + direction * _moveVector[floor % 2] * (stat.speed * Time.deltaTime);
     }
 
     private void Detect()
@@ -217,6 +242,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     {
         if (attackTimer <= 0 && attacked == false)
         {
+            _ani.SetTrigger("Attack");
             Vector3 move = floor % 2 == 0 ? new Vector3(1, 0, 0) : new Vector3(0, 1, 0);
             move *= direction;
             GameObject Attack = Instantiate(attackObj, transform.position + move, Quaternion.identity);
@@ -249,6 +275,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private void Dead()
     {
+        _ani.SetBool("Dead", true);
         if (timer <= 0) Destroy(gameObject);
     }
 
@@ -286,5 +313,14 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     private void lookingAround()
     {
         lookAround = timer - Random.Range(0.8f, 1.2f);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("TurningPoint") && collision.GetComponent<TurningPointSet>().getType() < 5)
+        {
+            direction *= -1;
+            timer = Random.Range(0.5f, 1.0f);
+        }
     }
 }

@@ -15,8 +15,12 @@ public class Drone : MonoBehaviour, EnemyInterface
     float timer = 0;
     float attackCooldownTimer = 0;
     float lookAround = 0;
+
+    bool isMoving = false;
+
     GameObject playerObj;
     SpriteRenderer _sr;
+    Animator _ani;
 
     enum State
     {
@@ -38,6 +42,7 @@ public class Drone : MonoBehaviour, EnemyInterface
     {
         if (state != State.Dead)
         {
+            _ani.SetTrigger("Damaged");
             if (hp < damage) hp = 0;
             else hp -= damage;
 
@@ -61,6 +66,7 @@ public class Drone : MonoBehaviour, EnemyInterface
     }
     void Move()
     {
+        isMoving = true;
         transform.position = new Vector3(transform.position.x + moveVector.x * direction * Time.deltaTime, transform.position.y + moveVector.y * direction * Time.deltaTime, transform.position.z);
     }
 
@@ -72,15 +78,12 @@ public class Drone : MonoBehaviour, EnemyInterface
         moveVector.x = -(floor % 2 - 1) * stat.speed; moveVector.y = (floor % 2) * stat.speed;
         playerObj = GameObject.Find("Player");
         _sr = GetComponent<SpriteRenderer>();
-    }
-
-    void FixedUpdate()
-    {
-
+        _ani = GetComponent<Animator>();
     }
 
     void Update()
     {
+        isMoving = false;
         float distanceToPlayer = Mathf.Sqrt((playerObj.transform.position.x - transform.position.x) * (playerObj.transform.position.x - transform.position.x) +
            (playerObj.transform.position.y - transform.position.y) * (playerObj.transform.position.y - transform.position.y));
         bool playerDetection = distanceToPlayer <= stat.detectionRange && Mathf.Abs(playerObj.transform.rotation.eulerAngles.z - transform.rotation.eulerAngles.z) <= 15;
@@ -137,6 +140,7 @@ public class Drone : MonoBehaviour, EnemyInterface
                 if (distanceToPlayer > stat.attackRange) Move();
                 break;
             case State.Attack:
+                _ani.SetTrigger("Attack");
                 Vector2 bulletDir = (playerObj.transform.position - transform.position) / distanceToPlayer;
                 float rotZ = Mathf.Atan2(bulletDir.y, bulletDir.x) * Mathf.Rad2Deg;
                 GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.Euler(0, 0, rotZ));
@@ -158,6 +162,7 @@ public class Drone : MonoBehaviour, EnemyInterface
                 }
                 break;
             case State.Dead:
+                _ani.SetBool("Dead", true);
                 if (timer <= 0) Destroy(gameObject);
                 break;
         }
@@ -175,6 +180,7 @@ public class Drone : MonoBehaviour, EnemyInterface
 
         if (attackCooldownTimer > 0) attackCooldownTimer -= Time.deltaTime;
         if (timer > 0) timer -= Time.deltaTime;
+        _ani.SetBool("Move", isMoving);
     }
 
     private void lookingAround()

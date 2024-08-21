@@ -18,6 +18,7 @@ namespace Game.Player
         private InputAction _interactAction;
         private InputAction _dashAction;
         private Rigidbody2D _rb;
+        private Animator _ani;
 
         private GameObject dashAble;
 
@@ -39,6 +40,15 @@ namespace Game.Player
         {
             return dash;
         }
+        public void turn()
+        {
+            _ani.SetTrigger("TurningPoint");
+        }
+
+        public void damaged()
+        {
+            _ani.SetTrigger("Damaged");
+        }
 
         public Lever _lever;
         private void Awake()
@@ -49,6 +59,7 @@ namespace Game.Player
             _playerActions = GameInputSystem.Instance.PlayerActions;
             _dashAction = GameInputSystem.Instance.PlayerActions.Dash;
             _flameThrower = GetComponent<Weapon_Flamethrower>();
+            _ani = GetComponent<Animator>();
         }
 
         private void OnEnable()
@@ -90,7 +101,16 @@ namespace Game.Player
             Vector2 tmp = _moveAction.ReadValue<Vector2>();
             _moveVector = new Vector2(tmp.x * Mathf.Cos(angle) - tmp.y * Mathf.Sin(angle),
                                       tmp.x * Mathf.Sin(angle) + tmp.y * Mathf.Cos(angle));
-            if (_moveVector.sqrMagnitude > 0) lastMove = _moveVector * 1.25f;
+            if (_moveVector.sqrMagnitude > 0)
+            {
+                GetComponent<SpriteRenderer>().flipX = (_moveVector.x + _moveVector.y > 0) ^ (transform.rotation.eulerAngles.z == 180 || transform.rotation.eulerAngles.z == 270);
+                lastMove = _moveVector * 1.25f;
+                _ani.SetBool("Move", true);
+            }
+            else
+            {
+                _ani.SetBool("Move", false);
+            }
             if (_interactAction.triggered == true)
             {
                 Interaction();
@@ -106,6 +126,7 @@ namespace Game.Player
                 {
                     transform.position = dashAble.transform.position;
                     dash -= 1;
+                    _ani.SetTrigger("Dash");
                 }
                 Destroy(dashAble);
             }

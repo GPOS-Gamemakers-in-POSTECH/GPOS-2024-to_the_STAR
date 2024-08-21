@@ -29,6 +29,7 @@ public class TurningPointSet : MonoBehaviour
      * */
     public int getType()
     {
+        GetComponent<Animator>().SetTrigger("Effect");
         switch (type)
         {
             case 128: return 1;

@@ -29,6 +29,7 @@ public class Lantern : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, player.transform.position
             - new Vector3(playerMoveVector.x - lanternFloatingVector.x, playerMoveVector.y - lanternFloatingVector.y, 0), 
             Time.deltaTime * player.GetComponent<PlayerMovementController>().getMoveSpeed());
+        transform.rotation = player.transform.rotation;
         lanternLight.position = transform.position;
     }
 }

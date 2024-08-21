@@ -17,6 +17,7 @@ namespace Game.Player
 
         public void playerDamage(float damage)
         {
+            GetComponent<PlayerMovementController>().damaged();
             Hp -= damage;
         }
         public float playerHp()
