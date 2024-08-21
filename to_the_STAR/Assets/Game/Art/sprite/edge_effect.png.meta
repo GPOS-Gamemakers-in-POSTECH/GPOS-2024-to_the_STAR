@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 35cca5d705a55264cac9cfc53aa2417e
+guid: 715382169c3fc7e469459b0328914c60
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 36
+  spritePixelsToUnits: 24
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,19 +113,19 @@ TextureImporter:
       name: edge_effect_0
       rect:
         serializedVersion: 2
-        x: 9
+        x: 8
         y: 2
-        width: 20
+        width: 21
         height: 27
       alignment: 9
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0.5, y: 0.46296296}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb7abda80dc59f24cae994628c15da13
-      internalID: 151243083
+      spriteID: 0c01fd1cdea9fd74ebbf544db772b5ed
+      internalID: -1709431568
       vertices: []
       indices: 
       edges: []
@@ -134,19 +134,19 @@ TextureImporter:
       name: edge_effect_1
       rect:
         serializedVersion: 2
-        x: 45
+        x: 44
         y: 2
-        width: 20
+        width: 21
         height: 27
       alignment: 9
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0.5, y: 0.46296296}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6ece10015e393284db43f041b2c2b86b
-      internalID: 2066105953
+      spriteID: 87784029a4bfca04dac401c09ad6eef9
+      internalID: 404110322
       vertices: []
       indices: 
       edges: []
@@ -155,19 +155,19 @@ TextureImporter:
       name: edge_effect_2
       rect:
         serializedVersion: 2
-        x: 81
+        x: 80
         y: 2
-        width: 17
+        width: 18
         height: 21
       alignment: 9
-      pivot: {x: 0.5, y: 0.64285713}
+      pivot: {x: 0.5, y: 0.5952381}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12f0d5e24ee80cf47b884df9b79eedb8
-      internalID: -504236191
+      spriteID: 93ccbd92bc92b3540a8a54fcb610ed74
+      internalID: -1032122987
       vertices: []
       indices: 
       edges: []
@@ -176,19 +176,19 @@ TextureImporter:
       name: edge_effect_3
       rect:
         serializedVersion: 2
-        x: 117
+        x: 116
         y: 2
-        width: 17
-        height: 17
+        width: 18
+        height: 19
       alignment: 9
-      pivot: {x: 0.5, y: 0.7941176}
+      pivot: {x: 0.5, y: 0.65789473}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8c00b7ad9b4dfe84892faed66924616b
-      internalID: -1634029161
+      spriteID: 3aec7cd1ad0a17e4aab106d299433f5d
+      internalID: -2039849682
       vertices: []
       indices: 
       edges: []
@@ -204,10 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      edge_effect_0: 151243083
-      edge_effect_1: 2066105953
-      edge_effect_2: -504236191
-      edge_effect_3: -1634029161
+      edge_effect_0: -1709431568
+      edge_effect_1: 404110322
+      edge_effect_2: -1032122987
+      edge_effect_3: -2039849682
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
