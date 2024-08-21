@@ -5,7 +5,8 @@ using UnityEngine;
 public class Checker : MonoBehaviour
 {
     bool collide = false;
-    private void OnTriggerEnter2D(Collider2D other)
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         collide = true;
     }
