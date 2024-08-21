@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4ba3786ee18ec514ea9d5557e87864c7
+guid: b18fa958161be3040b7c9578d79f0a8b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 24
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,64 +97,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: golem_head_0
+      name: Goliath_parts_0
       rect:
         serializedVersion: 2
-        x: 16
-        y: 45
-        width: 32
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 9
+        y: 61
+        width: 39
+        height: 33
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6091ec98e8f1f5c40b69fe15dd52f694
-      internalID: 1313151085
+      spriteID: 1caac652238683942ab1ab45e278b8f4
+      internalID: -1955683149
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: golem_head_1
+      name: Goliath_parts_1
       rect:
         serializedVersion: 2
-        x: 80
-        y: 45
-        width: 32
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 72
+        y: 61
+        width: 39
+        height: 33
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf92ce876682aa049bab44497335dce0
-      internalID: -714429765
+      spriteID: 8737b1290b903584d88c4fd8e0d8f62a
+      internalID: 1186653903
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: golem_head_2
+      name: Goliath_parts_2
       rect:
         serializedVersion: 2
-        x: 144
-        y: 45
-        width: 32
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 3
+        y: 2
+        width: 44
+        height: 56
+      alignment: 3
+      pivot: {x: 1, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 14c0d67b5bd57384f9adf80ffd785ecd
-      internalID: -1730813564
+      spriteID: 5ea387a1e71f3a14c80f86e36f4a9e48
+      internalID: 1245356069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Goliath_parts_3
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 37
+        width: 16
+        height: 23
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5393718a13996474ca411a0f613a22aa
+      internalID: 564053930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Goliath_parts_4
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 2
+        width: 44
+        height: 56
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba86595801151244498d9a33d8f4ea1f
+      internalID: -920097034
       vertices: []
       indices: 
       edges: []
@@ -170,9 +212,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      golem_head_0: 1313151085
-      golem_head_1: -714429765
-      golem_head_2: -1730813564
+      Goliath_parts_0: -1955683149
+      Goliath_parts_1: 1186653903
+      Goliath_parts_2: 1245356069
+      Goliath_parts_3: 564053930
+      Goliath_parts_4: -920097034
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

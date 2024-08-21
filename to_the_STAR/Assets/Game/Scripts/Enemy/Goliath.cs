@@ -115,10 +115,10 @@ public class Goliath : MonoBehaviour, EnemyInterface
         _right = VectorRotate(_right, transform.rotation.z);
         _left = VectorRotate(_left, transform.rotation.z);
 
-        LeftLeg1 = Instantiate(Legs[0], transform.position + VectorAdd(-0.6f, -0.2f, 0.1f), Quaternion.identity); // 왼쪽 다리 뒷부분
-        LeftLeg2 = Instantiate(Legs[0], transform.position + VectorAdd(-0.4f, -0.2f, -0.1f), Quaternion.identity); // 왼쪽 다리 앞부분
-        RightLeg1 = Instantiate(Legs[1], transform.position + VectorAdd(0.4f, -0.2f, 0.1f), Quaternion.identity); // 오른쪽 다리 뒷부분
-        RightLeg2 = Instantiate(Legs[1], transform.position + VectorAdd(0.6f, -0.2f, -0.1f), Quaternion.identity); // 오른쪽 다리 앞부분
+        LeftLeg1 = Instantiate(Legs[0], transform.position + VectorAdd(-0.4583f, -0.4375f, 3), Quaternion.identity); // 왼쪽 다리 뒷부분
+        LeftLeg2 = Instantiate(Legs[0], transform.position + VectorAdd(-0.2916f, -0.4375f, 2), Quaternion.identity); // 왼쪽 다리 앞부분
+        RightLeg1 = Instantiate(Legs[1], transform.position + VectorAdd(0.2916f, -0.4375f, 3), Quaternion.identity); // 오른쪽 다리 뒷부분
+        RightLeg2 = Instantiate(Legs[1], transform.position + VectorAdd(0.4583f, -0.4375f, 2), Quaternion.identity); // 오른쪽 다리 앞부분
 
         LeftLeg1.GetComponent<GoliathLeg>().init(this);
         LeftLeg2.GetComponent<GoliathLeg>().init(this);
@@ -135,10 +135,10 @@ public class Goliath : MonoBehaviour, EnemyInterface
     {
         Vector2 currPosition = transform.position;
 
-        RaycastHit2D rightRay = Physics2D.Raycast(transform.position, _right, 2.0f, LayerMask.GetMask("Map"));
-        RaycastHit2D leftRay = Physics2D.Raycast(transform.position, _left, 2.0f, LayerMask.GetMask("Map"));
+        RaycastHit2D rightRay = Physics2D.Raycast(transform.position, _right, 3.0f, LayerMask.GetMask("Map"));
+        RaycastHit2D leftRay = Physics2D.Raycast(transform.position, _left, 3.0f, LayerMask.GetMask("Map"));
 
-        if (isWalking && ((rightRay.collider != null && rightRay.distance < 1.5f && direction == 1) || (leftRay.collider != null && leftRay.distance < 1.5f && direction == -1)))
+        if (isWalking && ((rightRay.collider != null && rightRay.distance < 2.5f && direction == 1) || (leftRay.collider != null && leftRay.distance < 2.5f && direction == -1)))
         {
             preDir = direction;
             timer = Random.Range(3.0f, 5.0f);
@@ -349,9 +349,9 @@ public class Goliath : MonoBehaviour, EnemyInterface
                 init();
 
                 Vector3 legCenter = direction == 1 ? RightLeg1.transform.position : LeftLeg2.transform.position;
-                legCenter += VectorAdd(direction * 0.57f, -1.8f);
-                GameObject Attack1 = Instantiate(attackObj2, legCenter + VectorAdd(0.5f, 0), Quaternion.identity);
-                GameObject Attack2 = Instantiate(attackObj2, legCenter + VectorAdd(-0.5f, 0), Quaternion.identity);
+                legCenter += VectorAdd(direction * 1.1f, -2.3325f);
+                GameObject Attack1 = Instantiate(attackObj2, legCenter + VectorAdd(0.895f, 0), Quaternion.identity);
+                GameObject Attack2 = Instantiate(attackObj2, legCenter + VectorAdd(-0.895f, 0), Quaternion.identity);
                 Attack1.GetComponent<EnemyAttackObj>().init(attackDuration, attackPower * 0.3f, VectorAdd(legMovementX * 1.5f, 0), EnemyAttackObj.EnemyType.Goliath);
                 Attack2.GetComponent<EnemyAttackObj>().init(attackDuration, attackPower * 0.3f, VectorAdd(-legMovementX * 1.5f, 0), EnemyAttackObj.EnemyType.Goliath);
 
@@ -378,7 +378,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
             if (attackTimer <= 0)
             {
                 Vector3 legPos = direction == 1 ? RightLeg1.transform.position : LeftLeg2.transform.position;
-                Vector3 tmp = VectorAdd(direction * 0.57f, -1.8f);
+                Vector3 tmp = VectorAdd(direction * 1.1f, -2.3325f);
                 GameObject Attack = Instantiate(attackObj1, legPos + tmp, Quaternion.identity);
                 Attack.GetComponent<EnemyAttackObj>().init(attackMotion2Cooldown, attackPower, VectorAdd(0, -legMovementY * 20), EnemyAttackObj.EnemyType.Goliath);
 
@@ -403,10 +403,10 @@ public class Goliath : MonoBehaviour, EnemyInterface
 
     private void init()
     {
-        LeftLeg1.transform.position = transform.position + VectorAdd(-0.6f, -0.2f, 0.1f);
-        LeftLeg2.transform.position = transform.position + VectorAdd(-0.4f, -0.2f, -0.1f);
-        RightLeg1.transform.position = transform.position + VectorAdd(0.4f, -0.2f, 0.1f);
-        RightLeg2.transform.position = transform.position + VectorAdd(0.6f, -0.2f, -0.1f);
+        LeftLeg1.transform.position = transform.position + VectorAdd(-0.4583f, -0.4375f, 3);
+        LeftLeg2.transform.position = transform.position + VectorAdd(-0.2916f, -0.4375f, 2);
+        RightLeg1.transform.position = transform.position + VectorAdd(0.2916f, -0.4375f, 3);
+        RightLeg2.transform.position = transform.position + VectorAdd(0.4583f, -0.4375f, 2);
     }
 
     private bool detectPlayer()
