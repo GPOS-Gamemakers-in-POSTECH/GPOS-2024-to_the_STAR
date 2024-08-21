@@ -40,7 +40,7 @@ public class UI : MonoBehaviour
     const float WeaponUI_x = 72f;
     const float WeaponUI_x_gap = 36f;
     Vector2 WeaponUI_size = new Vector2(1.5f, 1.5f);
-    Vector2 Healthbar_size = new Vector2(1.0f, 1.0f);
+    Vector2 Healthbar_size = new Vector2(3.5f, 1.0f);
     Vector2 ScreenSize = new Vector2(-Screen.width / 2, Screen.height / 2);
 
     float playerHp = 0.0f;
@@ -154,7 +154,7 @@ public class UI : MonoBehaviour
             Dash[i].sprite = Dash_Prefab.sprite;
             Dash[i].material = Dash_Prefab.material;
             Dash[i].GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x_gap * i, WeaponUI_y * 2 + WeaponUI_x_gap);
-            Dash[i].GetComponent<RectTransform>().sizeDelta = Healthbar_size;
+            Dash[i].GetComponent<RectTransform>().sizeDelta = new Vector2(1,1);
             Dash[i].type = Image.Type.Filled;
         }
     }

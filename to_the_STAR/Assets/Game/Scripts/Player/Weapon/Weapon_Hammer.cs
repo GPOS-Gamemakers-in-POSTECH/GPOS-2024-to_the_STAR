@@ -51,6 +51,11 @@ public class Weapon_Hammer : MonoBehaviour
         _ani = GetComponent<Animator>();
     }
 
+    public bool isMouseInputted()
+    {
+        return Input.GetMouseButton(0);
+    }
+
     void Update()
     {
         if(hammerEnabled && hammerCooldown < 0 && hammerCharge < hammerChargeMax && Input.GetMouseButton(0))
