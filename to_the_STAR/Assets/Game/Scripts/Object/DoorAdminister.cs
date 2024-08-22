@@ -25,10 +25,17 @@ public class DoorAdminister : MonoBehaviour
     public void StateChanged(int i) // i번째 문과 연결된 레버 상태 변경됨 => 문의 상태가 바뀌는지 확인
     {
         Door _door = doors[i].GetComponent<Door>();
-        bool flag = true;
+        bool flag = !_door.isOr;
         for(int j = 0; j < _door.keys; j++)
         {
-            flag &= keys[i][j];
+            if (_door.isOr)
+            {
+                flag |= keys[i][j];
+            }
+            else
+            {
+                flag &= keys[i][j];
+            }
         }
         _door.DoorChanged(flag);
         if (doorToTurningPoints[i] != null)
