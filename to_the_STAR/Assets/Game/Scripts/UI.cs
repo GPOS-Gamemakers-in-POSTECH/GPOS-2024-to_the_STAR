@@ -40,7 +40,7 @@ public class UI : MonoBehaviour
     const float WeaponUI_x = 72f;
     const float WeaponUI_x_gap = 36f;
     Vector2 WeaponUI_size = new Vector2(1.5f, 1.5f);
-    Vector2 Healthbar_size = new Vector2(3.5f, 1.0f);
+    Vector2 Healthbar_size = new Vector2(3.0f, 1.0f);
     Vector2 ScreenSize = new Vector2(-Screen.width / 2, Screen.height / 2);
 
     float playerHp = 0.0f;
@@ -77,7 +77,7 @@ public class UI : MonoBehaviour
         Weapon_Hammer.sprite = Weapon_Hammer_Prefab.sprite;
         Weapon_Hammer.material = Weapon_Hammer_Prefab.material;
         Weapon_Hammer.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x, WeaponUI_y);
-        Weapon_Hammer.GetComponent<RectTransform>().sizeDelta = WeaponUI_size;
+        Weapon_Hammer.GetComponent<RectTransform>().sizeDelta = WeaponUI_size * 0.7f;
 
         Weapon_Flamethrower_Base = new GameObject("UI_Flamethrower_Base").AddComponent<Image>();
         Weapon_Flamethrower_Base.transform.SetParent(transform);
@@ -91,13 +91,13 @@ public class UI : MonoBehaviour
         Weapon_Flamethrower.sprite = Weapon_Flamethrower_Prefab.sprite;
         Weapon_Flamethrower.material = Weapon_Flamethrower_Prefab.material;
         Weapon_Flamethrower.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x * 2 + WeaponUI_x_gap, WeaponUI_y);
-        Weapon_Flamethrower.GetComponent<RectTransform>().sizeDelta = WeaponUI_size;
+        Weapon_Flamethrower.GetComponent<RectTransform>().sizeDelta = WeaponUI_size * 0.7f;
 
         Healthbar = new GameObject("UI_Healthbar").AddComponent<Image>();
         Healthbar.transform.SetParent(transform);
         Healthbar.sprite = Healthbar_Prefab.sprite;
         Healthbar.material = Healthbar_Prefab.material;
-        Healthbar.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x_gap, WeaponUI_y * 2);
+        Healthbar.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x * 1.5f, WeaponUI_y * 2.2f);
         Healthbar.GetComponent<RectTransform>().sizeDelta = Healthbar_size;
         Healthbar.type = Image.Type.Filled;
         Healthbar.fillMethod = Image.FillMethod.Horizontal;
@@ -153,8 +153,8 @@ public class UI : MonoBehaviour
             Dash[i].transform.SetParent(transform);
             Dash[i].sprite = Dash_Prefab.sprite;
             Dash[i].material = Dash_Prefab.material;
-            Dash[i].GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x_gap * i, WeaponUI_y * 2 + WeaponUI_x_gap);
-            Dash[i].GetComponent<RectTransform>().sizeDelta = new Vector2(1,1);
+            Dash[i].GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x + WeaponUI_x_gap * i, WeaponUI_y * 3.1f + WeaponUI_x_gap);
+            Dash[i].GetComponent<RectTransform>().sizeDelta = new Vector2(0.5f, 0.25f);
             Dash[i].type = Image.Type.Filled;
         }
     }
