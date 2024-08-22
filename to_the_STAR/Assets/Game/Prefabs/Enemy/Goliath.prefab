@@ -296,7 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b34b7655d103b34e9a002479c91380e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 
+  type: Elite
   healthbarObj: {fileID: 8302434336648194852, guid: d78b22cdd90b19444987a5b032b0a5ea, type: 3}
 --- !u!60 &8947007305758235348
 PolygonCollider2D:

@@ -25,8 +25,8 @@ public class EnemyHealthBar : MonoBehaviour
         if(type == "Elite")
         {
             barPrintPos = new Vector3(0, 1.0f);
-            barShowPos = new Vector3(-1, 0, -1);
-            length = 2.0f;
+            barShowPos = new Vector3(-2, 0, -1);
+            length = 4.0f;
         }
 
         float angle = (180 - GetComponent<EnemyInterface>().getFloor() * 90) * Mathf.Deg2Rad;
