@@ -6,7 +6,7 @@ using UnityEngine;
 public class Lever : MonoBehaviour
 {
     public Sprite[] sprites; // index 0 : 비활성화, 1 : 활성화
-    public GameObject doorAdminister;
+    GameObject doorAdminister;
     SpriteRenderer _sr;
     DoorAdminister _doorAdminister;
     PlayerMovementController player;
