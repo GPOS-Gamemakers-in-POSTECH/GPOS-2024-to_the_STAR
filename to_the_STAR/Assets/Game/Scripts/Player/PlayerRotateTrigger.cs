@@ -16,6 +16,11 @@ namespace Game.Player
 
         private void Rotate(Quaternion to)
         {
+            float angle = to.eulerAngles.z - transform.rotation.z;
+            if (angle > 0) angle = (angle + 360) % 360;
+            else angle = (angle - 360) % 360;
+            GetComponent<Weapon_Flamethrower>().DirVectorUpdate(angle);
+            GetComponent<Weapon_Hammer>().DirVectorUpdate(angle);
             transform.rotation = to;
         }
         private void Move(Vector3 go)
