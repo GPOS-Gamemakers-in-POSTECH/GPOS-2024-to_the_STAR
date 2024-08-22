@@ -12,7 +12,7 @@ public class DashDetector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Map")
+        if (other.gameObject.tag == "Map" || other.gameObject.tag == "Door")
         {
             dashEnable = false;
         }

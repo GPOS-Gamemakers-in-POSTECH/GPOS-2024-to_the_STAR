@@ -8,7 +8,10 @@ public class Checker : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        collide = true;
+        if (collision.gameObject.tag == "Map")
+        {
+            collide = true;
+        }
     }
 
     public bool isCollide()

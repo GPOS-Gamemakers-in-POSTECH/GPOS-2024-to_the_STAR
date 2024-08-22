@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -6453589037192390906}
   m_Layer: 0
   m_Name: door
-  m_TagString: Map
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8450d3b04df3bc642a6bd721a0e987ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keys: 0
+  keys: 1
 --- !u!50 &-6453589037192390906
 Rigidbody2D:
   serializedVersion: 4

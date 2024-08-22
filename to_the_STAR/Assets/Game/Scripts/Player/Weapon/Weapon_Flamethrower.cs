@@ -23,7 +23,8 @@ public class Weapon_Flamethrower : MonoBehaviour
     const float flameFeverMax = 2.5f;
     const float attackDuration = 2.5f;
     const float sightLineLenght = 4.0f;
-    const float flameLightRange = 1.0f;
+    const float flameLightRange = 0.5f;
+    const float flameLightIntensity = 0.3f;
 
     const float stunCooldownSet = 0;
 
@@ -99,8 +100,10 @@ public class Weapon_Flamethrower : MonoBehaviour
                 GameObject Light = Instantiate(lightObj, transform.position, Quaternion.identity);
                 Light.transform.parent = Attack.transform;
                 Light.GetComponent<HardLight2D>().Range = flameLightRange;
+                Light.GetComponent<HardLight2D>().Intensity = flameLightIntensity;
                 Light.GetComponent<Light2D>().pointLightInnerRadius = 0;
                 Light.GetComponent<Light2D>().pointLightOuterRadius = flameLightRange;
+                Light.GetComponent<Light2D>().intensity = flameLightIntensity;
                 Attack.GetComponent<PlayerAttackObj>().init(attackDuration, flameDamageConst, flameMove * flameSpeed, 1, stunCooldownSet);
                 flameShotCooldown = flameFrequency;
             }

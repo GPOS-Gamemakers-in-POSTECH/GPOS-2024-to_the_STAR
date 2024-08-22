@@ -7,7 +7,7 @@ public class DoorAdminister : MonoBehaviour
 {
     public GameObject[] doors;
     public bool[][] keys;
-
+    public GameObject[] doorToTurningPoints;
     private void Start()
     {
         keys = new bool[doors.Length][];
