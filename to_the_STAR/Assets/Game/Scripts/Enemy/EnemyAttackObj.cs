@@ -46,5 +46,10 @@ public class EnemyAttackObj : MonoBehaviour
             _pd.playerDamage(damage);
             Destroy(gameObject);
         }
+
+        if (enemyType == EnemyType.Drone)
+        {
+            if (collision.CompareTag("Map") || collision.CompareTag("Door")) Destroy(gameObject);
+        }
     }
 }

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2294796504330346262}
   - component: {fileID: 1258086267583673970}
   - component: {fileID: -6361392782325641040}
+  - component: {fileID: 5158280343063563196}
   m_Layer: 6
   m_Name: Drone
   m_TagString: Enemy
@@ -51,6 +52,7 @@ MonoBehaviour:
   floor: 2
   stat: {fileID: 11400000, guid: 204c1603b9f5d304d83a2402bd4a3fa7, type: 2}
   attackObj: {fileID: 6584552416168620802, guid: abc11612a56a2e94aaeead0f4abf6992, type: 3}
+  fix: 0
 --- !u!212 &9176089462198877736
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -187,3 +189,30 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!50 &5158280343063563196
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856636108968421042}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
