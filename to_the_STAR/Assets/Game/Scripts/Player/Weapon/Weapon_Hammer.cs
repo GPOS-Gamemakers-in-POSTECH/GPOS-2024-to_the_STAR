@@ -67,10 +67,12 @@ public class Weapon_Hammer : MonoBehaviour
 
         if (hammerEnabled && hammerCooldown < 0 && hammerCharge < hammerChargeMax && Input.GetMouseButton(0))
         {
+            _ani.SetBool("isCharge", true);
             hammerCharge += Time.deltaTime * 5;
         }
         if(hammerCharge > 0 && Input.GetMouseButtonUp(0))
         {
+            _ani.SetBool("isCharge", false);
             _ani.SetTrigger("Attack_Hammer");
             GameObject Attack = Instantiate(attackObj, transform.position + playerPos, Quaternion.identity);
             Attack.GetComponent<PlayerAttackObj>().init(attackDuration, hammerDamageConst * hammerCharge / 10.0f, new Vector2(0, 0), 0, stunCooldownSet * hammerCharge / 10);
