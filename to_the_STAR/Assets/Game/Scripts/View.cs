@@ -7,7 +7,7 @@ public class View : MonoBehaviour
     Transform playerTransform;
     GameObject player;
     Vector3 cameraPosition = new Vector3(0, 0, -10);
-    int cameraMoveSpeed = 2;
+    int cameraMoveSpeed = 5;
     float cameraRotationSpeed = 0.1f;
     float height, width;
     public Vector2 mapSizeMin, mapSizeMax;

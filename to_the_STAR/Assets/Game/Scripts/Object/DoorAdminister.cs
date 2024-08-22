@@ -31,5 +31,9 @@ public class DoorAdminister : MonoBehaviour
             flag &= keys[i][j];
         }
         _door.DoorChanged(flag);
+        if (doorToTurningPoints[i] != null)
+        {
+            doorToTurningPoints[i].GetComponent<TurningPointSet>().turningPointChanged(flag);
+        }
     }
 }
