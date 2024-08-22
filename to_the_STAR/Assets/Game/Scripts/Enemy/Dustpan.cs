@@ -155,7 +155,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private void Idle()
     {
-        if (timer < 0)
+        if (timer <= 0)
         {
             timer = Random.Range(2.0f, 4.0f);
             if(preDir == 0)
@@ -200,7 +200,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         }
 
 
-        if (timer < 0)
+        if (timer <= 0)
         {
             if (detectPlayer()) state = State.Chasing;
             else state = State.Idle;

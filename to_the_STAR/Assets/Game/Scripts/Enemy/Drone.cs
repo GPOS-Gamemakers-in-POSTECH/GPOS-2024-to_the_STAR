@@ -13,6 +13,7 @@ public class Drone : MonoBehaviour, EnemyInterface
 
     float halfBlockSize = 0.5f;
     int direction = 1; //-1 후진 0 정지 1 전진
+    int preDir = 0;
     float timer = 0;
     float attackCooldownTimer = 0;
     float lookAround = 0;
@@ -68,7 +69,7 @@ public class Drone : MonoBehaviour, EnemyInterface
     }
     void Move()
     {
-        isMoving = true;
+        if(direction != 0) isMoving = true;
         transform.position = new Vector3(transform.position.x + moveVector.x * direction * Time.deltaTime, transform.position.y + moveVector.y * direction * Time.deltaTime, transform.position.z);
     }
 
@@ -89,6 +90,19 @@ public class Drone : MonoBehaviour, EnemyInterface
         float distanceToPlayer = Mathf.Sqrt((playerObj.transform.position.x - transform.position.x) * (playerObj.transform.position.x - transform.position.x) +
            (playerObj.transform.position.y - transform.position.y) * (playerObj.transform.position.y - transform.position.y));
         bool playerDetection = distanceToPlayer <= stat.detectionRange;
+
+        Vector3 currPosition = transform.position;
+        Vector3 tmp = floor % 2 == 0 ? new Vector3(1, 0, 0) : new Vector3(0, 1, 0);
+
+        RaycastHit2D ray1 = Physics2D.Raycast(currPosition, tmp, 1.0f, LayerMask.GetMask("Map"));
+        RaycastHit2D ray2 = Physics2D.Raycast(currPosition, -tmp, 1.0f, LayerMask.GetMask("Map"));
+
+        if ((ray1.collider != null && ray1.distance < 0.6f && direction == 1) || (ray2.collider != null && ray2.distance < 0.6f && direction == -1))
+        {
+            timer = Random.Range(2.0f, 4.0f);
+            preDir = direction;
+            direction = 0;
+        }
 
         if (!fix)
         {
@@ -140,8 +154,17 @@ public class Drone : MonoBehaviour, EnemyInterface
                 {
                     if(timer <= 0)
                     {
-                        direction = Random.Range(-1, 2);
-                        timer = Random.Range(3.0f, 5.0f);
+                        timer = Random.Range(2.0f, 4.0f);
+                        if (preDir == 0)
+                        {
+                            if (direction != 0) direction = 0;
+                            else direction = Random.Range(-1, 2);
+                        }
+                        else
+                        {
+                            direction = -preDir;
+                            preDir = 0;
+                        }
                     }
                     Move();
                 }
