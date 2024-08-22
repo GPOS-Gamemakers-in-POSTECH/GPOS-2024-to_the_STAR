@@ -108,7 +108,6 @@ public class Dustpan : MonoBehaviour, EnemyInterface
             timer = Random.Range(2.0f, 4.0f);
             preDir = direction;
             direction = 0;
-            Debug.Log("asdf");
         }
 
         playerPosition = player.transform.position;
@@ -178,7 +177,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
             lookingAround();
             direction = 0;
         }
-        else
+        else if(direction != 0)
         {
             Move();
         }
@@ -222,6 +221,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
                     attackTimer = stat.attackMotion1Cooldown;
                     attacked = false;
                     state = State.Attack;
+                    _ani.SetTrigger("Attack");
                 }
             }
             else
@@ -242,7 +242,6 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     {
         if (attackTimer <= 0 && attacked == false)
         {
-            _ani.SetTrigger("Attack");
             Vector3 move = floor % 2 == 0 ? new Vector3(1, 0, 0) : new Vector3(0, 1, 0);
             move *= direction;
             GameObject Attack = Instantiate(attackObj, transform.position + move, Quaternion.identity);

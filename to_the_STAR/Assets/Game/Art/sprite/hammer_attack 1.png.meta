@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4ba3786ee18ec514ea9d5557e87864c7
+guid: e7460bcf35cf8ab48b3fdcbf9655fdd1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 24
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -97,64 +97,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: golem_head_0
+      name: hammer_attack 1_0
       rect:
         serializedVersion: 2
-        x: 16
-        y: 45
-        width: 32
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 13
+        y: 0
+        width: 33
+        height: 11
+      alignment: 9
+      pivot: {x: 0.6969697, y: 1.1363636}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6091ec98e8f1f5c40b69fe15dd52f694
-      internalID: 1313151085
+      spriteID: 529dcaf545e994b46aaf525dccef7fd2
+      internalID: -1202737945
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: golem_head_1
+      name: hammer_attack 1_1
       rect:
         serializedVersion: 2
-        x: 80
-        y: 45
-        width: 32
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 73
+        y: 0
+        width: 21
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.625}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf92ce876682aa049bab44497335dce0
-      internalID: -714429765
+      spriteID: 4a97bef6a52d87b419e7624a35f2f474
+      internalID: 1355503400
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: golem_head_2
+      name: hammer_attack 1_2
       rect:
         serializedVersion: 2
-        x: 144
-        y: 45
-        width: 32
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 122
+        y: 0
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.625}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 14c0d67b5bd57384f9adf80ffd785ecd
-      internalID: -1730813564
+      spriteID: a009de71e08d60d4d89ca34134edc61c
+      internalID: -1193285730
       vertices: []
       indices: 
       edges: []
@@ -170,9 +170,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      golem_head_0: 1313151085
-      golem_head_1: -714429765
-      golem_head_2: -1730813564
+      hammer_attack 1_0: -1202737945
+      hammer_attack 1_1: 1355503400
+      hammer_attack 1_2: -1193285730
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

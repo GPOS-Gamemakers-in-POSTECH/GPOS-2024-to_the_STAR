@@ -54,7 +54,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -146,6 +146,5 @@ MonoBehaviour:
   sprites:
   - {fileID: -2121087668, guid: b3843aca0cbb2744dafdab497c28cd78, type: 3}
   - {fileID: 1926338387, guid: b3843aca0cbb2744dafdab497c28cd78, type: 3}
-  doorAdminister: {fileID: 0}
   door: 0
   key: 0

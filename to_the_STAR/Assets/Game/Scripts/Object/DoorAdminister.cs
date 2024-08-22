@@ -7,7 +7,7 @@ public class DoorAdminister : MonoBehaviour
 {
     public GameObject[] doors;
     public bool[][] keys;
-
+    public GameObject[] doorToTurningPoints;
     private void Start()
     {
         keys = new bool[doors.Length][];
@@ -31,5 +31,9 @@ public class DoorAdminister : MonoBehaviour
             flag &= keys[i][j];
         }
         _door.DoorChanged(flag);
+        if (doorToTurningPoints[i] != null)
+        {
+            doorToTurningPoints[i].GetComponent<TurningPointSet>().turningPointChanged(flag);
+        }
     }
 }

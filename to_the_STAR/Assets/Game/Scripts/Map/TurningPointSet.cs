@@ -7,9 +7,11 @@ public class TurningPointSet : MonoBehaviour
     [SerializeField] GameObject Checker;
     int type = 0;
     GameObject[] checks = new GameObject[8];
+    GameObject doorCheck;
     void Start()
     {
-        for(int i = 0; i < 8; i++)
+        doorCheck = GameObject.Find("DoorAdminister");
+        for (int i = 0; i < 8; i++)
         {
             checks[i] = Instantiate(Checker, transform.position + new Vector3(Mathf.Cos(45*i*Mathf.Deg2Rad), Mathf.Sin(45*i*Mathf.Deg2Rad), 0), Quaternion.identity);
         }
@@ -43,6 +45,11 @@ public class TurningPointSet : MonoBehaviour
         }
     }
 
+    public void turningPointChanged(bool flag)
+    {
+        gameObject.SetActive(!flag);
+    }
+
     void Update()
     {
         if (type == 0)
@@ -56,6 +63,15 @@ public class TurningPointSet : MonoBehaviour
                 Destroy(checks[i]);
             }
             if (type == 0) type = -1;
+            for(int i = 0; i < doorCheck.GetComponent<TurningPointDoorTable>().DoorTable.Length; i++)
+            {
+                if ((doorCheck.GetComponent<TurningPointDoorTable>().LocTable[i] - new Vector2(transform.position.x, transform.position.y)).magnitude < 0.5)
+                {
+                    doorCheck.GetComponent<DoorAdminister>().doorToTurningPoints[doorCheck.GetComponent<TurningPointDoorTable>().DoorTable[i]] = gameObject;
+                    type = doorCheck.GetComponent<TurningPointDoorTable>().ChangedType[i];
+                    break;
+                }
+            }
         }
     }
 }
