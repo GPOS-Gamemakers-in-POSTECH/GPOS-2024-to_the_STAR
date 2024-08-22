@@ -47,6 +47,10 @@ public class TurningPointSet : MonoBehaviour
 
     public void turningPointChanged(bool flag)
     {
+        if(type == 128 || type == 32 || type == 2 || type == 8)
+        {
+            flag = !flag;
+        }
         gameObject.SetActive(!flag);
     }
 

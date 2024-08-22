@@ -60,7 +60,7 @@ public class Weapon_Hammer : MonoBehaviour
     {
         if(hammerEnabled && hammerCooldown < 0 && hammerCharge < hammerChargeMax && Input.GetMouseButton(0))
         {
-            hammerCharge += Time.deltaTime;
+            hammerCharge += Time.deltaTime * 5;
         }
         if(hammerCharge > 0 && Input.GetMouseButtonUp(0))
         {
