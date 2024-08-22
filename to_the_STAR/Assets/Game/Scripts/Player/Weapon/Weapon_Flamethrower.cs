@@ -75,7 +75,10 @@ public class Weapon_Flamethrower : MonoBehaviour
         }
         if (flameEnabled && !flameCooldown && Input.GetMouseButtonDown(0))
         {
-            flameFever = 0;
+            if (flameFever < 0)
+            {
+                flameFever = 0;
+            }
             flameTurnedOn = true;
         }
         if(flameTurnedOn && Input.GetMouseButton(0))

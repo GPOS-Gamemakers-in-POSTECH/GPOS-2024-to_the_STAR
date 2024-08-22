@@ -6,6 +6,7 @@ using UnityEngine;
 public class Weapon_Hammer : MonoBehaviour
 {
     [SerializeField] GameObject attackObj;
+    Vector3 playerPos = new Vector3(1, 0, 0);
     bool hammerEnabled = false;
     float hammerCooldown = 0;
     float hammerCharge = 0;
@@ -58,18 +59,34 @@ public class Weapon_Hammer : MonoBehaviour
 
     void Update()
     {
-        if(hammerEnabled && hammerCooldown < 0 && hammerCharge < hammerChargeMax && Input.GetMouseButton(0))
+        Vector2 playerTmp = GetComponent<PlayerMovementController>().getMoveVector();
+        if (playerTmp.x != 0 || playerTmp.y != 0)
         {
-            hammerCharge += Time.deltaTime;
+            playerPos = playerTmp;
+        }
+
+        if (hammerEnabled && hammerCooldown < 0 && hammerCharge < hammerChargeMax && Input.GetMouseButton(0))
+        {
+            hammerCharge += Time.deltaTime * 5;
         }
         if(hammerCharge > 0 && Input.GetMouseButtonUp(0))
         {
             _ani.SetTrigger("Attack_Hammer");
-            GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.identity);
+            GameObject Attack = Instantiate(attackObj, transform.position + playerPos, Quaternion.identity);
             Attack.GetComponent<PlayerAttackObj>().init(attackDuration, hammerDamageConst * hammerCharge / 10.0f, new Vector2(0, 0), 0, stunCooldownSet * hammerCharge / 10);
             hammerCooldown = hammerCooldownSet;
             hammerCharge = 0;
         }
         hammerCooldown -= Time.deltaTime;
+    }
+
+    private Vector2 VectorRotate(Vector2 tmp, float angle)
+    {
+        return new Vector2(tmp.x * Mathf.Cos(angle) - tmp.y * Mathf.Sin(angle), tmp.x * Mathf.Sin(angle) + tmp.y * Mathf.Cos(angle));
+    }
+
+    public void DirVectorUpdate(float angle)
+    {
+        playerPos = VectorRotate(playerPos, angle * Mathf.Deg2Rad);
     }
 }

@@ -144,6 +144,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
             timer = Random.Range(3.0f, 5.0f);
             isWalking = false;
             walkN = 0;
+            walkState = 0;
             init();
         }
 
@@ -170,18 +171,8 @@ public class Goliath : MonoBehaviour, EnemyInterface
             case State.Stunned:
                 break;
             case State.Dead:
+                Dead();
                 break;
-        }
-
-        if (((floor + 1) % 4) / 2 == 0)
-        {
-            if (direction == 1) _sr.flipX = false;
-            else if (direction == -1) _sr.flipX = true;
-        }
-        else
-        {
-            if (direction == 1) _sr.flipX = true;
-            else if (direction == -1) _sr.flipX = false;
         }
 
         if (timer > 0) timer -= Time.deltaTime;
@@ -237,7 +228,6 @@ public class Goliath : MonoBehaviour, EnemyInterface
                     walkN = 0;
                     state = State.Detection;
                     timer = detectionCooldown;
-                    lookingAround();
                     direction = 0;
                 }
                 else
@@ -276,13 +266,6 @@ public class Goliath : MonoBehaviour, EnemyInterface
 
     private void Detect()
     {
-        if (timer < lookAround && timer > 0.4f)
-        {
-            _sr.flipX = !_sr.flipX;
-            lookingAround();
-        }
-
-
         if (timer < 0)
         {
             if (detectPlayer())
@@ -334,7 +317,6 @@ public class Goliath : MonoBehaviour, EnemyInterface
             {
                 state = State.Detection;
                 timer = detectionCooldown;
-                lookingAround();
                 direction = 0;
             }
         }
@@ -401,6 +383,19 @@ public class Goliath : MonoBehaviour, EnemyInterface
         }
     }
 
+    private void Dead()
+    {
+        if(timer <= 0)
+        {
+            Destroy(LeftLeg1);
+            Destroy(LeftLeg2);
+            Destroy(RightLeg1);
+            Destroy(RightLeg2);
+            Destroy(GetComponentInChildren<Transform>());
+            Destroy(this);
+        }
+    }
+
     private void init()
     {
         LeftLeg1.transform.position = transform.position + VectorAdd(-0.4583f, -0.4375f, 3);
@@ -438,11 +433,6 @@ public class Goliath : MonoBehaviour, EnemyInterface
     {
         if (floor % 2 == 0) direction = playerPosition.x > transform.position.x ? 1 : -1;
         else direction = playerPosition.y > transform.position.y ? 1 : -1;
-    }
-
-    private void lookingAround()
-    {
-        lookAround = timer - Random.Range(0.8f, 1.2f);
     }
 
     private Vector3 VectorRotate(Vector3 tmp, float angle)

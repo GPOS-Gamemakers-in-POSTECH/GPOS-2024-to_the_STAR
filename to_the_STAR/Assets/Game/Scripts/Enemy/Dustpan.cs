@@ -221,12 +221,12 @@ public class Dustpan : MonoBehaviour, EnemyInterface
                     attackTimer = stat.attackMotion1Cooldown;
                     attacked = false;
                     state = State.Attack;
-                    _ani.SetTrigger("Attack");
+                    _ani.SetTrigger("Attack"); 
                 }
             }
             else
             {
-                if (attackTimer <= stat.attackCooldown - stat.attackDuration) Move();
+                Move();
             }
         }
         else
@@ -240,7 +240,8 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private void Attack()
     {
-        if (attackTimer <= 0 && attacked == false)
+        _ani.SetFloat("AttackMotion", _ani.GetFloat("AttackMotion") + Time.deltaTime);
+        if (_ani.GetFloat("AttackMotion") >= 0.33f && attacked == false)
         {
             Vector3 move = floor % 2 == 0 ? new Vector3(1, 0, 0) : new Vector3(0, 1, 0);
             move *= direction;
@@ -249,11 +250,12 @@ public class Dustpan : MonoBehaviour, EnemyInterface
             attacked = true;
             attackTimer = stat.attackMotion2Cooldown;
         }
-        else if (attackTimer <= 0 && attacked)
+        else if (_ani.GetFloat("AttackMotion") >= 0.667f && attacked)
         {
             attackTimer = stat.attackCooldown;
             attacked = false;
             state = State.Chasing;
+            _ani.SetFloat("AttackMotion", 0);
         }
     }
 
@@ -261,6 +263,8 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     {
         if (timer <= 0)
         {
+            _ani.SetFloat("AttackMotion", 0);
+            attackTimer = stat.attackCooldown;
             if (detectPlayer()) state = State.Chasing;
             else
             {
@@ -274,6 +278,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private void Dead()
     {
+        _ani.SetFloat("AttackMotion", 0);
         _ani.SetBool("Dead", true);
         if (timer <= 0) Destroy(gameObject);
     }
