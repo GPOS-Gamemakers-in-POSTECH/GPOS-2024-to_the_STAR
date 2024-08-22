@@ -13,7 +13,10 @@ public class Lever : MonoBehaviour
     PlayerData playerData;
     public int door; // 연결되어 있는 문의 번호
     public int key; // 몇 번째 레버인지
+    public bool isTimer; // 뒤주용 타이머 레버인가?
+    float timer;
     bool state;
+    bool playerUsed;
 
     void Start()
     {
@@ -45,21 +48,36 @@ public class Lever : MonoBehaviour
         }
     }
 
-    public void Interaction() // 이 레버를 작동 시켰을 때
+    private void works()
     {
         state = !state;
         _sr.flipX = !_sr.flipX;
         int index = state ? 1 : 0;
         _sr.sprite = sprites[index];
-
         _doorAdminister = doorAdminister.GetComponent<DoorAdminister>();
         _doorAdminister.keys[door][key] = state;
         _doorAdminister.StateChanged(door);
+    }
+    public void Interaction() // 이 레버를 작동 시켰을 때
+    {
+        works();
+        playerUsed = !playerUsed;
+        timer = 3;
     }
 
     private bool compareRotation(PlayerRotateDirection _prd)
     {
         return (_prd == PlayerRotateDirection.Up && transform.rotation.z == 180) || (_prd == PlayerRotateDirection.Right && transform.rotation.z == 90)
             || (_prd == PlayerRotateDirection.Down && transform.rotation.z == 0) || (_prd == PlayerRotateDirection.Left && transform.rotation.z == 270);
+    }
+
+    private void Update()
+    {
+        if(isTimer && timer < 0 && playerUsed)
+        {
+            playerUsed = false;
+            works();
+        }
+        timer -= Time.deltaTime;
     }
 }
