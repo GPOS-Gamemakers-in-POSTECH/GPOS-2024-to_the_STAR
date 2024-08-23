@@ -12,6 +12,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
     [SerializeField] private int floor;
     [SerializeField] private GameObject attackObj1;
     [SerializeField] private GameObject attackObj2;
+    [SerializeField] private GameObject walkingAttackObj;
 
     [SerializeField] private GameObject[] Legs;
 
@@ -36,12 +37,13 @@ public class Goliath : MonoBehaviour, EnemyInterface
     private const float maxHp = 1000;
     private const float detectionRange = 10.0f;
     private const float detectionCooldown = 3.0f;
-    private const float attackRange = 4.0f;
+    private const float attackRange = 2.0f;
     private const float attackMotion1Cooldown = 1.0f;
     private const float attackMotion2Cooldown = 0.05f;
+    private const float attack2MotionCooldown = 0.5f;
     private const float attackDuration = 1.0f;
     private const float attackCooldown = 4.0f;
-    private const float attackPower = 20.0f;
+    private const float attackPower = 10.0f;
     private float hp = 1000;
     private float speed = 0.8f;
 
@@ -49,6 +51,8 @@ public class Goliath : MonoBehaviour, EnemyInterface
     private int preDir = 0;
     private float attackTimer = 0;
     private float timer = 0;
+    private int attackType = 0;
+    private float attack2count = 0;
 
     private const float deadCooldown = 3;
 
@@ -141,11 +145,6 @@ public class Goliath : MonoBehaviour, EnemyInterface
         RaycastHit2D rightRay = Physics2D.Raycast(transform.position, _right, 3.0f, LayerMask.GetMask("Map"));
         RaycastHit2D leftRay = Physics2D.Raycast(transform.position, _left, 3.0f, LayerMask.GetMask("Map"));
 
-        if(player.GetComponent<PlayerData>().playerHp() < 0)
-        {
-            hp = Mathf.Min(maxHp, (hp + maxHp) / 2);
-        }
-
         if (isWalking && ((rightRay.collider != null && rightRay.distance < 2.5f && direction == 1) || (leftRay.collider != null && leftRay.distance < 2.5f && direction == -1)))
         {
             preDir = direction;
@@ -195,7 +194,13 @@ public class Goliath : MonoBehaviour, EnemyInterface
             case 0:
                 LeftLeg1.transform.position = LeftLeg1.transform.position + VectorAdd(direction * legMovementX, legMovementY) * Time.deltaTime * faster;
                 RightLeg2.transform.position = RightLeg2.transform.position + VectorAdd(direction * legMovementX, legMovementY) * Time.deltaTime * faster;
-                if (timer <= 0) { walkState++; timer = walkCooldown / faster; }
+                if (timer <= 0) {
+                    walkState++; timer = walkCooldown / faster;
+                    GameObject Attack1 = Instantiate(walkingAttackObj, LeftLeg1.transform.position + VectorAdd(-1.02f, -2.34f), Quaternion.identity);
+                    GameObject Attack2 = Instantiate(walkingAttackObj, RightLeg2.transform.position + VectorAdd(1.02f, -2.34f), Quaternion.identity);
+                    Attack1.GetComponent<EnemyAttackObj>().init(walkCooldown, attackPower * 0.2f, VectorAdd(direction * legMovementX, -legMovementY) * faster, EnemyAttackObj.EnemyType.Goliath);
+                    Attack2.GetComponent<EnemyAttackObj>().init(walkCooldown, attackPower * 0.2f, VectorAdd(direction * legMovementX, -legMovementY) * faster, EnemyAttackObj.EnemyType.Goliath);
+                }
                 break;
             case 1:
                 LeftLeg1.transform.position = LeftLeg1.transform.position + VectorAdd(direction * legMovementX, -legMovementY) * Time.deltaTime * faster;
@@ -205,7 +210,13 @@ public class Goliath : MonoBehaviour, EnemyInterface
             case 2:
                 LeftLeg2.transform.position = LeftLeg2.transform.position + VectorAdd(direction * legMovementX, legMovementY) * Time.deltaTime * faster;
                 RightLeg1.transform.position = RightLeg1.transform.position + VectorAdd(direction * legMovementX, legMovementY) * Time.deltaTime * faster;
-                if (timer <= 0) { walkState++; timer = walkCooldown / faster; }
+                if (timer <= 0) {
+                    walkState++; timer = walkCooldown / faster;
+                    GameObject Attack1 = Instantiate(walkingAttackObj, LeftLeg2.transform.position + VectorAdd(-1.02f, -2.34f), Quaternion.identity);
+                    GameObject Attack2 = Instantiate(walkingAttackObj, RightLeg1.transform.position + VectorAdd(1.02f, -2.34f), Quaternion.identity);
+                    Attack1.GetComponent<EnemyAttackObj>().init(walkCooldown, attackPower * 0.2f, VectorAdd(direction * legMovementX, -legMovementY) * faster, EnemyAttackObj.EnemyType.Goliath);
+                    Attack2.GetComponent<EnemyAttackObj>().init(walkCooldown, attackPower * 0.2f, VectorAdd(direction * legMovementX, -legMovementY) * faster, EnemyAttackObj.EnemyType.Goliath);
+                }
                 break;
             case 3:
                 LeftLeg2.transform.position = LeftLeg2.transform.position + VectorAdd(direction * legMovementX, -legMovementY) * Time.deltaTime * faster;
@@ -267,6 +278,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
                         isWalking = true;
                         preDir = 0;
                     }
+                    Debug.Log(direction);
                 }
             }
         }
@@ -309,6 +321,17 @@ public class Goliath : MonoBehaviour, EnemyInterface
                     {
                         attackTimer = attackMotion1Cooldown;
                         isAttacking = false;
+                        attackType = Random.Range(1, 2);
+                        switch (attackType)
+                        {
+                            case 1:
+                                attackTimer = attackMotion1Cooldown;
+                                break;
+                            case 2:
+                                attackTimer = attack2MotionCooldown;
+                                attack2count = 4;
+                                break;
+                        }
                         state = State.Attack;
                     }
                 }
@@ -333,65 +356,74 @@ public class Goliath : MonoBehaviour, EnemyInterface
 
     private void Attack()
     {
-        if (isAttacking)
+        switch (attackType)
         {
-            if(attackTimer <= 0)
-            {
-                init();
-
-                Vector3 legCenter = direction == 1 ? RightLeg1.transform.position : LeftLeg2.transform.position;
-                legCenter += VectorAdd(direction * 1.1f, -2.3325f);
-                GameObject Attack1 = Instantiate(attackObj2, legCenter + VectorAdd(0.895f, 0), Quaternion.identity);
-                GameObject Attack2 = Instantiate(attackObj2, legCenter + VectorAdd(-0.895f, 0), Quaternion.identity);
-                Attack1.GetComponent<EnemyAttackObj>().init(attackDuration, attackPower * 0.3f, VectorAdd(4, 0), EnemyAttackObj.EnemyType.Goliath);
-                Attack2.GetComponent<EnemyAttackObj>().init(attackDuration, attackPower * 0.3f, VectorAdd(-4, 0), EnemyAttackObj.EnemyType.Goliath);
-
-                state = State.Chasing;
-                isAttacking = false;
-                attackTimer = attackCooldown;
-            }
-            else
-            {
-                transform.Rotate(0, 0, 20 * ang * Time.deltaTime * direction);
-                if (direction == 1)
+            case 1:
+                if (isAttacking)
                 {
-                    RightLeg1.transform.position = RightLeg1.transform.position + VectorAdd(0, -legMovementY * 40) * Time.deltaTime;
-                    RightLeg2.transform.position = RightLeg2.transform.position + VectorAdd(0, -legMovementY * 40) * Time.deltaTime;
+                    if (attackTimer <= 0)
+                    {
+                        init();
+
+                        Vector3 legCenter = direction == 1 ? RightLeg1.transform.position : LeftLeg2.transform.position;
+                        legCenter += VectorAdd(direction * 1.1f, -2.3325f);
+                        GameObject Attack1 = Instantiate(attackObj2, legCenter + VectorAdd(0.895f, 0), Quaternion.identity);
+                        GameObject Attack2 = Instantiate(attackObj2, legCenter + VectorAdd(-0.895f, 0), Quaternion.identity);
+                        Attack1.GetComponent<EnemyAttackObj>().init(attackDuration, attackPower * 0.3f, VectorAdd(4, 0), EnemyAttackObj.EnemyType.Goliath);
+                        Attack2.GetComponent<EnemyAttackObj>().init(attackDuration, attackPower * 0.3f, VectorAdd(-4, 0), EnemyAttackObj.EnemyType.Goliath);
+
+                        state = State.Chasing;
+                        isAttacking = false;
+                        attackTimer = attackCooldown;
+                    }
+                    else
+                    {
+                        transform.Rotate(0, 0, 20 * ang * Time.deltaTime * direction);
+                        if (direction == 1)
+                        {
+                            RightLeg1.transform.position = RightLeg1.transform.position + VectorAdd(0, -legMovementY * 40) * Time.deltaTime;
+                            RightLeg2.transform.position = RightLeg2.transform.position + VectorAdd(0, -legMovementY * 40) * Time.deltaTime;
+                        }
+                        else
+                        {
+                            LeftLeg1.transform.position = LeftLeg1.transform.position + VectorAdd(0, -legMovementY * 40) * Time.deltaTime;
+                            LeftLeg2.transform.position = LeftLeg2.transform.position + VectorAdd(0, -legMovementY * 40) * Time.deltaTime;
+                        }
+                    }
                 }
                 else
                 {
-                    LeftLeg1.transform.position = LeftLeg1.transform.position + VectorAdd(0, -legMovementY * 40) * Time.deltaTime;
-                    LeftLeg2.transform.position = LeftLeg2.transform.position + VectorAdd(0, -legMovementY * 40) * Time.deltaTime;
-                }
-            }
-        }
-        else
-        {
-            if (attackTimer <= 0)
-            {
-                Vector3 legPos = direction == 1 ? RightLeg1.transform.position : LeftLeg2.transform.position;
-                Vector3 tmp = VectorAdd(direction * 1.1f, -2.3325f);
-                GameObject Attack = Instantiate(attackObj1, legPos + tmp, Quaternion.identity);
-                Attack.GetComponent<EnemyAttackObj>().init(attackMotion2Cooldown, attackPower, VectorAdd(0, -legMovementY * 20), EnemyAttackObj.EnemyType.Goliath);
+                    if (attackTimer <= 0)
+                    {
+                        Vector3 legPos = direction == 1 ? RightLeg1.transform.position : LeftLeg2.transform.position;
+                        Vector3 tmp = VectorAdd(direction * 1.1f, -2.3325f);
+                        GameObject Attack = Instantiate(attackObj1, legPos + tmp, Quaternion.identity);
+                        Attack.GetComponent<EnemyAttackObj>().init(attackMotion2Cooldown, attackPower, VectorAdd(0, -legMovementY * 20), EnemyAttackObj.EnemyType.Goliath);
 
-                attackTimer = attackMotion2Cooldown;
-                isAttacking = true;
-            }
-            else
-            {
-                transform.Rotate(0, 0, ang * Time.deltaTime * direction);
-                if (direction == 1)
-                {
-                    RightLeg1.transform.position = RightLeg1.transform.position + VectorAdd(0, legMovementY * 2) * Time.deltaTime;
-                    RightLeg2.transform.position = RightLeg2.transform.position + VectorAdd(0, legMovementY * 2) * Time.deltaTime;
+                        attackTimer = attackMotion2Cooldown;
+                        isAttacking = true;
+                    }
+                    else
+                    {
+                        transform.Rotate(0, 0, ang * Time.deltaTime * direction);
+                        if (direction == 1)
+                        {
+                            RightLeg1.transform.position = RightLeg1.transform.position + VectorAdd(0, legMovementY * 2) * Time.deltaTime;
+                            RightLeg2.transform.position = RightLeg2.transform.position + VectorAdd(0, legMovementY * 2) * Time.deltaTime;
+                        }
+                        else
+                        {
+                            LeftLeg1.transform.position = LeftLeg1.transform.position + VectorAdd(0, legMovementY * 2) * Time.deltaTime;
+                            LeftLeg2.transform.position = LeftLeg2.transform.position + VectorAdd(0, legMovementY * 2) * Time.deltaTime;
+                        }
+                    }
                 }
-                else
-                {
-                    LeftLeg1.transform.position = LeftLeg1.transform.position + VectorAdd(0, legMovementY * 2) * Time.deltaTime;
-                    LeftLeg2.transform.position = LeftLeg2.transform.position + VectorAdd(0, legMovementY * 2) * Time.deltaTime;
-                }
-            }
+                break;
+            case 2:
+                
+                break;
         }
+        
     }
 
     private void Dead()
@@ -403,7 +435,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
             Destroy(RightLeg1);
             Destroy(RightLeg2);
             Destroy(GetComponentInChildren<Transform>());
-            Destroy(this);
+            gameObject.SetActive(false);
         }
     }
 
