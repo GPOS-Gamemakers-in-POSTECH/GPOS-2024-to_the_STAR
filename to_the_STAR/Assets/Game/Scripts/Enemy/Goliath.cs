@@ -282,7 +282,6 @@ public class Goliath : MonoBehaviour, EnemyInterface
                         isWalking = true;
                         preDir = 0;
                     }
-                    Debug.Log(direction);
                 }
             }
         }

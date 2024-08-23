@@ -36,9 +36,9 @@ public class UI : MonoBehaviour
     Image[] Dash = new Image[3];
     string[] dashName = new string[3];
 
-    const float WeaponUI_y = -64f;
-    const float WeaponUI_x = 72f;
-    const float WeaponUI_x_gap = 36f;
+    const float WeaponUI_y = -108f;
+    const float WeaponUI_x = 96f;
+    const float WeaponUI_x_gap = 108f;
     Vector2 WeaponUI_size = new Vector2(1.5f, 1.5f);
     Vector2 Healthbar_size = new Vector2(3.0f, 1.0f);
     Vector2 ScreenSize = new Vector2(-Screen.width / 2, Screen.height / 2);
@@ -97,7 +97,7 @@ public class UI : MonoBehaviour
         Healthbar.transform.SetParent(transform);
         Healthbar.sprite = Healthbar_Prefab.sprite;
         Healthbar.material = Healthbar_Prefab.material;
-        Healthbar.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x * 1.5f, WeaponUI_y * 2.2f);
+        Healthbar.GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x * 1.7f, WeaponUI_y * 2.2f);
         Healthbar.GetComponent<RectTransform>().sizeDelta = Healthbar_size;
         Healthbar.type = Image.Type.Filled;
         Healthbar.fillMethod = Image.FillMethod.Horizontal;
@@ -153,7 +153,7 @@ public class UI : MonoBehaviour
             Dash[i].transform.SetParent(transform);
             Dash[i].sprite = Dash_Prefab.sprite;
             Dash[i].material = Dash_Prefab.material;
-            Dash[i].GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x + WeaponUI_x_gap * i, WeaponUI_y * 3.1f + WeaponUI_x_gap);
+            Dash[i].GetComponent<RectTransform>().anchoredPosition = ScreenSize + new Vector2(WeaponUI_x + WeaponUI_x_gap * 0.66f * i, WeaponUI_y * 3.5f + WeaponUI_x_gap);
             Dash[i].GetComponent<RectTransform>().sizeDelta = new Vector2(0.5f, 0.25f);
             Dash[i].type = Image.Type.Filled;
         }
