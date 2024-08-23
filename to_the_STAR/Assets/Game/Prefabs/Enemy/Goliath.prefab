@@ -281,6 +281,7 @@ MonoBehaviour:
   floor: 2
   attackObj1: {fileID: 6584552416168620802, guid: cdc072e68b0695d4a8d2900ee57e70eb, type: 3}
   attackObj2: {fileID: 6584552416168620802, guid: 50adc82802e4c4a4da9f6cd0ef008053, type: 3}
+  walkingAttackObj: {fileID: 6584552416168620802, guid: 4708911340713e7468772c1ce9d7f37d, type: 3}
   Legs:
   - {fileID: 2977414090565635797, guid: e8e3544e01c75864ca87a812841612f0, type: 3}
   - {fileID: 5239440915575926513, guid: 772fd6b4063a6de4cb73bc5fa226ba28, type: 3}

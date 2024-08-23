@@ -23,8 +23,8 @@ public class Weapon_Flamethrower : MonoBehaviour
     const float flameFeverMax = 2.5f;
     const float attackDuration = 2.5f;
     const float sightLineLenght = 4.0f;
-    const float flameLightRange = 0.5f;
-    const float flameLightIntensity = 0.3f;
+    const float flameLightRange = 0.7f;
+    const float flameLightIntensity = 0.5f;
 
     const float stunCooldownSet = 0;
 
