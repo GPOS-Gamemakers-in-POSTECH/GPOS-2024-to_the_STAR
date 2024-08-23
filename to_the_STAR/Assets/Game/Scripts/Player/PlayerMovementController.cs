@@ -7,7 +7,7 @@ namespace Game.Player
 {
     public class PlayerMovementController : MonoBehaviour
     {
-        [SerializeField] private int moveSpeed = 5;
+        [SerializeField] private int moveSpeed = 3;
         [SerializeField] GameObject DashDetect;
 
         private InputActions.PlayerActions _playerActions;
@@ -141,7 +141,12 @@ namespace Game.Player
         private void FixedUpdate()
         {
             Vector2 currPosition = transform.position;
-            _rb.MovePosition(currPosition + _moveVector * (moveSpeed * Time.deltaTime));
+            int hammerRecoil = 1;
+            if(GetComponent<PlayerData>().hammerCooldown() > 0.8f){
+                hammerRecoil = 0;
+            }
+            _rb.MovePosition(currPosition + _moveVector * (moveSpeed * Time.deltaTime) 
+                * (1 - Mathf.Max(GetComponent<PlayerData>().hammerCharge(), 0)) * (1 - Mathf.Max(GetComponent<PlayerData>().flamethrowerFever() / 3, 0)) * hammerRecoil);
             dash += Time.deltaTime;
             if (dash > dashMax) dash = dashMax;
         }

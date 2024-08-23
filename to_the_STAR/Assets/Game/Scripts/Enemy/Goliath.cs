@@ -41,7 +41,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
     private const float attackMotion2Cooldown = 0.05f;
     private const float attackDuration = 1.0f;
     private const float attackCooldown = 4.0f;
-    private const float attackPower = 10.0f;
+    private const float attackPower = 20.0f;
     private float hp = 1000;
     private float speed = 0.8f;
 
@@ -140,6 +140,11 @@ public class Goliath : MonoBehaviour, EnemyInterface
 
         RaycastHit2D rightRay = Physics2D.Raycast(transform.position, _right, 3.0f, LayerMask.GetMask("Map"));
         RaycastHit2D leftRay = Physics2D.Raycast(transform.position, _left, 3.0f, LayerMask.GetMask("Map"));
+
+        if(player.GetComponent<PlayerData>().playerHp() < 0)
+        {
+            hp = Mathf.Min(maxHp, (hp + maxHp) / 2);
+        }
 
         if (isWalking && ((rightRay.collider != null && rightRay.distance < 2.5f && direction == 1) || (leftRay.collider != null && leftRay.distance < 2.5f && direction == -1)))
         {
@@ -262,7 +267,6 @@ public class Goliath : MonoBehaviour, EnemyInterface
                         isWalking = true;
                         preDir = 0;
                     }
-                    Debug.Log(direction);
                 }
             }
         }
