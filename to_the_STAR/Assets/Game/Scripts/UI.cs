@@ -39,6 +39,7 @@ public class UI : MonoBehaviour
     const float WeaponUI_y = -108f;
     const float WeaponUI_x = 96f;
     const float WeaponUI_x_gap = 108f;
+    const float WeaponValueAlpha = 0.75f;
     Vector2 WeaponUI_size = new Vector2(1.5f, 1.5f);
     Vector2 Healthbar_size = new Vector2(3.0f, 1.0f);
     Vector2 ScreenSize = new Vector2(-Screen.width / 2, Screen.height / 2);
@@ -111,7 +112,7 @@ public class UI : MonoBehaviour
         Weapon_Hammer_Charge.GetComponent<RectTransform>().sizeDelta = WeaponUI_size;
         Weapon_Hammer_Charge.type = Image.Type.Filled;
         Color hcc = Weapon_Hammer_Charge.GetComponent<Image>().color;
-        Weapon_Hammer_Charge.GetComponent<Image>().color = new Color(hcc.r, hcc.g, hcc.b, 0.5f);
+        Weapon_Hammer_Charge.GetComponent<Image>().color = new Color(hcc.r, hcc.g, hcc.b, WeaponValueAlpha);
         Weapon_Hammer_Charge.fillMethod = Image.FillMethod.Vertical;
         Weapon_Hammer_Charge.fillOrigin = (int)Image.OriginVertical.Bottom;
 
@@ -123,7 +124,7 @@ public class UI : MonoBehaviour
         Weapon_Hammer_Cooldown.GetComponent<RectTransform>().sizeDelta = WeaponUI_size;
         Weapon_Hammer_Cooldown.type = Image.Type.Filled;
         Color fcd = Weapon_Hammer_Cooldown.GetComponent<Image>().color;
-        Weapon_Hammer_Cooldown.GetComponent<Image>().color = new Color(fcd.r, fcd.g, fcd.b, 0.25f);
+        Weapon_Hammer_Cooldown.GetComponent<Image>().color = new Color(fcd.r, fcd.g, fcd.b, WeaponValueAlpha);
 
         Weapon_Flamethrower_Cooldown = new GameObject("UI_Flamethrower_Cooldown").AddComponent<Image>();
         Weapon_Flamethrower_Cooldown.transform.SetParent(transform);
@@ -133,7 +134,7 @@ public class UI : MonoBehaviour
         Weapon_Flamethrower_Cooldown.GetComponent<RectTransform>().sizeDelta = WeaponUI_size;
         Weapon_Flamethrower_Cooldown.type = Image.Type.Filled;
         Color fcc = Weapon_Flamethrower_Cooldown.GetComponent<Image>().color;
-        Weapon_Flamethrower_Cooldown.GetComponent<Image>().color = new Color(fcc.r, fcc.g, fcc.b, 0.25f);
+        Weapon_Flamethrower_Cooldown.GetComponent<Image>().color = new Color(fcc.r, fcc.g, fcc.b, WeaponValueAlpha * 0.5f);
 
         Weapon_Flamethrower_Cooldown.enabled = false;
 
@@ -145,7 +146,7 @@ public class UI : MonoBehaviour
         Weapon_Flamethrower_Fever.GetComponent<RectTransform>().sizeDelta = WeaponUI_size;
         Weapon_Flamethrower_Fever.type = Image.Type.Filled;
         Color ffc = Weapon_Flamethrower_Fever.GetComponent<Image>().color;
-        Weapon_Flamethrower_Fever.GetComponent<Image>().color = new Color(ffc.r, ffc.g, ffc.b, 0.5f);
+        Weapon_Flamethrower_Fever.GetComponent<Image>().color = new Color(ffc.r, ffc.g, ffc.b, WeaponValueAlpha);
 
         for(int i = 0; i < 3; i++)
         {
