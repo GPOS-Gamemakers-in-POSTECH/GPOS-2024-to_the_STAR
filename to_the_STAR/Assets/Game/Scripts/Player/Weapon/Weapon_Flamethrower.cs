@@ -16,10 +16,10 @@ public class Weapon_Flamethrower : MonoBehaviour
     float flameFever = 0;
     float flameShotCooldown = 0;
     Vector2 playerPos = new Vector2(1, 0);
-    const float flameDamageConst = 1.0f;
+    const float flameDamageConst = 2.5f;
     const float flameSpeed = 12.0f;
     const float flameDegRange = 30;
-    const float flameFrequency = 0.1f;
+    const float flameFrequency = 0.2f;
     const float flameFeverMax = 2.5f;
     const float attackDuration = 2.5f;
     const float sightLineLenght = 4.0f;
@@ -97,8 +97,8 @@ public class Weapon_Flamethrower : MonoBehaviour
                 Vector2 flameMove = VectorRotate(playerPos, angle);
 
                 lineRenderer.enabled = true;
-                lineRenderer.SetPosition(0, transform.position);
-                lineRenderer.SetPosition(1, transform.position + new Vector3(flameMove.x * sightLineLenght, flameMove.y * sightLineLenght, 0));
+                lineRenderer.SetPosition(0, transform.position + new Vector3(0,0,1));
+                lineRenderer.SetPosition(1, transform.position + new Vector3(flameMove.x * sightLineLenght, flameMove.y * sightLineLenght, 1));
                 GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.identity);
                 GameObject Light = Instantiate(lightObj, transform.position, Quaternion.identity);
                 Light.transform.parent = Attack.transform;

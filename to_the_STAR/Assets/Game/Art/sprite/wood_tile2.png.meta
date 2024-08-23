@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ac55d4b7b6ccfc04d9dba8b69aa7361d
+guid: 686e3e97dd4ae9548b31bea5cbc8245c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -98,7 +98,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,43 +110,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: hammer_charge_0
+      name: wood_tile2_0
       rect:
         serializedVersion: 2
-        x: 25
-        y: 0
-        width: 21
-        height: 20
-      alignment: 9
-      pivot: {x: 0.5, y: 0.625}
+        x: 0
+        y: 24
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ea6ba7f2f9c9cb643a73a4d01a17958a
-      internalID: 1072965183
+      spriteID: 4c118f750ade4df4e996e086fc401dee
+      internalID: -285924131
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hammer_charge_1
+      name: wood_tile2_1
       rect:
         serializedVersion: 2
-        x: 74
-        y: 0
-        width: 20
-        height: 20
-      alignment: 9
-      pivot: {x: 0.5, y: 0.625}
+        x: 24
+        y: 24
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bbc157b1ee735f143b5af85dd40a8e68
-      internalID: -762010021
+      spriteID: e1224c9b0ddb95f49b2d1fe4caa480e7
+      internalID: -264875881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wood_tile2_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b41dc04007bbbe42a739ebe9e6fea11
+      internalID: 1522751995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wood_tile2_3
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69ab873528e4dc1418870274cb616280
+      internalID: -748073931
       vertices: []
       indices: 
       edges: []
@@ -162,8 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      hammer_charge_0: 1072965183
-      hammer_charge_1: -762010021
+      wood_tile2_0: -285924131
+      wood_tile2_1: -264875881
+      wood_tile2_2: 1522751995
+      wood_tile2_3: -748073931
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

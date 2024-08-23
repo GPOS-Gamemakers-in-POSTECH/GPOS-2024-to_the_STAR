@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67e9a99206374204b82c28f9b10d9700, type: 3}
   m_Name: DroneStat
   m_EditorClassIdentifier: 
-  hp: 100
-  attackPower: 100
+  hp: 25
+  attackPower: 5
   detectionRange: 5
   attackRange: 2
   speed: 2

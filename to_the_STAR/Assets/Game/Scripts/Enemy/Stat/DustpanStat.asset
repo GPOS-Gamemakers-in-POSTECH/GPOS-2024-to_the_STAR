@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67e9a99206374204b82c28f9b10d9700, type: 3}
   m_Name: DustpanStat
   m_EditorClassIdentifier: 
-  hp: 20
-  attackPower: 2
+  hp: 100
+  attackPower: 15
   detectionRange: 5
   attackRange: 1
-  speed: 0.5
+  speed: 1
   attackCooldown: 2
-  detectionCooldown: 2
+  detectionCooldown: 0.75
   attackDuration: 0.1
   attackMotion1Cooldown: 0.25
   attackMotion2Cooldown: 0.417

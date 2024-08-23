@@ -14,6 +14,7 @@ namespace Game.Player
     {
         float Hp = 100.0f;
         const float maxHp = 100.0f;
+        Vector3 spawnPoint;
 
         public void playerDamage(float damage)
         {
@@ -62,6 +63,21 @@ namespace Game.Player
                     > 225 and <= 315 => PlayerRotateDirection.Left,
                     _ => PlayerRotateDirection.Down
                 };
+            }
+        }
+
+        private void Start()
+        {
+            spawnPoint = transform.position;
+        }
+
+        private void Update()
+        {
+            if (Hp < 0)
+            {
+                Hp = maxHp;
+                transform.position = spawnPoint;
+                transform.rotation = Quaternion.identity;
             }
         }
     }
