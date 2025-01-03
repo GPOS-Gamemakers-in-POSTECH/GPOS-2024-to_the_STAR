@@ -73,7 +73,7 @@ namespace Game.Player
 
         private void Update()
         {
-            if (Hp < 0)
+            if (Hp <= 0)
             {
                 Hp = maxHp;
                 transform.position = spawnPoint;
