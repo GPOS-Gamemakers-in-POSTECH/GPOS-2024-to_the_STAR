@@ -24,17 +24,20 @@ public class WeaponAdministrator : MonoBehaviour
     {
         if (Check())
         {
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                weapon = Weapon.hammer;
-                hammer.enable();
-                flamethrower.disable();
-            }
             if (Input.GetKeyDown(KeyCode.W))
             {
-                weapon = Weapon.flameThrower;
-                hammer.disable();
-                flamethrower.enable();
+                if(weapon == Weapon.hammer)
+                {
+                    weapon = Weapon.flameThrower;
+                    hammer.disable();
+                    flamethrower.enable();
+                }
+                else if(weapon == Weapon.flameThrower)
+                {
+                    weapon = Weapon.hammer;
+                    hammer.enable();
+                    flamethrower.disable();
+                }
             }
         }
     }
