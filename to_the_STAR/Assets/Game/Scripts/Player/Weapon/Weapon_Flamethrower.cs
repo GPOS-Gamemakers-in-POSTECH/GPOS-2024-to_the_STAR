@@ -96,9 +96,6 @@ public class Weapon_Flamethrower : MonoBehaviour
                 angle *= Mathf.Deg2Rad;
                 Vector2 flameMove = VectorRotate(playerPos, angle);
 
-                lineRenderer.enabled = true;
-                lineRenderer.SetPosition(0, transform.position + new Vector3(0,0,1));
-                lineRenderer.SetPosition(1, transform.position + new Vector3(flameMove.x * sightLineLenght, flameMove.y * sightLineLenght, 1));
                 GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.identity);
                 GameObject Light = Instantiate(lightObj, transform.position, Quaternion.identity);
                 Light.transform.parent = Attack.transform;
@@ -121,6 +118,19 @@ public class Weapon_Flamethrower : MonoBehaviour
         {
             lineRenderer.enabled = false;
             flameFever -= Time.deltaTime;
+        }
+        else
+        {
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos = new Vector2(mousePos.x - player.transform.position.x, mousePos.y - player.transform.position.y);
+            float angle = Vector2.SignedAngle(playerPos, mousePos);
+            if ((playerPos.x + playerPos.y > 0) ^ (transform.rotation.eulerAngles.z == 180 || transform.rotation.eulerAngles.z == 270)) angle = Mathf.Clamp(angle, -flameDegRange, 90);
+            else angle = Mathf.Clamp(angle, -90, flameDegRange);
+            angle *= Mathf.Deg2Rad;
+            Vector2 flameMove = VectorRotate(playerPos, angle);
+            lineRenderer.enabled = true;
+            lineRenderer.SetPosition(0, transform.position + new Vector3(0, 0, 1));
+            lineRenderer.SetPosition(1, transform.position + new Vector3(flameMove.x * sightLineLenght, flameMove.y * sightLineLenght, 1));
         }
         if(flameFever < 0)
         {
