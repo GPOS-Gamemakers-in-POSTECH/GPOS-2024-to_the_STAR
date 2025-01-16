@@ -86,7 +86,6 @@ public class Weapon_Flamethrower : MonoBehaviour
             flameFever += Time.deltaTime;
             if(flameShotCooldown < 0)
             {
-                _ani.SetTrigger("Attack_Flamethrower");
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 mousePos = new Vector2(mousePos.x - player.transform.position.x, mousePos.y - player.transform.position.y);
 
@@ -116,6 +115,7 @@ public class Weapon_Flamethrower : MonoBehaviour
         }
         if (!flameTurnedOn)
         {
+            _ani.SetBool("Attack_Flamethrower", false);
             lineRenderer.enabled = false;
             flameFever -= Time.deltaTime;
         }
@@ -128,6 +128,7 @@ public class Weapon_Flamethrower : MonoBehaviour
             else angle = Mathf.Clamp(angle, -90, flameDegRange);
             angle *= Mathf.Deg2Rad;
             Vector2 flameMove = VectorRotate(playerPos, angle);
+            _ani.SetBool("Attack_Flamethrower", true);
             lineRenderer.enabled = true;
             lineRenderer.SetPosition(0, transform.position + new Vector3(0, 0, 1));
             lineRenderer.SetPosition(1, transform.position + new Vector3(flameMove.x * sightLineLenght, flameMove.y * sightLineLenght, 1));
