@@ -133,7 +133,7 @@ namespace Game.Player
             {
                 dashAble = Instantiate(DashDetect, transform.position + new Vector3(lastMove.x, lastMove.y, 0), Quaternion.identity);
                 dashAble.GetComponent<DashDetector>().setMove(new Vector2(lastMove.x, lastMove.y));
-                dashCount = 10;
+                dashCount = 5;
             }
             dashCount--;
         }

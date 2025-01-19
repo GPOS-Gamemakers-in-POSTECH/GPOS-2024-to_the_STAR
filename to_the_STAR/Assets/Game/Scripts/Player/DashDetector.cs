@@ -8,11 +8,11 @@ public class DashDetector : MonoBehaviour
 
     Vector2 move;
 
-    public void setMove(Vector2 v) { move = v; }
+    public void setMove(Vector2 v) { move = 2 * v; }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Map" || other.gameObject.tag == "Door")
+        if (other.gameObject.tag == "Map" || other.gameObject.tag == "Door" || other.gameObject.tag == "TurningPoint")
         {
             dashEnable = false;
         }
