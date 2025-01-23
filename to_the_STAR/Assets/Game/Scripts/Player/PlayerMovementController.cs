@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Input;
 using UnityEngine.Windows;
+using System.Collections;
 
 namespace Game.Player
 {
@@ -54,6 +55,13 @@ namespace Game.Player
         }
 
         public Lever _lever;
+
+        IEnumerator invincible()
+        {
+            GetComponent<PlayerData>().setInvincibility(true);
+            yield return new WaitForSeconds(0.6f);
+            GetComponent<PlayerData>().setInvincibility(false);
+        }
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
@@ -126,6 +134,7 @@ namespace Game.Player
                     transform.position = dashAble.transform.position;
                     dash -= 1;
                     _ani.SetTrigger("Dash");
+                    StartCoroutine(invincible());
                 }
                 Destroy(dashAble);
             }

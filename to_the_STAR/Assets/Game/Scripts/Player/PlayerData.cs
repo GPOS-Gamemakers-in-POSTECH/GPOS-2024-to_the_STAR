@@ -14,16 +14,25 @@ namespace Game.Player
     {
         float Hp = 100.0f;
         const float maxHp = 100.0f;
+        bool isInvincible = false;
         Vector3 spawnPoint;
 
         public void playerDamage(float damage)
         {
-            GetComponent<PlayerMovementController>().damaged();
-            Hp -= damage;
+            if(isInvincible == false)
+            {
+                GetComponent<PlayerMovementController>().damaged();
+                Hp -= damage;
+            }
         }
         public float playerHp()
         {
             return Hp/maxHp;
+        }
+
+        public void setInvincibility(bool tf)
+        {
+            isInvincible = tf;
         }
 
         public float hammerCharge()
