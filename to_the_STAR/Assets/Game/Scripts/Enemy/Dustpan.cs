@@ -33,6 +33,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
 
     private bool attacked;
     private bool isMoving = false;
+    private bool vanishing = false;
 
     const float TILE = 1;
 
@@ -67,7 +68,6 @@ public class Dustpan : MonoBehaviour, EnemyInterface
             else
             {
                 state = State.Dead;
-                timer = stat.deadCooldown;
             }
         }
         return;
@@ -133,7 +133,8 @@ public class Dustpan : MonoBehaviour, EnemyInterface
                 Stunned();
                 break;
             case State.Dead:
-                Dead();
+                StartCoroutine(Dead());
+                if (vanishing) _sr.color = new Color(_sr.color.r, _sr.color.g, _sr.color.b, (_sr.color.a - 0.005f) > 0 ? (_sr.color.a - 0.005f) : 0);
                 break;
         }
 
@@ -276,11 +277,14 @@ public class Dustpan : MonoBehaviour, EnemyInterface
         }
     }
 
-    private void Dead()
+    IEnumerator Dead()
     {
         _ani.SetFloat("AttackMotion", 0);
-        _ani.SetBool("Dead", true);
-        if (timer <= 0) Destroy(gameObject);
+        _ani.SetTrigger("Dead");
+        yield return new WaitForSeconds(3f);
+        vanishing = true;
+        yield return new WaitForSeconds(stat.deadCooldown);
+        Destroy(gameObject);
     }
 
     private bool compareRotation(PlayerRotateDirection _prd)
