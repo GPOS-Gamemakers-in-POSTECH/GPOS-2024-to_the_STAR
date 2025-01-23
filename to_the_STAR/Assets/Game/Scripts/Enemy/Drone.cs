@@ -20,6 +20,7 @@ public class Drone : MonoBehaviour, EnemyInterface
 
     bool isMoving = false;
     bool wait = true;
+    bool vanishing = false;
 
     GameObject playerObj;
     SpriteRenderer _sr;
@@ -71,6 +72,14 @@ public class Drone : MonoBehaviour, EnemyInterface
     {
         if(direction != 0) isMoving = true;
         transform.position = new Vector3(transform.position.x + moveVector.x * direction * Time.deltaTime, transform.position.y + moveVector.y * direction * Time.deltaTime, transform.position.z);
+    }
+    IEnumerator Dead()
+    {
+        _ani.SetTrigger("Dead");
+        yield return new WaitForSeconds(2f);
+        vanishing = true;
+        yield return new WaitForSeconds(stat.deadCooldown);
+        Destroy(gameObject);
     }
 
     void Start()
@@ -235,8 +244,8 @@ public class Drone : MonoBehaviour, EnemyInterface
                 }
                 break;
             case State.Dead:
-                _ani.SetBool("Dead", true);
-                if (timer <= 0) Destroy(gameObject);
+                StartCoroutine(Dead());
+                if (vanishing) _sr.color = new Color(_sr.color.r, _sr.color.g, _sr.color.b, (_sr.color.a - 0.005f) > 0 ? (_sr.color.a - 0.005f) : 0);
                 break;
         }
 
