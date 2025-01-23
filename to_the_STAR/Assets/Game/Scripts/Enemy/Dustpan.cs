@@ -281,7 +281,7 @@ public class Dustpan : MonoBehaviour, EnemyInterface
     {
         _ani.SetFloat("AttackMotion", 0);
         _ani.SetTrigger("Dead");
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         vanishing = true;
         yield return new WaitForSeconds(stat.deadCooldown);
         Destroy(gameObject);
