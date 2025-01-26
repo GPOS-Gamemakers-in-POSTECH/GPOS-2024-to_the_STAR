@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class WeaponAdministrator : MonoBehaviour
 {
+
+    [SerializeField] GameObject weaponUIManager;
+
     enum Weapon
     {
         hammer,
@@ -38,6 +41,7 @@ public class WeaponAdministrator : MonoBehaviour
                     hammer.enable();
                     flamethrower.disable();
                 }
+                weaponUIManager.GetComponent<WeaponUIManager>().weaponChanged();
             }
         }
     }
