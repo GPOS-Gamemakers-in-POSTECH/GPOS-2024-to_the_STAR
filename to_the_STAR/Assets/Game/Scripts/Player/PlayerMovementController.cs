@@ -31,7 +31,7 @@ namespace Game.Player
 
         private int dashCount = 0;
         private int dashCooldownCounter = 0;
-        private const int dashCooldownSet = 2;
+        private const int dashCooldownSet = 4;
 
         public Vector2 getMoveVector()
         {
@@ -110,6 +110,42 @@ namespace Game.Player
         
         private void Update()
         {
+            if (_interactAction.triggered == true)
+            {
+                Interaction();
+            }
+            if (dashAble != null)
+            {
+                bool isEnable = dashAble.GetComponent<DashDetector>().isEnable();
+                if (dashCount < 0)
+                {
+                    if (isEnable && !GetComponent<Weapon_Hammer>().isMouseInputted())
+                    {
+                        transform.position = dashAble.transform.position;
+                        dash -= 1;
+                        _ani.SetTrigger("Dash");
+                        StartCoroutine(invincible());
+                    }
+                    Destroy(dashAble);
+                }
+                else if(dashCount == 4 && !isEnable)
+                {
+                    Destroy(dashAble);
+                }
+                else if (!isEnable)
+                {
+                    if (!GetComponent<Weapon_Hammer>().isMouseInputted())
+                    {
+                        transform.position = dashAble.transform.position;
+                        dash -= 1;
+                        _ani.SetTrigger("Dash");
+                        StartCoroutine(invincible());
+                    }
+                    Destroy(dashAble);
+                }
+
+            }
+
             float angle = _rb.rotation * Mathf.Deg2Rad;
             Vector2 tmp = _moveAction.ReadValue<Vector2>();
             _moveVector = new Vector2(tmp.x * Mathf.Cos(angle) - tmp.y * Mathf.Sin(angle),
@@ -124,22 +160,7 @@ namespace Game.Player
             {
                 _ani.SetBool("Move", false);
             }
-            if (_interactAction.triggered == true)
-            {
-                Interaction();
-            }
-            if (dashAble != null && dashCount < 0)
-            {
-                bool isEnable = dashAble.GetComponent<DashDetector>().isEnable();
-                if (isEnable && !GetComponent<Weapon_Hammer>().isMouseInputted())
-                {
-                    transform.position = dashAble.transform.position;
-                    dash -= 1;
-                    _ani.SetTrigger("Dash");
-                    StartCoroutine(invincible());
-                }
-                Destroy(dashAble);
-            }
+
             if (_dashAction.triggered == true && dash > 1 && dashCooldownCounter < 0)
             {
                 dashAble = Instantiate(DashDetect, transform.position + new Vector3(lastMove.x, lastMove.y, 0), Quaternion.identity);
@@ -148,8 +169,6 @@ namespace Game.Player
                 dashCount = 5;
                 dashCooldownCounter = dashCooldownSet;
             }
-            dashCount--;
-            dashCooldownCounter--;
         }
 
         private void FixedUpdate()
@@ -163,6 +182,8 @@ namespace Game.Player
                 * (1 - Mathf.Max(GetComponent<PlayerData>().hammerCharge(), 0)) * (1 - Mathf.Max(GetComponent<PlayerData>().flamethrowerFever() / 3, 0)) * hammerRecoil);
             dash += Time.deltaTime;
             if (dash > dashMax) dash = dashMax;
+            dashCount--;
+            dashCooldownCounter--;
         }
 
         private void Interaction()

@@ -15,13 +15,18 @@ public class DashDetector : MonoBehaviour
         if (other.gameObject.tag == "Map" || other.gameObject.tag == "Door" || other.gameObject.tag == "TurningPoint")
         {
             dashEnable = false;
+            transform.position = transform.position - new Vector3(move.x, move.y, 0) * 0.5f;
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        transform.position = transform.position + new Vector3(move.x, move.y, 0);
+        if (dashEnable)
+        {
+            transform.position = transform.position + new Vector3(move.x, move.y, 0);
+        }
     }
+
     public bool isEnable()
     {
         return dashEnable;
