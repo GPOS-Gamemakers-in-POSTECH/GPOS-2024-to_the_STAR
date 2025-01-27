@@ -30,6 +30,8 @@ namespace Game.Player
         private const float dashLength = 1.25f;
 
         private int dashCount = 0;
+        private int dashCooldownCounter = 0;
+        private const int dashCooldownSet = 2;
 
         public Vector2 getMoveVector()
         {
@@ -138,13 +140,16 @@ namespace Game.Player
                 }
                 Destroy(dashAble);
             }
-            if (_dashAction.triggered == true && dash > 1)
+            if (_dashAction.triggered == true && dash > 1 && dashCooldownCounter < 0)
             {
                 dashAble = Instantiate(DashDetect, transform.position + new Vector3(lastMove.x, lastMove.y, 0), Quaternion.identity);
+                dashAble.transform.rotation = transform.rotation;
                 dashAble.GetComponent<DashDetector>().setMove(new Vector2(lastMove.x, lastMove.y));
                 dashCount = 5;
+                dashCooldownCounter = dashCooldownSet;
             }
             dashCount--;
+            dashCooldownCounter--;
         }
 
         private void FixedUpdate()
