@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Dustpan : MonoBehaviour, EnemyInterface
+public class Dustbin : MonoBehaviour, EnemyInterface
 {
     private Rigidbody2D _rb;
 

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3249313134352645931}
   - component: {fileID: 8466427936607269915}
   m_Layer: 6
-  m_Name: Dustpan
+  m_Name: Dustbin
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
