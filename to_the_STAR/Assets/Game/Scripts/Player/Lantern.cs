@@ -27,7 +27,7 @@ public class Lantern : MonoBehaviour
         Vector2 tempV = player.GetComponent<PlayerMovementController>().getMoveVector();
         if(tempV.x!=0 || tempV.y!=0) playerMoveVector = tempV;
         transform.position = Vector3.Lerp(transform.position, player.transform.position
-            - new Vector3(playerMoveVector.x - lanternFloatingVector.x, playerMoveVector.y - lanternFloatingVector.y, 0), 
+            - new Vector3(playerMoveVector.x - lanternFloatingVector.x, playerMoveVector.y - lanternFloatingVector.y, 0) * 0.5f, 
             Time.deltaTime * player.GetComponent<PlayerMovementController>().getMoveSpeed());
         transform.rotation = player.transform.rotation;
         lanternLight.position = transform.position;
