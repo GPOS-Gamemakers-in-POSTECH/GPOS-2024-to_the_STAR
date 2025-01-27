@@ -141,6 +141,7 @@ namespace Game.Player
             if (_dashAction.triggered == true && dash > 1)
             {
                 dashAble = Instantiate(DashDetect, transform.position + new Vector3(lastMove.x, lastMove.y, 0), Quaternion.identity);
+                dashAble.transform.rotation = transform.rotation;
                 dashAble.GetComponent<DashDetector>().setMove(new Vector2(lastMove.x, lastMove.y));
                 dashCount = 5;
             }

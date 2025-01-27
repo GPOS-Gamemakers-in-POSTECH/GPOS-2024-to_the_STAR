@@ -18,9 +18,9 @@ public class Lantern : MonoBehaviour
     float lanternLightChangeRange = 0.05f;
 
     float hardLightBase = 3.5f;
-    float hardLightChangeRange = 1f;
+    float hardLightChangeRange = 0.5f;
 
-    float lightChangeSpeed = 1f;
+    float lightChangeSpeed = 0.66f;
     int lightChangeTimer = 0;
 
     void Start()
@@ -44,7 +44,7 @@ public class Lantern : MonoBehaviour
         transform.rotation = player.transform.rotation;
         lightComponent.transform.position = transform.position;
         lightChangeTimer++;
-        lightComponent.GetComponent<Light2D>().falloffIntensity = lanternLightBase + lanternLightChangeRange * Mathf.Sin(lightChangeTimer * lightChangeSpeed * Mathf.Deg2Rad);
+        lightComponent.GetComponent<Light2D>().falloffIntensity = lanternLightBase - lanternLightChangeRange * Mathf.Sin(lightChangeTimer * lightChangeSpeed * Mathf.Deg2Rad);
         lightComponent.GetComponent<HardLight2D>().Range = hardLightBase + hardLightChangeRange * Mathf.Sin(lightChangeTimer * lightChangeSpeed * Mathf.Deg2Rad);
     }
 }
