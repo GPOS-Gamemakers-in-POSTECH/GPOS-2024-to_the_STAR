@@ -127,6 +127,8 @@ namespace Game.Player
         private void Update()
         {
 
+            if(GamePause.isGamePaused) return; // If the game is Paused
+
             if (_interactAction.triggered == true)
             {
                 Interaction();

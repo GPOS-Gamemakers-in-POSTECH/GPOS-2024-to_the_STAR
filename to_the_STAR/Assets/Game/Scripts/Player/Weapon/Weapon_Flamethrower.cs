@@ -71,7 +71,9 @@ public class Weapon_Flamethrower : MonoBehaviour
 
     void Update()
     {
-        Vector2 playerTmp = GetComponent<PlayerMovementController>().GetMoveVector();
+
+        if(GamePause.isGamePaused) return; // If the game is Paused
+
         if (playerTmp.x != 0 || playerTmp.y != 0)
         {
             playerPos = playerTmp;
