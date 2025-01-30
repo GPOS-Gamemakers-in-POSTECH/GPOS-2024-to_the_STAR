@@ -6,6 +6,10 @@ using UnityEngine;
 public class Weapon_Hammer : MonoBehaviour
 {
     [SerializeField] GameObject attackObj;
+
+    GameObject Camera;
+    PlayerData playerData;
+
     Vector3 playerPos = new Vector3(1, 0, 0);
     bool hammerEnabled = false;
     float hammerCooldown = 0;
@@ -49,6 +53,8 @@ public class Weapon_Hammer : MonoBehaviour
     }
     void Start()
     {
+        Camera = GameObject.Find("Main Camera");
+        playerData = GetComponent<PlayerData>();
         _ani = GetComponent<Animator>();
     }
 
@@ -76,6 +82,7 @@ public class Weapon_Hammer : MonoBehaviour
             _ani.SetTrigger("Attack_Hammer");
             GameObject Attack = Instantiate(attackObj, transform.position + playerPos, Quaternion.identity);
             Attack.GetComponent<PlayerAttackObj>().init(attackDuration, hammerDamageConst * hammerCharge / 10.0f, new Vector2(0, 0), 0, stunCooldownSet * hammerCharge / 10);
+            Camera.GetComponent<ShakeCamera>().singleShakeCamera(1, playerData.getRotateDir());
             hammerCooldown = hammerCooldownSet;
             hammerCharge = 0;
         }

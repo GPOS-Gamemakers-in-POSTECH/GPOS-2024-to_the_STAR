@@ -59,6 +59,15 @@ namespace Game.Player
             if (GetComponent<Weapon_Flamethrower>().isEnabledFlame()) return 1;
             return -1;
         }
+
+        public int getRotateDir()
+        {
+            if (RotateDir == PlayerRotateDirection.Down) return 0;
+            else if (RotateDir == PlayerRotateDirection.Right) return 1;
+            else if (RotateDir == PlayerRotateDirection.Up) return 2;
+            else return 3;
+        }
+
         public PlayerRotateDirection RotateDir
         {
             get
