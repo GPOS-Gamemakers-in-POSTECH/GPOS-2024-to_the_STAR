@@ -25,9 +25,11 @@ public class Weapon_Flamethrower : MonoBehaviour
     const float sightLineLenght = 4.0f;
     const float flameLightRange = 0.7f;
     const float flameLightIntensity = 0.5f;
+    const float flameStamina = 0.5f;
 
     const float stunCooldownSet = 0;
 
+    PlayerMovementController _pmc;
     LineRenderer lineRenderer;
     Animator _ani;
     public void enable()
@@ -60,6 +62,7 @@ public class Weapon_Flamethrower : MonoBehaviour
 
     void Start()
     {
+        _pmc = GetComponent<PlayerMovementController>();
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
         player = GameObject.Find("Player");
@@ -73,7 +76,7 @@ public class Weapon_Flamethrower : MonoBehaviour
         {
             playerPos = playerTmp;
         }
-        if (flameEnabled && !flameCooldown && Input.GetMouseButtonDown(0))
+        if (flameEnabled && !flameCooldown && Input.GetMouseButtonDown(0) && _pmc.GetStamina() > 0)
         {
             if (flameFever < 0)
             {
@@ -84,6 +87,7 @@ public class Weapon_Flamethrower : MonoBehaviour
         if(flameTurnedOn && Input.GetMouseButton(0))
         {
             flameFever += Time.deltaTime;
+            _pmc.SetStamina(_pmc.GetStamina() - Time.deltaTime * flameStamina);
             if(flameShotCooldown < 0)
             {
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -106,7 +110,7 @@ public class Weapon_Flamethrower : MonoBehaviour
                 Attack.GetComponent<PlayerAttackObj>().init(attackDuration, flameDamageConst, flameMove * flameSpeed, 1, stunCooldownSet);
                 flameShotCooldown = flameFrequency;
             }
-            if(flameFever > flameFeverMax)
+            if(flameFever > flameFeverMax || _pmc.GetStamina() == 0)
             {
                 flameTurnedOn = false;
                 flameCooldown = true;

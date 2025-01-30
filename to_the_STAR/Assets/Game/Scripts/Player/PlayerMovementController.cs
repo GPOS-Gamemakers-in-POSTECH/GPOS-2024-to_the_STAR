@@ -56,7 +56,7 @@ namespace Game.Player
 
         public void SetStamina(float value)
         {
-            stamina = value;
+            stamina = value > 0 ? value : 0;
         }
 
         public void turn()
@@ -170,7 +170,7 @@ namespace Game.Player
             }
             else
             {
-                if (GetComponent<Weapon_Hammer>().isCharging()) usingStamina = true;
+                if (GetComponent<Weapon_Hammer>().isCharging() || GetComponent<Weapon_Flamethrower>().isTurnOn()) usingStamina = true;
                 else
                 {
                     usingStamina = false;
