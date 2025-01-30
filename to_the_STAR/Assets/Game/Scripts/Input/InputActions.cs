@@ -82,6 +82,24 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Value"",
+                    ""id"": ""fbf41688-a210-4336-bf61-9d406091e3f5"",
+                    ""expectedControlType"": ""Integer"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""WeaponChange"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""4dbd8504-aaf1-45b5-a182-766614df58cb"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -264,7 +282,7 @@ namespace UnityEngine.InputSystem
                 {
                     ""name"": """",
                     ""id"": ""3aaf2028-48c5-47ac-83d4-b7d840a9112d"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -313,6 +331,28 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""00d91d8c-7b53-4e6d-b609-402e526cf607"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""be4ae85a-fc2c-4e55-9c45-06dcf0c53757"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""WeaponChange"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -906,6 +946,8 @@ namespace UnityEngine.InputSystem
             m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
             m_Player_Rotate = m_Player.FindAction("Rotate", throwIfNotFound: true);
             m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
+            m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
+            m_Player_WeaponChange = m_Player.FindAction("WeaponChange", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -985,6 +1027,8 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_Interact;
         private readonly InputAction m_Player_Rotate;
         private readonly InputAction m_Player_Dash;
+        private readonly InputAction m_Player_Sprint;
+        private readonly InputAction m_Player_WeaponChange;
         public struct PlayerActions
         {
             private @InputActions m_Wrapper;
@@ -995,6 +1039,8 @@ namespace UnityEngine.InputSystem
             public InputAction @Interact => m_Wrapper.m_Player_Interact;
             public InputAction @Rotate => m_Wrapper.m_Player_Rotate;
             public InputAction @Dash => m_Wrapper.m_Player_Dash;
+            public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
+            public InputAction @WeaponChange => m_Wrapper.m_Player_WeaponChange;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1022,6 +1068,12 @@ namespace UnityEngine.InputSystem
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
+                @WeaponChange.started += instance.OnWeaponChange;
+                @WeaponChange.performed += instance.OnWeaponChange;
+                @WeaponChange.canceled += instance.OnWeaponChange;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1044,6 +1096,12 @@ namespace UnityEngine.InputSystem
                 @Dash.started -= instance.OnDash;
                 @Dash.performed -= instance.OnDash;
                 @Dash.canceled -= instance.OnDash;
+                @Sprint.started -= instance.OnSprint;
+                @Sprint.performed -= instance.OnSprint;
+                @Sprint.canceled -= instance.OnSprint;
+                @WeaponChange.started -= instance.OnWeaponChange;
+                @WeaponChange.performed -= instance.OnWeaponChange;
+                @WeaponChange.canceled -= instance.OnWeaponChange;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1232,6 +1290,8 @@ namespace UnityEngine.InputSystem
             void OnInteract(InputAction.CallbackContext context);
             void OnRotate(InputAction.CallbackContext context);
             void OnDash(InputAction.CallbackContext context);
+            void OnSprint(InputAction.CallbackContext context);
+            void OnWeaponChange(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
