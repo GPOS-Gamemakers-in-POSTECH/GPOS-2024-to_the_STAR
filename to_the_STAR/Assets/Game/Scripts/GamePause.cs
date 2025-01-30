@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class GamePause : MonoBehaviour
 {
-    public static bool isGamePaused = false;
+    public static bool isGamePaused = false; // Indicate whether game is Paused or not
     public GameObject pauseMenuUI;
+    public AudioSource music;
+    private AudioLowPassFilter musicFilter;    
 
     void Start()
     {
         pauseMenuUI.SetActive(false);
+
+        musicFilter = music.GetComponent<AudioLowPassFilter>();
+        if(musicFilter == null)
+            musicFilter = music.gameObject.AddComponent<AudioLowPassFilter>();
+        musicFilter.cutoffFrequency = 22000f;   // Default value (original music)
     }
 
     void Update()
@@ -26,6 +33,7 @@ public class GamePause : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isGamePaused = false;
+        musicFilter.cutoffFrequency = 22000f;
         Debug.Log("Resumed");
     }
 
@@ -34,6 +42,7 @@ public class GamePause : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         isGamePaused = true;
+        musicFilter.cutoffFrequency = 800f;
         Debug.Log("Paused");
     }
 }
