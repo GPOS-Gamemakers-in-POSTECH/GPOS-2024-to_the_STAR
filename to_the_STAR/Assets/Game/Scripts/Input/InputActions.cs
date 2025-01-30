@@ -94,9 +94,9 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": ""WeaponChange"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""4dbd8504-aaf1-45b5-a182-766614df58cb"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -282,7 +282,7 @@ namespace UnityEngine.InputSystem
                 {
                     ""name"": """",
                     ""id"": ""3aaf2028-48c5-47ac-83d4-b7d840a9112d"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -348,46 +348,13 @@ namespace UnityEngine.InputSystem
                 {
                     ""name"": """",
                     ""id"": ""be4ae85a-fc2c-4e55-9c45-06dcf0c53757"",
-                    ""path"": ""<Mouse>/scroll"",
+                    ""path"": ""<Mouse>/scroll/y"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""WeaponChange"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""308dc968-83cf-44d1-a196-f842638b3632"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""WeaponChange"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""3b6bc340-0e6c-4159-8554-ec3e4cbef288"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""WeaponChange"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""7de8c96f-fd29-490a-a156-e6767f5f39eb"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""WeaponChange"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 }
             ]
         },

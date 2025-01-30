@@ -19,12 +19,13 @@ namespace Game.Player
         private InputAction _interactAction;
         private InputAction _dashAction;
         private InputAction _sprintAction;
+        private InputAction _weaponChange;
         private Rigidbody2D _rb;
         private Animator _ani;
 
         private GameObject dashAble;
 
-        private Weapon_Flamethrower _flameThrower;
+        private WeaponAdministrator _wa;
 
         private float stamina = 3.0f;
         private const float dashMax = 3.0f;
@@ -85,7 +86,8 @@ namespace Game.Player
             _playerActions = GameInputSystem.Instance.PlayerActions;
             _dashAction = GameInputSystem.Instance.PlayerActions.Dash;
             _sprintAction = GameInputSystem.Instance.PlayerActions.Sprint;
-            _flameThrower = GetComponent<Weapon_Flamethrower>();
+            _weaponChange = GameInputSystem.Instance.PlayerActions.WeaponChange;
+            _wa = GetComponent<WeaponAdministrator>();
             _ani = GetComponent<Animator>();
         }
 
@@ -129,6 +131,7 @@ namespace Game.Player
             {
                 Interaction();
             }
+
             if (dashAble != null)
             {
                 bool isEnable = dashAble.GetComponent<DashDetector>().isEnable();
@@ -161,6 +164,7 @@ namespace Game.Player
 
             }
 
+            if (_weaponChange.ReadValue<float>() != 0) _wa.WeaponChange();
 
             if (_sprintAction.inProgress && GetComponent<Weapon_Hammer>().isCharging() == false)
             {
