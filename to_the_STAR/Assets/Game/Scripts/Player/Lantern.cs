@@ -2,18 +2,30 @@ using Game.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Lantern : MonoBehaviour
 {
-    Transform lanternLight;
+    GameObject lightComponent;
     GameObject player;
     Vector2 playerMoveVector;
     Vector2 lanternFloatingVectorBase;
+
     float lanternFloating = 0.5f;
     float playerRot = 0;
+
+    float lanternLightBase = 0.5f;
+    float lanternLightChangeRange = 0.05f;
+
+    float hardLightBase = 3.5f;
+    float hardLightChangeRange = 0.5f;
+
+    float lightChangeSpeed = 0.66f;
+    int lightChangeTimer = 0;
+
     void Start()
     {
-        lanternLight = transform.GetChild(0).gameObject.transform;
+        lightComponent = transform.GetChild(0).gameObject;
         player = GameObject.Find("Player");
         playerMoveVector.x = 0; playerMoveVector.y = 0;
         lanternFloatingVectorBase.x = 0; lanternFloatingVectorBase.y = lanternFloating;
@@ -30,6 +42,9 @@ public class Lantern : MonoBehaviour
             - new Vector3(playerMoveVector.x - lanternFloatingVector.x, playerMoveVector.y - lanternFloatingVector.y, 0) * 0.5f, 
             Time.deltaTime * player.GetComponent<PlayerMovementController>().getMoveSpeed());
         transform.rotation = player.transform.rotation;
-        lanternLight.position = transform.position;
+        lightComponent.transform.position = transform.position;
+        lightChangeTimer++;
+        lightComponent.GetComponent<Light2D>().falloffIntensity = lanternLightBase - lanternLightChangeRange * Mathf.Sin(lightChangeTimer * lightChangeSpeed * Mathf.Deg2Rad);
+        lightComponent.GetComponent<HardLight2D>().Range = hardLightBase + hardLightChangeRange * Mathf.Sin(lightChangeTimer * lightChangeSpeed * Mathf.Deg2Rad);
     }
 }

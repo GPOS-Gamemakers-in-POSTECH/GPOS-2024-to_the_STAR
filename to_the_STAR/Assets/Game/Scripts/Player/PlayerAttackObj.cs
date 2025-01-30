@@ -60,5 +60,10 @@ public class PlayerAttackObj : MonoBehaviour
             if (attackType == 1) Destroy(lightObj.gameObject);
             Destroy(gameObject);
         }
+        else if (collision.CompareTag("Door"))
+        {
+            if (attackType == 1) Destroy(lightObj.gameObject);
+            Destroy(gameObject);
+        }
     }
 }
