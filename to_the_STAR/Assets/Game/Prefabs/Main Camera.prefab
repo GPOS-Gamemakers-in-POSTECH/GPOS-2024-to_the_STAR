@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9043896944741087509}
   - component: {fileID: 5604479230660741311}
   - component: {fileID: 8140444926995543132}
+  - component: {fileID: 8194120588066422789}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -150,5 +151,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24f6d9ce7227fa440bb9d7235fcba9f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapSizeMin: {x: -15, y: -15}
-  mapSizeMax: {x: 15, y: 15}
+  mapSizeMin: {x: -28, y: -30}
+  mapSizeMax: {x: 15, y: 25}
+--- !u!114 &8194120588066422789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5802866663395654638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd2db66dafa7cb84e99df05c72bf10d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
