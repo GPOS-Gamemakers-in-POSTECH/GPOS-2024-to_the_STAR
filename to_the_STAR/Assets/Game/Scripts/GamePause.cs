@@ -1,13 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GamePause : MonoBehaviour
 {
     public static bool isGamePaused = false; // Indicate whether game is Paused or not
     public GameObject pauseMenuUI;
+
     public AudioSource music;
-    private AudioLowPassFilter musicFilter;    
+    private AudioLowPassFilter musicFilter;
+
+    public Button resumeButton;
+    public Button titleButton;
+    public Button exitButton;
 
     void Start()
     {
@@ -17,6 +23,16 @@ public class GamePause : MonoBehaviour
         if(musicFilter == null)
             musicFilter = music.gameObject.AddComponent<AudioLowPassFilter>();
         musicFilter.cutoffFrequency = 22000f;   // Default value (original music)
+
+        if(resumeButton != null)
+            resumeButton.onClick.AddListener(Resume);
+
+        if(titleButton != null)
+            titleButton.onClick.AddListener(Title);
+
+        if(exitButton != null)
+            exitButton.onClick.AddListener(Exit);
+
     }
 
     void Update()
@@ -28,21 +44,41 @@ public class GamePause : MonoBehaviour
         }
     }
 
+    // Function that resumes the game
     private void Resume()
     {
         pauseMenuUI.SetActive(false);
-        Time.timeScale = 1f;
         isGamePaused = false;
+
+        Time.timeScale = 1f;
+
         musicFilter.cutoffFrequency = 22000f;
-        Debug.Log("Resumed");
     }
 
+    // Function that pauses the game
     private void Pause()
     {
         pauseMenuUI.SetActive(true);
-        Time.timeScale = 0f;
         isGamePaused = true;
+
+        Time.timeScale = 0f;
+
         musicFilter.cutoffFrequency = 800f;
-        Debug.Log("Paused");
+    }
+
+    // Function that moves to the title scene
+    private void Title()
+    {
+        Debug.Log("Title scene not implemented yet");
+    }
+
+    // Function that exits the game
+    private void Exit()
+    {
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #else
+        Application.Quit();
+        #endif
     }
 }
