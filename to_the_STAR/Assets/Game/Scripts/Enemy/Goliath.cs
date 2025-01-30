@@ -23,6 +23,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
 
     GameObject player;
     PlayerData playerData;
+    GameObject Camera;
     SpriteRenderer _sr;
 
     private Vector3 _up = new Vector3(0, 1, 0);
@@ -110,12 +111,18 @@ public class Goliath : MonoBehaviour, EnemyInterface
         return hp / maxHp;
     }
 
+    public void Shake(float mag, float dur)
+    {
+        Camera.GetComponent<ShakeCamera>().shakeCamera(mag, dur);
+    }
+
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
         player = GameObject.Find("Player");
         playerData = player.GetComponent<PlayerData>();
+        Camera = GameObject.Find("Main Camera");
 
         _up = VectorRotate(_up, transform.rotation.z);
         _down = VectorRotate(_down, transform.rotation.z);
@@ -207,7 +214,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
             case 1:
                 LeftLeg1.transform.position = LeftLeg1.transform.position + VectorAdd(0, -legMovementY) * Time.deltaTime * faster * 20;
                 RightLeg2.transform.position = RightLeg2.transform.position + VectorAdd(0, -legMovementY) * Time.deltaTime * faster * 20;
-                if (timer <= 0) { walkState++; timer = walkCooldown / faster; }
+                if (timer <= 0) { Shake(0.1f, 0.03f); walkState++; timer = walkCooldown / faster; }
                 break;
             case 2:
                 if (timer <= 0) { walkState++; timer = walkCooldown / faster; }
@@ -228,7 +235,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
             case 4:
                 LeftLeg2.transform.position = LeftLeg2.transform.position + VectorAdd(0, -legMovementY) * Time.deltaTime * faster * 20;
                 RightLeg1.transform.position = RightLeg1.transform.position + VectorAdd(0, -legMovementY) * Time.deltaTime * faster * 20;
-                if (timer <= 0) { walkState++; timer = walkCooldown / faster; }
+                if (timer <= 0) { Shake(0.1f, 0.03f); walkState++; timer = walkCooldown / faster; }
                 break;
             case 5:
                 if (timer <= 0) { walkState++; }
@@ -374,6 +381,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
 
                         Vector3 legCenter = direction == 1 ? RightLeg1.transform.position : LeftLeg2.transform.position;
                         legCenter += VectorAdd(direction * 1.1f, -2.3325f);
+                        Shake(0.5f, 0.03f);
                         GameObject Attack1 = Instantiate(attackObj2, legCenter + VectorAdd(0.895f, 0), Quaternion.identity);
                         GameObject Attack2 = Instantiate(attackObj2, legCenter + VectorAdd(-0.895f, 0), Quaternion.identity);
                         Attack1.GetComponent<EnemyAttackObj>().init(attackDuration, attackPower * 0.3f, VectorAdd(4, 0), EnemyAttackObj.EnemyType.Goliath);

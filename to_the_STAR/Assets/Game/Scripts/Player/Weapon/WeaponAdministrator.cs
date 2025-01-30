@@ -27,28 +27,30 @@ public class WeaponAdministrator : MonoBehaviour
     }
     void Update()
     {
+        
+    }
+
+    public void WeaponChange()
+    {
         if (Check())
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (weapon == Weapon.hammer)
             {
-                if(weapon == Weapon.hammer)
-                {
-                    weapon = Weapon.flameThrower;
-                    hammer.disable();
-                    flamethrower.enable();
-                }
-                else if(weapon == Weapon.flameThrower)
-                {
-                    weapon = Weapon.hammer;
-                    hammer.enable();
-                    flamethrower.disable();
-                }
-                weaponUIManager.GetComponent<WeaponUIManager>().weaponChanged();
+                weapon = Weapon.flameThrower;
+                hammer.disable();
+                flamethrower.enable();
             }
+            else if (weapon == Weapon.flameThrower)
+            {
+                weapon = Weapon.hammer;
+                hammer.enable();
+                flamethrower.disable();
+            }
+            weaponUIManager.GetComponent<WeaponUIManager>().weaponChanged();
         }
     }
 
-    bool Check()
+    public bool Check()
     {
         if (weapon == Weapon.hammer) return !hammer.isCharging();
         else if (weapon == Weapon.flameThrower) return !flamethrower.isTurnOn();
