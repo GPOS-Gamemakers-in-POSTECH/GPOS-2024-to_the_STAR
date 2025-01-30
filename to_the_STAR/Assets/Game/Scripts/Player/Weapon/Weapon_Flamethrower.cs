@@ -68,6 +68,7 @@ public class Weapon_Flamethrower : MonoBehaviour
 
     void Update()
     {
+        if(GamePause.isGamePaused) return; // If the game is Paused
         Vector2 playerTmp = GetComponent<PlayerMovementController>().getMoveVector();
         if (playerTmp.x != 0 || playerTmp.y != 0)
         {
