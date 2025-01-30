@@ -65,7 +65,7 @@ public class Weapon_Hammer : MonoBehaviour
 
     void Update()
     {
-        Vector2 playerTmp = GetComponent<PlayerMovementController>().getMoveVector();
+        Vector2 playerTmp = GetComponent<PlayerMovementController>().GetMoveVector();
         if (playerTmp.x != 0 || playerTmp.y != 0)
         {
             playerPos = playerTmp;

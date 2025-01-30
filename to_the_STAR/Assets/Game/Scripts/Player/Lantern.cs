@@ -36,7 +36,7 @@ public class Lantern : MonoBehaviour
         playerRot = player.transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
         Vector2 lanternFloatingVector = new Vector2(lanternFloatingVectorBase.x * Mathf.Cos(playerRot) - lanternFloatingVectorBase.y * Mathf.Sin(playerRot),
                                                     lanternFloatingVectorBase.x * Mathf.Sin(playerRot) + lanternFloatingVectorBase.y * Mathf.Cos(playerRot));
-        Vector2 tempV = player.GetComponent<PlayerMovementController>().getMoveVector();
+        Vector2 tempV = player.GetComponent<PlayerMovementController>().GetMoveVector();
         if(tempV.x!=0 || tempV.y!=0) playerMoveVector = tempV;
         transform.position = Vector3.Lerp(transform.position, player.transform.position
             - new Vector3(playerMoveVector.x - lanternFloatingVector.x, playerMoveVector.y - lanternFloatingVector.y, 0) * 0.5f, 

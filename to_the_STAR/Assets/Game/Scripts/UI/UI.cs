@@ -177,7 +177,7 @@ public class UI : MonoBehaviour
         flamethrowerFever = max(0, Player.GetComponent<PlayerData>().flamethrowerFever());
         Weapon_Flamethrower_Fever.fillAmount = flamethrowerFever;
 
-        dashPoint = Player.GetComponent<PlayerMovementController>().getDash();
+        dashPoint = Player.GetComponent<PlayerMovementController>().GetStamina();
         for(int i = 0; i < 3; i++)
         {
             Dash[i].fillAmount = dashPoint - i;

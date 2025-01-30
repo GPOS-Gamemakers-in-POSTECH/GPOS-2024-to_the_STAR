@@ -27,7 +27,7 @@ public class DashBar : MonoBehaviour
 
     void Update()
     {
-        dashPoint = Player.GetComponent<PlayerMovementController>().getDash();
+        dashPoint = Player.GetComponent<PlayerMovementController>().GetStamina();
         
         for (int i = 0; i < 3; i++)
         {

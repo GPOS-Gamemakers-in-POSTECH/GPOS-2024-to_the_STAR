@@ -8,7 +8,7 @@ namespace Game.Player
 {
     public class PlayerMovementController : MonoBehaviour
     {
-        [SerializeField] private int moveSpeed = 3;
+        [SerializeField] private float speed = 5;
         [SerializeField] GameObject DashDetect;
 
         private InputActions.PlayerActions _playerActions;
@@ -18,6 +18,7 @@ namespace Game.Player
         private InputAction _moveAction;
         private InputAction _interactAction;
         private InputAction _dashAction;
+        private InputAction _sprintAction;
         private Rigidbody2D _rb;
         private Animator _ani;
 
@@ -25,26 +26,32 @@ namespace Game.Player
 
         private Weapon_Flamethrower _flameThrower;
 
-        private float dash = 3.0f;
+        private float stamina = 3.0f;
         private const float dashMax = 3.0f;
         private const float dashLength = 1.25f;
+
+        private const float sprintStamina = 0.7f;
+        private const float sprintSpeed = 1.5f;
+        private const float moveSpeed = 5;
 
         private int dashCount = 0;
         private int dashCooldownCounter = 0;
         private const int dashCooldownSet = 4;
 
-        public Vector2 getMoveVector()
+        private bool usingStamina = false;
+
+        public Vector2 GetMoveVector()
         {
             return _moveVector;
         }
-        public int getMoveSpeed()
+        public float getMoveSpeed()
         {
-            return moveSpeed;
+            return speed;
         }
 
-        public float getDash()
+        public float GetStamina()
         {
-            return dash;
+            return stamina;
         }
         public void turn()
         {
@@ -71,6 +78,7 @@ namespace Game.Player
             _interactAction = GameInputSystem.Instance.PlayerActions.Interact;
             _playerActions = GameInputSystem.Instance.PlayerActions;
             _dashAction = GameInputSystem.Instance.PlayerActions.Dash;
+            _sprintAction = GameInputSystem.Instance.PlayerActions.Sprint;
             _flameThrower = GetComponent<Weapon_Flamethrower>();
             _ani = GetComponent<Animator>();
         }
@@ -110,6 +118,7 @@ namespace Game.Player
         
         private void Update()
         {
+
             if (_interactAction.triggered == true)
             {
                 Interaction();
@@ -122,7 +131,7 @@ namespace Game.Player
                     if (isEnable && !GetComponent<Weapon_Hammer>().isMouseInputted())
                     {
                         transform.position = dashAble.transform.position;
-                        dash -= 1;
+                        stamina -= 1;
                         _ani.SetTrigger("Dash");
                         StartCoroutine(invincible());
                     }
@@ -137,7 +146,7 @@ namespace Game.Player
                     if (!GetComponent<Weapon_Hammer>().isMouseInputted())
                     {
                         transform.position = dashAble.transform.position;
-                        dash -= 1;
+                        stamina -= 1;
                         _ani.SetTrigger("Dash");
                         StartCoroutine(invincible());
                     }
@@ -145,6 +154,21 @@ namespace Game.Player
                 }
 
             }
+
+
+            if (_sprintAction.inProgress)
+            {
+                usingStamina = true;
+                stamina -= Time.deltaTime * sprintStamina;
+                speed = moveSpeed * sprintSpeed;
+            }
+            else
+            {
+                usingStamina = false;
+                speed = moveSpeed;
+            }
+
+
 
             float angle = _rb.rotation * Mathf.Deg2Rad;
             Vector2 tmp = _moveAction.ReadValue<Vector2>();
@@ -161,7 +185,7 @@ namespace Game.Player
                 _ani.SetBool("Move", false);
             }
 
-            if (_dashAction.triggered == true && dash > 1 && dashCooldownCounter < 0)
+            if (_dashAction.triggered == true && stamina > 1 && dashCooldownCounter < 0)
             {
                 dashAble = Instantiate(DashDetect, transform.position + new Vector3(lastMove.x, lastMove.y, 0), Quaternion.identity);
                 dashAble.transform.rotation = transform.rotation;
@@ -178,10 +202,10 @@ namespace Game.Player
             if(GetComponent<PlayerData>().hammerCooldown() > 0.8f){
                 hammerRecoil = 0;
             }
-            _rb.MovePosition(currPosition + _moveVector * (moveSpeed * Time.deltaTime) 
+            _rb.MovePosition(currPosition + _moveVector * (speed * Time.fixedDeltaTime) 
                 * (1 - Mathf.Max(GetComponent<PlayerData>().hammerCharge(), 0)) * (1 - Mathf.Max(GetComponent<PlayerData>().flamethrowerFever() / 3, 0)) * hammerRecoil);
-            dash += Time.deltaTime;
-            if (dash > dashMax) dash = dashMax;
+            if (usingStamina == false) stamina += Time.fixedDeltaTime;
+            if (stamina > dashMax) stamina = dashMax;
             dashCount--;
             dashCooldownCounter--;
         }
