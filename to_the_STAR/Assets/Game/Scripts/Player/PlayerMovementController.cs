@@ -53,6 +53,12 @@ namespace Game.Player
         {
             return stamina;
         }
+
+        public void SetStamina(float value)
+        {
+            stamina = value;
+        }
+
         public void turn()
         {
             _ani.SetTrigger("TurningPoint");
@@ -156,7 +162,7 @@ namespace Game.Player
             }
 
 
-            if (_sprintAction.inProgress)
+            if (_sprintAction.inProgress && GetComponent<Weapon_Hammer>().isCharging() == false)
             {
                 usingStamina = true;
                 stamina -= Time.deltaTime * sprintStamina;
@@ -164,8 +170,12 @@ namespace Game.Player
             }
             else
             {
-                usingStamina = false;
-                speed = moveSpeed;
+                if (GetComponent<Weapon_Hammer>().isCharging()) usingStamina = true;
+                else
+                {
+                    usingStamina = false;
+                    speed = moveSpeed;
+                }
             }
 
 
@@ -202,8 +212,8 @@ namespace Game.Player
             if(GetComponent<PlayerData>().hammerCooldown() > 0.8f){
                 hammerRecoil = 0;
             }
-            _rb.MovePosition(currPosition + _moveVector * (speed * Time.fixedDeltaTime) 
-                * (1 - Mathf.Max(GetComponent<PlayerData>().hammerCharge(), 0)) * (1 - Mathf.Max(GetComponent<PlayerData>().flamethrowerFever() / 3, 0)) * hammerRecoil);
+            if(GetComponent<Weapon_Hammer>().isCharging() == false) _rb.MovePosition(currPosition + _moveVector * (speed * Time.fixedDeltaTime) 
+                * (1 - Mathf.Max(GetComponent<PlayerData>().flamethrowerFever() / 3, 0)) * hammerRecoil);
             if (usingStamina == false) stamina += Time.fixedDeltaTime;
             if (stamina > dashMax) stamina = dashMax;
             dashCount--;

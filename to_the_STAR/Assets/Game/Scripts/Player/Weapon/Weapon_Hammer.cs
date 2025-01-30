@@ -8,6 +8,7 @@ public class Weapon_Hammer : MonoBehaviour
     [SerializeField] GameObject attackObj;
 
     GameObject Camera;
+    PlayerMovementController _pmc;
     PlayerData playerData;
 
     Vector3 playerPos = new Vector3(1, 0, 0);
@@ -18,6 +19,7 @@ public class Weapon_Hammer : MonoBehaviour
     const float hammerCooldownSet = 2.5f;
     const float attackDuration = 1.0f;
     const float hammerChargeMax = 10.0f;
+    const float hammerStamina = 0.5f;
 
     const float stunCooldownSet = 3.0f;
 
@@ -55,6 +57,7 @@ public class Weapon_Hammer : MonoBehaviour
     {
         Camera = GameObject.Find("Main Camera");
         playerData = GetComponent<PlayerData>();
+        _pmc = GetComponent<PlayerMovementController>();
         _ani = GetComponent<Animator>();
     }
 
@@ -65,16 +68,17 @@ public class Weapon_Hammer : MonoBehaviour
 
     void Update()
     {
-        Vector2 playerTmp = GetComponent<PlayerMovementController>().GetMoveVector();
+        Vector2 playerTmp = _pmc.GetMoveVector();
         if (playerTmp.x != 0 || playerTmp.y != 0)
         {
             playerPos = playerTmp;
         }
 
-        if (hammerEnabled && hammerCooldown < 0 && hammerCharge < hammerChargeMax && Input.GetMouseButton(0))
+        if (hammerEnabled && hammerCooldown < 0 && hammerCharge < hammerChargeMax && Input.GetMouseButton(0) && _pmc.GetStamina() > 0)
         {
             _ani.SetBool("isCharge", true);
             hammerCharge += Time.deltaTime * 5;
+            _pmc.SetStamina(_pmc.GetStamina() - Time.deltaTime * hammerStamina);
         }
         if(hammerCharge > 0 && Input.GetMouseButtonUp(0))
         {
