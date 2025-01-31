@@ -78,7 +78,7 @@ public class Weapon_Flamethrower : MonoBehaviour
         {
             playerPos = playerTmp;
         }
-        if (flameEnabled && !flameCooldown && Input.GetMouseButtonDown(0) && _pmc.GetStamina() > 0)
+        if (flameEnabled && !flameCooldown && Input.GetMouseButtonDown(0) && !_pmc.IsStaminaCool() && _pmc.GetStamina() > 0)
         {
             if (flameFever < 0)
             {

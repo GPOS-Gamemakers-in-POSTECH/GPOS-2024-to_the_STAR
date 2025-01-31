@@ -19,7 +19,7 @@ public class Weapon_Hammer : MonoBehaviour
     const float hammerCooldownSet = 2.5f;
     const float attackDuration = 1.0f;
     const float hammerChargeMax = 10.0f;
-    const float hammerStamina = 0.5f;
+    const float hammerStamina = 0.7f;
 
     const float stunCooldownSet = 3.0f;
 
@@ -74,7 +74,7 @@ public class Weapon_Hammer : MonoBehaviour
             playerPos = playerTmp;
         }
 
-        if (hammerEnabled && hammerCooldown < 0 && hammerCharge < hammerChargeMax && Input.GetMouseButton(0) && _pmc.GetStamina() > 0)
+        if (hammerEnabled && hammerCooldown < 0 && hammerCharge < hammerChargeMax && Input.GetMouseButton(0) && !_pmc.IsStaminaCool() && _pmc.GetStamina() > 0)
         {
             _ani.SetBool("isCharge", true);
             hammerCharge += Time.deltaTime * 5;
