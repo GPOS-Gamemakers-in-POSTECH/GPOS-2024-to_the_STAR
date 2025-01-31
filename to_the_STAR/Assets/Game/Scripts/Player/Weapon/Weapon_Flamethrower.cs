@@ -73,7 +73,7 @@ public class Weapon_Flamethrower : MonoBehaviour
     {
 
         if(GamePause.isGamePaused) return; // If the game is Paused
-
+        Vector2 playerTmp = GetComponent<PlayerMovementController>().GetMoveVector();
         if (playerTmp.x != 0 || playerTmp.y != 0)
         {
             playerPos = playerTmp;
