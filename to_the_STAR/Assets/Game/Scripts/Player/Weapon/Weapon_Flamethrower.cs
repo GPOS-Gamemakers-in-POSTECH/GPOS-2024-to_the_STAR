@@ -78,7 +78,7 @@ public class Weapon_Flamethrower : MonoBehaviour
         {
             playerPos = playerTmp;
         }
-        if (flameEnabled && !flameCooldown && Input.GetMouseButtonDown(0) && _pmc.GetStamina() > 0)
+        if (flameEnabled && !flameCooldown && Input.GetMouseButtonDown(0) && !_pmc.IsStaminaCool() && _pmc.GetStamina() > 0)
         {
             if (flameFever < 0)
             {
@@ -112,10 +112,15 @@ public class Weapon_Flamethrower : MonoBehaviour
                 Attack.GetComponent<PlayerAttackObj>().init(attackDuration, flameDamageConst, flameMove * flameSpeed, 1, stunCooldownSet);
                 flameShotCooldown = flameFrequency;
             }
-            if(flameFever > flameFeverMax || _pmc.GetStamina() == 0)
+            if (flameFever > flameFeverMax)
             {
                 flameTurnedOn = false;
                 flameCooldown = true;
+            }
+            if (_pmc.GetStamina() == 0)
+            {
+                flameTurnedOn = false;
+                _pmc.SetStaminaCool(true);
             }
             flameShotCooldown -= Time.deltaTime;
         }
@@ -132,6 +137,7 @@ public class Weapon_Flamethrower : MonoBehaviour
             float angle = Vector2.SignedAngle(playerPos, mousePos);
             if ((playerPos.x + playerPos.y > 0) ^ (transform.rotation.eulerAngles.z == 180 || transform.rotation.eulerAngles.z == 270)) angle = Mathf.Clamp(angle, -flameDegRange, 90);
             else angle = Mathf.Clamp(angle, -90, flameDegRange);
+            _ani.SetFloat("Flamethrower_Angle", angle);
             angle *= Mathf.Deg2Rad;
             Vector2 flameMove = VectorRotate(playerPos, angle);
             _ani.SetBool("Attack_Flamethrower", true);

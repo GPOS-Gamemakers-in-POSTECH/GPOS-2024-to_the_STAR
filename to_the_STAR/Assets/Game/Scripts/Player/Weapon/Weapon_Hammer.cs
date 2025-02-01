@@ -15,11 +15,12 @@ public class Weapon_Hammer : MonoBehaviour
     bool hammerEnabled = false;
     float hammerCooldown = 0;
     float hammerCharge = 0;
-    const float hammerDamageConst = 66.6f;
+    const float hammerDamageConst = 50f;
+    const float hammerDamageBase = 25f;
     const float hammerCooldownSet = 2.5f;
     const float attackDuration = 1.0f;
     const float hammerChargeMax = 10.0f;
-    const float hammerStamina = 0.5f;
+    const float hammerStamina = 0.7f;
 
     const float stunCooldownSet = 3.0f;
 
@@ -77,16 +78,17 @@ public class Weapon_Hammer : MonoBehaviour
         if (hammerEnabled && hammerCooldown < 0 && hammerCharge < hammerChargeMax && Input.GetMouseButton(0) && _pmc.GetStamina() > 0)
         {
             _ani.SetBool("isCharge", true);
-            hammerCharge += Time.deltaTime * 5;
+            hammerCharge += Time.deltaTime * 6.66f;
             _pmc.SetStamina(_pmc.GetStamina() - Time.deltaTime * hammerStamina);
         }
         if(hammerCharge > 0 && Input.GetMouseButtonUp(0))
         {
+            // if (_pmc.GetStamina() == 0) _pmc.SetStaminaCool(true);
             _ani.SetBool("isCharge", false);
             _ani.SetTrigger("Attack_Hammer");
             GameObject Attack = Instantiate(attackObj, transform.position + playerPos, Quaternion.identity);
-            Attack.GetComponent<PlayerAttackObj>().init(attackDuration, hammerDamageConst * hammerCharge / 10.0f, new Vector2(0, 0), 0, stunCooldownSet * hammerCharge / 10);
-            Camera.GetComponent<ShakeCamera>().singleShakeCamera(1, playerData.getRotateDir());
+            Attack.GetComponent<PlayerAttackObj>().init(attackDuration, hammerDamageConst * hammerCharge / 10.0f + hammerDamageBase, new Vector2(0, 0), 0, stunCooldownSet * hammerCharge / 10);
+            Camera.GetComponent<ShakeCamera>().singleShakeCamera(0.2f + getHammerCharge() * 0.8f, playerData.getRotateDir());
             hammerCooldown = hammerCooldownSet;
             hammerCharge = 0;
         }

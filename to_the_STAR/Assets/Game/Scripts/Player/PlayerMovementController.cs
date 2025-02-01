@@ -28,7 +28,7 @@ namespace Game.Player
         private WeaponAdministrator _wa;
 
         private float stamina = 3.0f;
-        private const float dashMax = 3.0f;
+        private const float staminaMax = 3.0f;
         private const float dashLength = 1.25f;
 
         private const float sprintStamina = 0.7f;
@@ -40,6 +40,7 @@ namespace Game.Player
         private const int dashCooldownSet = 4;
 
         private bool usingStamina = false;
+        private bool staminaCool = false;
 
         public Vector2 GetMoveVector()
         {
@@ -58,6 +59,16 @@ namespace Game.Player
         public void SetStamina(float value)
         {
             stamina = value > 0 ? value : 0;
+        }
+
+        public void SetStaminaCool(bool tf)
+        {
+            staminaCool = tf;
+        }
+
+        public bool IsStaminaCool()
+        {
+            return staminaCool;
         }
 
         public void turn()
@@ -168,28 +179,31 @@ namespace Game.Player
 
             if (_weaponChange.ReadValue<float>() != 0) _wa.WeaponChange();
 
-            if (_sprintAction.inProgress && GetComponent<Weapon_Hammer>().isCharging() == false)
-            {
-                usingStamina = true;
-                stamina -= Time.deltaTime * sprintStamina;
-                speed = moveSpeed * sprintSpeed;
-            }
-            else
-            {
-                if (GetComponent<Weapon_Hammer>().isCharging() || GetComponent<Weapon_Flamethrower>().isTurnOn()) usingStamina = true;
-                else
-                {
-                    usingStamina = false;
-                    speed = moveSpeed;
-                }
-            }
-
-
-
             float angle = _rb.rotation * Mathf.Deg2Rad;
             Vector2 tmp = _moveAction.ReadValue<Vector2>();
             _moveVector = new Vector2(tmp.x * Mathf.Cos(angle) - tmp.y * Mathf.Sin(angle),
                                       tmp.x * Mathf.Sin(angle) + tmp.y * Mathf.Cos(angle));
+
+            if (staminaCool == false && stamina > 0 && _sprintAction.inProgress && _moveVector.sqrMagnitude > 0 && GetComponent<Weapon_Hammer>().isCharging() == false)
+            {
+                usingStamina = true;
+                stamina -= Time.deltaTime * sprintStamina;
+                if (stamina < 0)
+                {
+                    speed = moveSpeed;
+                    stamina = 0;
+                    usingStamina = false;
+                    staminaCool = true;
+                }
+                else speed = moveSpeed * sprintSpeed;
+            }
+            else
+            {
+                speed = moveSpeed;
+                if (staminaCool == false && (GetComponent<Weapon_Hammer>().isCharging() || GetComponent<Weapon_Flamethrower>().isTurnOn())) usingStamina = true;
+                else usingStamina = false;
+            }
+            
             if (_moveVector.sqrMagnitude > 0)
             {
                 GetComponent<SpriteRenderer>().flipX = (_moveVector.x + _moveVector.y > 0) ^ (transform.rotation.eulerAngles.z == 180 || transform.rotation.eulerAngles.z == 270);
@@ -221,7 +235,11 @@ namespace Game.Player
             if(GetComponent<Weapon_Hammer>().isCharging() == false) _rb.MovePosition(currPosition + _moveVector * (speed * Time.fixedDeltaTime) 
                 * (1 - Mathf.Max(GetComponent<PlayerData>().flamethrowerFever() / 3, 0)) * hammerRecoil);
             if (usingStamina == false) stamina += Time.fixedDeltaTime;
-            if (stamina > dashMax) stamina = dashMax;
+            if (stamina > staminaMax)
+            {
+                stamina = staminaMax;
+                staminaCool = false;
+            }
             dashCount--;
             dashCooldownCounter--;
         }

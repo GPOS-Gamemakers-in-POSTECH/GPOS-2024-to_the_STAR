@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GamePause : MonoBehaviour
 {
@@ -68,8 +69,9 @@ public class GamePause : MonoBehaviour
 
     // Function that moves to the title scene
     private void Title()
-    {
-        Debug.Log("Title scene not implemented yet");
+    {    
+        Resume();
+        SceneManager.LoadScene("TitleScene");
     }
 
     // Function that exits the game

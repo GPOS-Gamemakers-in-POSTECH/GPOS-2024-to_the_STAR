@@ -14,6 +14,7 @@ namespace Game.Player
     {
         float Hp = 100.0f;
         const float maxHp = 100.0f;
+        const float maxStamina = 3.0f;
         bool isInvincible = false;
         Vector3 spawnPoint;
 
@@ -28,6 +29,11 @@ namespace Game.Player
         public float playerHp()
         {
             return Hp/maxHp;
+        }
+
+        public float playerStamina()
+        {
+            return GetComponent<PlayerMovementController>().GetStamina() / maxStamina;
         }
 
         public void setInvincibility(bool tf)

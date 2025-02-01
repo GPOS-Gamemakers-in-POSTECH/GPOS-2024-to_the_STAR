@@ -113,7 +113,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
 
     public void Shake(float mag, float dur)
     {
-        Camera.GetComponent<ShakeCamera>().shakeCamera(mag, dur);
+        Camera.GetComponent<ShakeCamera>().shakeCamera(dur, mag);
     }
 
     void Awake()
@@ -214,7 +214,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
             case 1:
                 LeftLeg1.transform.position = LeftLeg1.transform.position + VectorAdd(0, -legMovementY) * Time.deltaTime * faster * 20;
                 RightLeg2.transform.position = RightLeg2.transform.position + VectorAdd(0, -legMovementY) * Time.deltaTime * faster * 20;
-                if (timer <= 0) { Shake(0.1f, 0.03f); walkState++; timer = walkCooldown / faster; }
+                if (timer <= 0) { Shake(0.1f, 0.1f); walkState++; timer = walkCooldown / faster; }
                 break;
             case 2:
                 if (timer <= 0) { walkState++; timer = walkCooldown / faster; }
@@ -235,7 +235,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
             case 4:
                 LeftLeg2.transform.position = LeftLeg2.transform.position + VectorAdd(0, -legMovementY) * Time.deltaTime * faster * 20;
                 RightLeg1.transform.position = RightLeg1.transform.position + VectorAdd(0, -legMovementY) * Time.deltaTime * faster * 20;
-                if (timer <= 0) { Shake(0.1f, 0.03f); walkState++; timer = walkCooldown / faster; }
+                if (timer <= 0) { Shake(0.1f, 0.1f); walkState++; timer = walkCooldown / faster; }
                 break;
             case 5:
                 if (timer <= 0) { walkState++; }
@@ -333,13 +333,12 @@ public class Goliath : MonoBehaviour, EnemyInterface
                 {
                     if (attackTimer <= 0)
                     {
-                        attackTimer = attackMotion1Cooldown;
                         isAttacking = false;
                         attackType = Random.Range(1, 2);
                         switch (attackType)
                         {
                             case 1:
-                                attackTimer = attackMotion1Cooldown / faster;
+                                attackTimer = attackMotion1Cooldown / faster / 1.5f;
                                 break;
                             case 2:
                                 attackTimer = attack2MotionCooldown;
@@ -381,7 +380,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
 
                         Vector3 legCenter = direction == 1 ? RightLeg1.transform.position : LeftLeg2.transform.position;
                         legCenter += VectorAdd(direction * 1.1f, -2.3325f);
-                        Shake(0.5f, 0.03f);
+                        Shake(0.15f, 0.5f);
                         GameObject Attack1 = Instantiate(attackObj2, legCenter + VectorAdd(0.895f, 0), Quaternion.identity);
                         GameObject Attack2 = Instantiate(attackObj2, legCenter + VectorAdd(-0.895f, 0), Quaternion.identity);
                         Attack1.GetComponent<EnemyAttackObj>().init(attackDuration, attackPower * 0.3f, VectorAdd(4, 0), EnemyAttackObj.EnemyType.Goliath);
@@ -421,16 +420,16 @@ public class Goliath : MonoBehaviour, EnemyInterface
                     }
                     else
                     {
-                        transform.Rotate(0, 0, ang * Time.deltaTime * direction * faster);
+                        transform.Rotate(0, 0, ang * Time.deltaTime * direction * faster * 1.5f);
                         if (direction == 1)
                         {
-                            RightLeg1.transform.position = RightLeg1.transform.position + VectorAdd(0, legMovementY * 2) * Time.deltaTime * faster;
-                            RightLeg2.transform.position = RightLeg2.transform.position + VectorAdd(0, legMovementY * 2) * Time.deltaTime * faster;
+                            RightLeg1.transform.position = RightLeg1.transform.position + VectorAdd(0, legMovementY * 3) * Time.deltaTime * faster;
+                            RightLeg2.transform.position = RightLeg2.transform.position + VectorAdd(0, legMovementY * 3) * Time.deltaTime * faster;
                         }
                         else
                         {
-                            LeftLeg1.transform.position = LeftLeg1.transform.position + VectorAdd(0, legMovementY * 2) * Time.deltaTime * faster;
-                            LeftLeg2.transform.position = LeftLeg2.transform.position + VectorAdd(0, legMovementY * 2) * Time.deltaTime * faster;
+                            LeftLeg1.transform.position = LeftLeg1.transform.position + VectorAdd(0, legMovementY * 3) * Time.deltaTime * faster;
+                            LeftLeg2.transform.position = LeftLeg2.transform.position + VectorAdd(0, legMovementY * 3) * Time.deltaTime * faster;
                         }
                     }
                 }
