@@ -86,7 +86,7 @@ public class Weapon_Hammer : MonoBehaviour
             _ani.SetTrigger("Attack_Hammer");
             GameObject Attack = Instantiate(attackObj, transform.position + playerPos, Quaternion.identity);
             Attack.GetComponent<PlayerAttackObj>().init(attackDuration, hammerDamageConst * hammerCharge / 10.0f, new Vector2(0, 0), 0, stunCooldownSet * hammerCharge / 10);
-            Camera.GetComponent<ShakeCamera>().singleShakeCamera(1, playerData.getRotateDir());
+            Camera.GetComponent<ShakeCamera>().singleShakeCamera(0.2f + getHammerCharge() * 0.8f, playerData.getRotateDir());
             hammerCooldown = hammerCooldownSet;
             hammerCharge = 0;
         }
