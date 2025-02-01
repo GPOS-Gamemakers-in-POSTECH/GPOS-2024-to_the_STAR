@@ -12,6 +12,8 @@ public class Item : MonoBehaviour
     void Start()
     {
         //popupUI.SetActive(false);
+        //PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteKey("Item_" + itemId);
 
         if(PlayerPrefs.GetInt("Item_" + itemId, 0) == 1)
         {
