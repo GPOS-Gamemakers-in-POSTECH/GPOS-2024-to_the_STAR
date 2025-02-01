@@ -59,11 +59,11 @@ namespace Game.Player
         public void SetStamina(float value)
         {
             stamina = value > 0 ? value : 0;
-            if (stamina == 0)
-            {
-                usingStamina = false;
-                staminaCool = true;
-            }
+        }
+
+        public void SetStaminaCool(bool tf)
+        {
+            staminaCool = tf;
         }
 
         public bool IsStaminaCool()
@@ -203,8 +203,6 @@ namespace Game.Player
                 if (staminaCool == false && (GetComponent<Weapon_Hammer>().isCharging() || GetComponent<Weapon_Flamethrower>().isTurnOn())) usingStamina = true;
                 else usingStamina = false;
             }
-
-            Debug.Log(stamina);
             
             if (_moveVector.sqrMagnitude > 0)
             {

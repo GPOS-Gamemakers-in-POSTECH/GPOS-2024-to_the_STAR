@@ -112,10 +112,15 @@ public class Weapon_Flamethrower : MonoBehaviour
                 Attack.GetComponent<PlayerAttackObj>().init(attackDuration, flameDamageConst, flameMove * flameSpeed, 1, stunCooldownSet);
                 flameShotCooldown = flameFrequency;
             }
-            if(flameFever > flameFeverMax || _pmc.GetStamina() == 0)
+            if (flameFever > flameFeverMax)
             {
                 flameTurnedOn = false;
                 flameCooldown = true;
+            }
+            if (_pmc.GetStamina() == 0)
+            {
+                flameTurnedOn = false;
+                _pmc.SetStaminaCool(true);
             }
             flameShotCooldown -= Time.deltaTime;
         }

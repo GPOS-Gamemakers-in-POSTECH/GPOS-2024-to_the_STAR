@@ -82,6 +82,7 @@ public class Weapon_Hammer : MonoBehaviour
         }
         if(hammerCharge > 0 && Input.GetMouseButtonUp(0))
         {
+            if (_pmc.GetStamina() == 0) _pmc.SetStaminaCool(true);
             _ani.SetBool("isCharge", false);
             _ani.SetTrigger("Attack_Hammer");
             GameObject Attack = Instantiate(attackObj, transform.position + playerPos, Quaternion.identity);
