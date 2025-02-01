@@ -132,6 +132,7 @@ public class Weapon_Flamethrower : MonoBehaviour
             float angle = Vector2.SignedAngle(playerPos, mousePos);
             if ((playerPos.x + playerPos.y > 0) ^ (transform.rotation.eulerAngles.z == 180 || transform.rotation.eulerAngles.z == 270)) angle = Mathf.Clamp(angle, -flameDegRange, 90);
             else angle = Mathf.Clamp(angle, -90, flameDegRange);
+            _ani.SetFloat("Flamethrower_Angle", angle);
             angle *= Mathf.Deg2Rad;
             Vector2 flameMove = VectorRotate(playerPos, angle);
             _ani.SetBool("Attack_Flamethrower", true);
