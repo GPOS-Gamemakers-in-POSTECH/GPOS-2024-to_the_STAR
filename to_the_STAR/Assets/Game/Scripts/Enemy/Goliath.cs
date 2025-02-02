@@ -13,6 +13,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
     [SerializeField] private GameObject attackObj1;
     [SerializeField] private GameObject attackObj2;
     [SerializeField] private GameObject walkingAttackObj;
+    [SerializeField] AudioClip goliathAttackSound;
 
     [SerializeField] private GameObject[] Legs;
 
@@ -44,7 +45,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
     private const float attack2MotionCooldown = 0.5f;
     private const float attackDuration = 1.0f;
     private const float attackCooldown = 4.0f;
-    private const float attackPower = 10.0f;
+    private const float attackPower = 15.0f;
     private float hp = 1000;
 
     private int direction = 0;
@@ -111,9 +112,19 @@ public class Goliath : MonoBehaviour, EnemyInterface
         return hp / maxHp;
     }
 
-    public void Shake(float mag, float dur)
+    private float abs(float a)
     {
-        Camera.GetComponent<ShakeCamera>().shakeCamera(dur, mag);
+        return a >= 0 ? a : -a;
+    }
+
+    private bool IsPlayerClose()
+    {
+        return (player.transform.position - transform.position).sqrMagnitude <= 1600.0f && abs(player.transform.position.y - transform.position.y) <= 10.0f;
+    }
+
+    private void Shake(float mag, float dur)
+    {
+        if(IsPlayerClose()) Camera.GetComponent<ShakeCamera>().shakeCamera(dur, mag);
     }
 
     void Awake()
@@ -381,10 +392,12 @@ public class Goliath : MonoBehaviour, EnemyInterface
                         Vector3 legCenter = direction == 1 ? RightLeg1.transform.position : LeftLeg2.transform.position;
                         legCenter += VectorAdd(direction * 1.1f, -2.3325f);
                         Shake(0.15f, 0.5f);
+                        if(IsPlayerClose()) GetComponent<AudioSource>().PlayOneShot(goliathAttackSound, 1.0f);
+
                         GameObject Attack1 = Instantiate(attackObj2, legCenter + VectorAdd(0.895f, 0), Quaternion.identity);
                         GameObject Attack2 = Instantiate(attackObj2, legCenter + VectorAdd(-0.895f, 0), Quaternion.identity);
-                        Attack1.GetComponent<EnemyAttackObj>().init(attackDuration, attackPower * 0.3f, VectorAdd(4, 0), EnemyAttackObj.EnemyType.Goliath);
-                        Attack2.GetComponent<EnemyAttackObj>().init(attackDuration, attackPower * 0.3f, VectorAdd(-4, 0), EnemyAttackObj.EnemyType.Goliath);
+                        Attack1.GetComponent<EnemyAttackObj>().init(attackDuration, attackPower * 0.3f, VectorAdd(6, 0), EnemyAttackObj.EnemyType.Goliath);
+                        Attack2.GetComponent<EnemyAttackObj>().init(attackDuration, attackPower * 0.3f, VectorAdd(-6, 0), EnemyAttackObj.EnemyType.Goliath);
                         Attack1.GetComponent<SpriteRenderer>().flipX = true;
 
                         state = State.Chasing;
