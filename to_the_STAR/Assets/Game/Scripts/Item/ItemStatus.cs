@@ -5,32 +5,48 @@ using TMPro;
 
 public class ItemStatus : MonoBehaviour
 {
-    private static int itemCount;
+    private int itemCount; // Count how many items player collected
+    
     public GameObject itemStatusUI;
-    private static TextMeshProUGUI itemStatusText;
-    private static int totalItemCount = 3;
+    private TextMeshProUGUI itemStatusText;
+
+    public GameObject itemCollectedUI;
+    private TextMeshProUGUI itemCollectedText;
+
+    private int totalItemCount = 3; // Number of total items
 
     void Start()
-    {
-        PlayerPrefs.DeleteAll(); // refresh PlayerPrefs
-        itemCount = 0;
+    {    
+
         itemStatusText = itemStatusUI.GetComponentInChildren<TextMeshProUGUI>();
+        itemCollectedText = itemCollectedUI.GetComponentInChildren<TextMeshProUGUI>();
+        itemCollectedUI.SetActive(false);
+
+        itemCount = 0;
         UpdateItemStatusText();
     }
 
-    void Update()
-    {
-        
-    }
-
-    public static void IncrementItemCount()
+    public void IncrementItemCount()
     {
         itemCount++;
         UpdateItemStatusText();
     }
 
-    private static void UpdateItemStatusText()
+    private void UpdateItemStatusText()
     {
         itemStatusText.text = $"{itemCount} / {totalItemCount}";
+    }
+
+    public void CollectUI(int itemId)
+    {
+        itemCollectedText.text = $"Item #{itemId} collected!";
+        itemCollectedUI.SetActive(true);
+        StartCoroutine(HideItemCollectedUI());
+    }
+
+    private IEnumerator HideItemCollectedUI()
+    {
+        yield return new WaitForSeconds(1f);
+        itemCollectedUI.SetActive(false);
     }
 }

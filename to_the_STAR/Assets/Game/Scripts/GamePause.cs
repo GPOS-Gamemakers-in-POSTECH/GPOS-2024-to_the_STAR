@@ -77,6 +77,7 @@ public class GamePause : MonoBehaviour
     // Function that exits the game
     private void Exit()
     {
+        PlayerPrefs.DeleteAll(); // refresh PlayerPrefs (must be removed in the final version)
         #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
         #else
