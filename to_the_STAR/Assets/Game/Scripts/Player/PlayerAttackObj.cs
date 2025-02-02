@@ -8,6 +8,7 @@ public class PlayerAttackObj : MonoBehaviour
     float maxDuration = 1;
     float damage = 0;
     float stunCooldownSet = 0;
+    float age = 0;
     int attackType = 0; //0: 해머, 1: 화염방사기
     Vector2 moveVector;
     Transform lightObj;
@@ -34,11 +35,13 @@ public class PlayerAttackObj : MonoBehaviour
     void Update()
     {
         duration -= Time.deltaTime;
+        age += Time.deltaTime;
         transform.position = new Vector3(transform.position.x + moveVector.x * Time.deltaTime, transform.position.y + moveVector.y * Time.deltaTime, transform.position.z);
         if(attackType == 1)
         {
             transform.localScale = new Vector3(duration / maxDuration + 0.1f, duration / maxDuration + 0.1f, 1);
             lightObj.position = transform.position;
+            GetComponent<Animator>().SetFloat("Age", age);
         }
         if (duration < 0)
         {

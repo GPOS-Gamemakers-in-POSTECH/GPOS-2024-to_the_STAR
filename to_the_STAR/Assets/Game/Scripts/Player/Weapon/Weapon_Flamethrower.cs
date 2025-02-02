@@ -101,7 +101,7 @@ public class Weapon_Flamethrower : MonoBehaviour
                 angle *= Mathf.Deg2Rad;
                 Vector2 flameMove = VectorRotate(playerPos, angle);
 
-                GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.identity);
+                GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.Euler(transform.eulerAngles));
                 GameObject Light = Instantiate(lightObj, transform.position, Quaternion.identity);
                 Light.transform.parent = Attack.transform;
                 Light.GetComponent<HardLight2D>().Range = flameLightRange;

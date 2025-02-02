@@ -20,7 +20,7 @@ public class Weapon_Hammer : MonoBehaviour
     const float hammerCooldownSet = 2.5f;
     const float attackDuration = 1.0f;
     const float hammerChargeMax = 10.0f;
-    const float hammerStamina = 0.7f;
+    const float hammerStamina = 0.66f;
 
     const float stunCooldownSet = 3.0f;
 
