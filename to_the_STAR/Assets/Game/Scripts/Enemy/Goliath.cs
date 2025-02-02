@@ -117,10 +117,14 @@ public class Goliath : MonoBehaviour, EnemyInterface
         return a >= 0 ? a : -a;
     }
 
-    public void Shake(float mag, float dur)
+    private bool IsPlayerClose()
     {
-        if((player.transform.position - transform.position).sqrMagnitude <= 1600.0f && abs(player.transform.position.y - transform.position.y) <= 10.0f) 
-        Camera.GetComponent<ShakeCamera>().shakeCamera(dur, mag);
+        return (player.transform.position - transform.position).sqrMagnitude <= 1600.0f && abs(player.transform.position.y - transform.position.y) <= 10.0f;
+    }
+
+    private void Shake(float mag, float dur)
+    {
+        if(IsPlayerClose()) Camera.GetComponent<ShakeCamera>().shakeCamera(dur, mag);
     }
 
     void Awake()
@@ -388,8 +392,8 @@ public class Goliath : MonoBehaviour, EnemyInterface
                         Vector3 legCenter = direction == 1 ? RightLeg1.transform.position : LeftLeg2.transform.position;
                         legCenter += VectorAdd(direction * 1.1f, -2.3325f);
                         Shake(0.15f, 0.5f);
+                        if(IsPlayerClose()) GetComponent<AudioSource>().PlayOneShot(goliathAttackSound, 1.0f);
 
-                        GetComponent<AudioSource>().PlayOneShot(goliathAttackSound, 1.0f);
                         GameObject Attack1 = Instantiate(attackObj2, legCenter + VectorAdd(0.895f, 0), Quaternion.identity);
                         GameObject Attack2 = Instantiate(attackObj2, legCenter + VectorAdd(-0.895f, 0), Quaternion.identity);
                         Attack1.GetComponent<EnemyAttackObj>().init(attackDuration, attackPower * 0.3f, VectorAdd(6, 0), EnemyAttackObj.EnemyType.Goliath);
