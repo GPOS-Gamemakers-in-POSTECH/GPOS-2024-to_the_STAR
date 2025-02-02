@@ -31,13 +31,13 @@ public class ShakeCamera : MonoBehaviour
             switch (floor)
             {
                 case 0:
-                    shakePos2D = new Vector2(0, -1);
+                    shakePos2D = new Vector2(0, 1);
                     break;
                 case 1:
                     shakePos2D = new Vector2(1, 0);
                     break;
                 case 2:
-                    shakePos2D = new Vector2(0, 1);
+                    shakePos2D = new Vector2(0, -1);
                     break;
                 default:
                     shakePos2D = new Vector2(-1, 0);

@@ -44,7 +44,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
     private const float attack2MotionCooldown = 0.5f;
     private const float attackDuration = 1.0f;
     private const float attackCooldown = 4.0f;
-    private const float attackPower = 10.0f;
+    private const float attackPower = 15.0f;
     private float hp = 1000;
 
     private int direction = 0;
@@ -111,8 +111,14 @@ public class Goliath : MonoBehaviour, EnemyInterface
         return hp / maxHp;
     }
 
+    private float abs(float a)
+    {
+        return a >= 0 ? a : -a;
+    }
+
     public void Shake(float mag, float dur)
     {
+        if((player.transform.position - transform.position).sqrMagnitude <= 1600.0f && abs(player.transform.position.y - transform.position.y) <= 10.0f) 
         Camera.GetComponent<ShakeCamera>().shakeCamera(dur, mag);
     }
 
@@ -383,8 +389,8 @@ public class Goliath : MonoBehaviour, EnemyInterface
                         Shake(0.15f, 0.5f);
                         GameObject Attack1 = Instantiate(attackObj2, legCenter + VectorAdd(0.895f, 0), Quaternion.identity);
                         GameObject Attack2 = Instantiate(attackObj2, legCenter + VectorAdd(-0.895f, 0), Quaternion.identity);
-                        Attack1.GetComponent<EnemyAttackObj>().init(attackDuration, attackPower * 0.3f, VectorAdd(4, 0), EnemyAttackObj.EnemyType.Goliath);
-                        Attack2.GetComponent<EnemyAttackObj>().init(attackDuration, attackPower * 0.3f, VectorAdd(-4, 0), EnemyAttackObj.EnemyType.Goliath);
+                        Attack1.GetComponent<EnemyAttackObj>().init(attackDuration, attackPower * 0.3f, VectorAdd(6, 0), EnemyAttackObj.EnemyType.Goliath);
+                        Attack2.GetComponent<EnemyAttackObj>().init(attackDuration, attackPower * 0.3f, VectorAdd(-6, 0), EnemyAttackObj.EnemyType.Goliath);
                         Attack1.GetComponent<SpriteRenderer>().flipX = true;
 
                         state = State.Chasing;
