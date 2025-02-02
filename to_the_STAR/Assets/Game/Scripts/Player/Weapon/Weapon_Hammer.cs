@@ -6,6 +6,7 @@ using UnityEngine;
 public class Weapon_Hammer : MonoBehaviour
 {
     [SerializeField] GameObject attackObj;
+    [SerializeField] AudioClip hammerAttackSound;
 
     GameObject Camera;
     PlayerMovementController _pmc;
@@ -89,6 +90,7 @@ public class Weapon_Hammer : MonoBehaviour
             GameObject Attack = Instantiate(attackObj, transform.position + playerPos, Quaternion.identity);
             Attack.GetComponent<PlayerAttackObj>().init(attackDuration, hammerDamageConst * hammerCharge / 10.0f + hammerDamageBase, new Vector2(0, 0), 0, stunCooldownSet * hammerCharge / 10);
             Camera.GetComponent<ShakeCamera>().singleShakeCamera(0.2f + getHammerCharge() * 0.8f, playerData.getRotateDir());
+            GetComponent<AudioSource>().PlayOneShot(hammerAttackSound, 1.0f);
             hammerCooldown = hammerCooldownSet;
             hammerCharge = 0;
         }

@@ -9,6 +9,8 @@ public class Weapon_Flamethrower : MonoBehaviour
 {
     [SerializeField] GameObject attackObj;
     [SerializeField] GameObject lightObj;
+    [SerializeField] AudioClip flameAttackSound;
+
     GameObject player;
     bool flameEnabled = true;
     bool flameCooldown = false;
@@ -101,6 +103,7 @@ public class Weapon_Flamethrower : MonoBehaviour
                 angle *= Mathf.Deg2Rad;
                 Vector2 flameMove = VectorRotate(playerPos, angle);
 
+                GetComponent<AudioSource>().PlayOneShot(flameAttackSound, 1.0f);
                 GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.identity);
                 GameObject Light = Instantiate(lightObj, transform.position, Quaternion.identity);
                 Light.transform.parent = Attack.transform;
