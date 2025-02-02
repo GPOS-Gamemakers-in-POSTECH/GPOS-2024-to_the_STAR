@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class GamePause : MonoBehaviour
 {
     public static bool isGamePaused = false; // Indicate whether game is Paused or not
     public GameObject pauseMenuUI;
 
-    public AudioSource music;
-    private AudioLowPassFilter musicFilter;
+    public AudioMixer mixer;
 
     public Button resumeButton;
     public Button titleButton;
@@ -20,10 +20,7 @@ public class GamePause : MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
 
-        musicFilter = music.GetComponent<AudioLowPassFilter>();
-        if(musicFilter == null)
-            musicFilter = music.gameObject.AddComponent<AudioLowPassFilter>();
-        musicFilter.cutoffFrequency = 22000f;   // Default value (original music)
+        mixer.SetFloat("Master_Cutoff", 22000f); // Default value (original music)
 
         if(resumeButton != null)
             resumeButton.onClick.AddListener(Resume);
@@ -53,7 +50,7 @@ public class GamePause : MonoBehaviour
 
         Time.timeScale = 1f;
 
-        musicFilter.cutoffFrequency = 22000f;
+        mixer.SetFloat("Master_Cutoff", 22000f);
     }
 
     // Function that pauses the game
@@ -64,7 +61,7 @@ public class GamePause : MonoBehaviour
 
         Time.timeScale = 0f;
 
-        musicFilter.cutoffFrequency = 800f;
+        mixer.SetFloat("Master_Cutoff", 800f);
     }
 
     // Function that moves to the title scene

@@ -68,9 +68,9 @@ namespace Game.Player
 
         public int getRotateDir()
         {
-            if (RotateDir == PlayerRotateDirection.Down) return 0;
+            if (RotateDir == PlayerRotateDirection.Up) return 0;
             else if (RotateDir == PlayerRotateDirection.Right) return 1;
-            else if (RotateDir == PlayerRotateDirection.Up) return 2;
+            else if (RotateDir == PlayerRotateDirection.Down) return 2;
             else return 3;
         }
 
