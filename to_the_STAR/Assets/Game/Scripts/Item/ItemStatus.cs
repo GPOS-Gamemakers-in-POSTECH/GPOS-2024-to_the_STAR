@@ -5,7 +5,7 @@ using TMPro;
 
 public class ItemStatus : MonoBehaviour
 {
-    private int itemCount; // Count how many items player collected
+    private static int itemCount = 0; // Count how many items player collected
     
     public GameObject itemStatusUI;
     private TextMeshProUGUI itemStatusText;
@@ -22,7 +22,6 @@ public class ItemStatus : MonoBehaviour
         itemCollectedText = itemCollectedUI.GetComponentInChildren<TextMeshProUGUI>();
         itemCollectedUI.SetActive(false);
 
-        itemCount = 0;
         UpdateItemStatusText();
     }
 
