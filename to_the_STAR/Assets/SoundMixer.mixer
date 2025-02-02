@@ -48,6 +48,8 @@ AudioMixerController:
     name: BGM_Vol
   - guid: 73d5c6561c3fd754e8a978700fcaed1c
     name: Master_Cutoff
+  - guid: 9466e589bf2901948ac29cfa6b3df9c0
+    name: SoundEffect_Vol
   m_AudioMixerGroupViews:
   - guids:
     - 64b8bd056f2c16e4988d372acb73f0a8
