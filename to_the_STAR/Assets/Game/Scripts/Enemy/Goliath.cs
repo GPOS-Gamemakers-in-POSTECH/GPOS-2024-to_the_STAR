@@ -13,6 +13,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
     [SerializeField] private GameObject attackObj1;
     [SerializeField] private GameObject attackObj2;
     [SerializeField] private GameObject walkingAttackObj;
+    [SerializeField] AudioClip goliathAttackSound;
 
     [SerializeField] private GameObject[] Legs;
 
@@ -387,6 +388,8 @@ public class Goliath : MonoBehaviour, EnemyInterface
                         Vector3 legCenter = direction == 1 ? RightLeg1.transform.position : LeftLeg2.transform.position;
                         legCenter += VectorAdd(direction * 1.1f, -2.3325f);
                         Shake(0.15f, 0.5f);
+
+                        GetComponent<AudioSource>().PlayOneShot(goliathAttackSound, 1.0f);
                         GameObject Attack1 = Instantiate(attackObj2, legCenter + VectorAdd(0.895f, 0), Quaternion.identity);
                         GameObject Attack2 = Instantiate(attackObj2, legCenter + VectorAdd(-0.895f, 0), Quaternion.identity);
                         Attack1.GetComponent<EnemyAttackObj>().init(attackDuration, attackPower * 0.3f, VectorAdd(6, 0), EnemyAttackObj.EnemyType.Goliath);

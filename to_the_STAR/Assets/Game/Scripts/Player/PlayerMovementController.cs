@@ -10,6 +10,7 @@ namespace Game.Player
     {
         [SerializeField] private float speed = 5;
         [SerializeField] GameObject DashDetect;
+        [SerializeField] AudioClip playerHitSound;
 
         private InputActions.PlayerActions _playerActions;
         
@@ -78,6 +79,7 @@ namespace Game.Player
 
         public void damaged()
         {
+            GetComponent<AudioSource>().PlayOneShot(playerHitSound, 1.0f);
             _ani.SetTrigger("Damaged");
         }
 

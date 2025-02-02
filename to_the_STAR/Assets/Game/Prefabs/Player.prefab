@@ -136,6 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   DashDetect: {fileID: 394705895337042637, guid: 59568ff650581cc49a0a970e3a922300, type: 3}
+  playerHitSound: {fileID: 8300000, guid: b3e28f004a1ce0845b6c2a63046d6a00, type: 3}
   _lever: {fileID: 0}
 --- !u!114 &3169071456490633776
 MonoBehaviour:
