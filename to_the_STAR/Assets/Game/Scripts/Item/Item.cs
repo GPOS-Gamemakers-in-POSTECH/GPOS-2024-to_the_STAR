@@ -55,5 +55,6 @@ public class Item : MonoBehaviour
         Debug.Log("You Got Item #" + itemId);
         //Destroy(gameObject);
         gameObject.SetActive(false);
+        ItemStatus.IncrementItemCount();
     }    
 }
