@@ -16,6 +16,8 @@ public class GamePause : MonoBehaviour
     public Button titleButton;
     public Button exitButton;
 
+    private Weapon_Hammer weaponHammer;
+
     void Start()
     {
         pauseMenuUI.SetActive(false);
@@ -31,11 +33,13 @@ public class GamePause : MonoBehaviour
         if(exitButton != null)
             exitButton.onClick.AddListener(Exit);
 
+        weaponHammer = GameObject.Find("Player").GetComponent<Weapon_Hammer>();
+
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) && !weaponHammer.isCharging())
         {
             if(isGamePaused) Resume();
             else Pause();
