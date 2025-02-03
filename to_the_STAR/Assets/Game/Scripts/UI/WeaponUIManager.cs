@@ -8,19 +8,15 @@ public class WeaponUIManager : MonoBehaviour
 {
     [SerializeField] GameObject hammer_selected;
     [SerializeField] GameObject flamethrower_selected;
-    [SerializeField] GameObject cooldown1;
-    [SerializeField] GameObject cooldown2;
+    [SerializeField] GameObject cooldown;
 
     int weapon = 1; // 0 : hammer, 1 : flamethrower
     const int n = 2; // number of weapon types
 
-    float hammerCharge = 0.0f;
     float hammerCooldown = 0.0f;
-    float flamethrowerCooldown = 0.0f;
     float flamethrowerFever = 0.0f;
 
     GameObject[] weapons = new GameObject[n];
-    GameObject[] cooldowns = new GameObject[2];
 
     GameObject Player;
 
@@ -37,6 +33,12 @@ public class WeaponUIManager : MonoBehaviour
         setWeapon();
     }
 
+    public void WeaponSelected(int n)
+    {
+        weapon = n;
+        setWeapon();
+    }
+
     void Start()
     {
         Player = GameObject.Find("Player");
@@ -46,10 +48,8 @@ public class WeaponUIManager : MonoBehaviour
         weapons[1] = Instantiate(flamethrower_selected, transform);
         weapons[1].GetComponent<RectTransform>().anchoredPosition = new Vector3(66.666f, -46.666f, 0);
 
-        cooldowns[0] = Instantiate(cooldown1, transform);
-        cooldowns[0].GetComponent<RectTransform>().anchoredPosition = new Vector3(112.5f, -42.5f, 0);
-        cooldowns[1] = Instantiate(cooldown2, transform);
-        cooldowns[1].GetComponent<RectTransform>().anchoredPosition = new Vector3(112.5f, -42.5f, 0);
+        cooldown = Instantiate(cooldown, transform);
+        cooldown.GetComponent<RectTransform>().anchoredPosition = new Vector3(112.5f, -42.5f, 0);
 
         setWeapon();
     }
@@ -61,23 +61,12 @@ public class WeaponUIManager : MonoBehaviour
         switch (weapon)
         {
             case 0:
-                hammerCharge = max(0, Player.GetComponent<PlayerData>().hammerCharge());
                 hammerCooldown = max(0, Player.GetComponent<PlayerData>().hammerCooldown());
-                if (hammerCooldown > 0)
-                {
-                    cooldowns[0].GetComponent<Image>().fillAmount = 0;
-                    cooldowns[1].GetComponent<Image>().fillAmount = hammerCooldown;
-                }
-                else
-                {
-                    cooldowns[0].GetComponent<Image>().fillAmount = hammerCharge;
-                    cooldowns[1].GetComponent<Image>().fillAmount = 0;
-                }
+                cooldown.GetComponent<Image>().fillAmount = hammerCooldown;
                 break;
             case 1:
                 flamethrowerFever = max(0, Player.GetComponent<PlayerData>().flamethrowerFever());
-                cooldowns[0].GetComponent<Image>().fillAmount = 0;
-                cooldowns[1].GetComponent<Image>().fillAmount = flamethrowerFever;
+                cooldown.GetComponent<Image>().fillAmount = flamethrowerFever;
                 break;
         }
     }
