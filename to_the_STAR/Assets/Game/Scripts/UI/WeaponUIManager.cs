@@ -37,6 +37,12 @@ public class WeaponUIManager : MonoBehaviour
         setWeapon();
     }
 
+    public void WeaponSelected(int n)
+    {
+        weapon = n;
+        setWeapon();
+    }
+
     void Start()
     {
         Player = GameObject.Find("Player");

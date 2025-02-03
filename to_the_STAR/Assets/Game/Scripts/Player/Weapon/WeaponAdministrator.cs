@@ -25,9 +25,27 @@ public class WeaponAdministrator : MonoBehaviour
 
         weaponUIManager = GameObject.Find("weapon_manager");
     }
-    void Update()
+
+    public void SelectHammer()
     {
-        
+        if (Check())
+        {
+            weapon = Weapon.hammer;
+            hammer.enable();
+            flamethrower.disable();
+            weaponUIManager.GetComponent<WeaponUIManager>().WeaponSelected(0);
+        }
+    }
+
+    public void SelectFlamethrower()
+    {
+        if (Check())
+        {
+            weapon = Weapon.flameThrower;
+            hammer.disable();
+            flamethrower.enable();
+            weaponUIManager.GetComponent<WeaponUIManager>().WeaponSelected(1);
+        }
     }
 
     public void WeaponChange()

@@ -21,6 +21,8 @@ namespace Game.Player
         private InputAction _dashAction;
         private InputAction _sprintAction;
         private InputAction _weaponChange;
+        private InputAction _selectHammer;
+        private InputAction _selectFlamethrower;
         private Rigidbody2D _rb;
         private Animator _ani;
 
@@ -100,6 +102,8 @@ namespace Game.Player
             _dashAction = GameInputSystem.Instance.PlayerActions.Dash;
             _sprintAction = GameInputSystem.Instance.PlayerActions.Sprint;
             _weaponChange = GameInputSystem.Instance.PlayerActions.WeaponChange;
+            _selectHammer = GameInputSystem.Instance.PlayerActions.SelectHammer;
+            _selectFlamethrower = GameInputSystem.Instance.PlayerActions.SelectFlamethrower;
             _wa = GetComponent<WeaponAdministrator>();
             _ani = GetComponent<Animator>();
         }
@@ -145,6 +149,16 @@ namespace Game.Player
             if (_interactAction.triggered == true)
             {
                 Interaction();
+            }
+
+            if(_selectHammer.triggered == true)
+            {
+                _wa.SelectHammer();
+            }
+
+            if (_selectFlamethrower.triggered == true)
+            {
+                _wa.SelectFlamethrower();
             }
 
             if (dashAble != null)
