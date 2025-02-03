@@ -68,13 +68,12 @@ public class GamePause : MonoBehaviour
     private void Title()
     {    
         Resume();
-        SceneManager.LoadScene("TitleScene");
+        SceneManager.LoadScene("TitleScene");        
     }
 
     // Function that exits the game
     private void Exit()
     {
-        PlayerPrefs.DeleteAll(); // refresh PlayerPrefs (must be removed in the final version)
         #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
         #else

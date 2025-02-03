@@ -58,6 +58,12 @@ public class ShakeCamera : MonoBehaviour
         // During duration, shake camera using same method of singleShake
         while(passedTime < duration)
         {
+            if(Time.timeScale == 0)
+            {
+                camera.localPosition = originalPos;
+                yield break;
+            }
+
             Vector2 shakePos2D = Random.insideUnitCircle;
             Vector3 shakePos = new Vector3(shakePos2D.x, shakePos2D.y, 0);
             camera.localPosition = originalPos + shakePos * magnitudePos;
