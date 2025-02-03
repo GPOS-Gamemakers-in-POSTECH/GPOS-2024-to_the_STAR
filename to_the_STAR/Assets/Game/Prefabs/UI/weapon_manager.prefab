@@ -50,5 +50,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hammer_selected: {fileID: 5364068575658635435, guid: 9b5b7543226047447a6e90d3cc8aefa8, type: 3}
   flamethrower_selected: {fileID: 2341253954040419494, guid: a89b1b80e8c88764f8d62280460f19d0, type: 3}
-  cooldown1: {fileID: 3315014548998366329, guid: 868d90dd2213d9f4d8590f40adc86cc1, type: 3}
-  cooldown2: {fileID: 340893728970985541, guid: 9703396625d203847aa129b7f750fb24, type: 3}
+  cooldown: {fileID: 3315014548998366329, guid: 868d90dd2213d9f4d8590f40adc86cc1, type: 3}
