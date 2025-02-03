@@ -19,10 +19,15 @@ public class Item : MonoBehaviour
             Debug.LogError("popupText is null");
         ItemStatus = GameObject.FindObjectOfType<ItemStatus>();
 
+        PlayerPrefs.SetInt("Item_" + itemId, 0);
+        gameObject.SetActive(true);
+        
+        /*
         if(PlayerPrefs.GetInt("Item_" + itemId, 0) == 1)
         {
-            Destroy(gameObject);
+            Destroy(gameObject);            
         }
+        */
     }
 
     void Update()
@@ -55,7 +60,8 @@ public class Item : MonoBehaviour
     {
         PlayerPrefs.SetInt("Item_" + itemId, 1);
         ItemStatus.CollectUI(itemId);
-        Destroy(gameObject);        
+        //Destroy(gameObject);        
+        gameObject.SetActive(false);
         ItemStatus.IncrementItemCount();
     }    
 }
