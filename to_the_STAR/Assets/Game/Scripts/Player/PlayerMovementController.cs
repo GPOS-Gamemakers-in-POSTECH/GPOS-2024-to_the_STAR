@@ -11,6 +11,8 @@ namespace Game.Player
         [SerializeField] private float speed = 5;
         [SerializeField] GameObject DashDetect;
         [SerializeField] AudioClip playerHitSound;
+        [SerializeField] AudioClip playerDashSound;
+        [SerializeField] AudioClip itemObtainSound;
 
         private InputActions.PlayerActions _playerActions;
         
@@ -21,6 +23,8 @@ namespace Game.Player
         private InputAction _dashAction;
         private InputAction _sprintAction;
         private InputAction _weaponChange;
+        private InputAction _selectHammer;
+        private InputAction _selectFlamethrower;
         private Rigidbody2D _rb;
         private Animator _ani;
 
@@ -84,6 +88,7 @@ namespace Game.Player
         }
 
         public Lever _lever;
+        public Item _item;
 
         IEnumerator invincible()
         {
@@ -100,6 +105,8 @@ namespace Game.Player
             _dashAction = GameInputSystem.Instance.PlayerActions.Dash;
             _sprintAction = GameInputSystem.Instance.PlayerActions.Sprint;
             _weaponChange = GameInputSystem.Instance.PlayerActions.WeaponChange;
+            _selectHammer = GameInputSystem.Instance.PlayerActions.SelectHammer;
+            _selectFlamethrower = GameInputSystem.Instance.PlayerActions.SelectFlamethrower;
             _wa = GetComponent<WeaponAdministrator>();
             _ani = GetComponent<Animator>();
         }
@@ -147,6 +154,16 @@ namespace Game.Player
                 Interaction();
             }
 
+            if(_selectHammer.triggered == true)
+            {
+                _wa.SelectHammer();
+            }
+
+            if (_selectFlamethrower.triggered == true)
+            {
+                _wa.SelectFlamethrower();
+            }
+
             if (dashAble != null)
             {
                 bool isEnable = dashAble.GetComponent<DashDetector>().isEnable();
@@ -154,6 +171,7 @@ namespace Game.Player
                 {
                     if (isEnable && !GetComponent<Weapon_Hammer>().isMouseInputted())
                     {
+                        GetComponent<AudioSource>().PlayOneShot(playerDashSound, 1.0f);
                         transform.position = dashAble.transform.position;
                         stamina -= 1;
                         _ani.SetTrigger("Dash");
@@ -169,6 +187,7 @@ namespace Game.Player
                 {
                     if (!GetComponent<Weapon_Hammer>().isMouseInputted())
                     {
+                        GetComponent<AudioSource>().PlayOneShot(playerDashSound, 1.0f);
                         transform.position = dashAble.transform.position;
                         stamina -= 1;
                         _ani.SetTrigger("Dash");
@@ -217,7 +236,7 @@ namespace Game.Player
                 _ani.SetBool("Move", false);
             }
 
-            if (_dashAction.triggered == true && stamina > 1 && dashCooldownCounter < 0)
+            if (_dashAction.triggered == true && stamina >= 1.0f && dashCooldownCounter < 0 && staminaCool == false)
             {
                 dashAble = Instantiate(DashDetect, transform.position + new Vector3(lastMove.x, lastMove.y, 0), Quaternion.identity);
                 dashAble.transform.rotation = transform.rotation;
@@ -248,9 +267,12 @@ namespace Game.Player
 
         private void Interaction()
         {
-            if (_lever == null) return;
-
-            _lever.Interaction();
+            if (_lever != null) _lever.Interaction();
+            if (_item != null)
+            {
+                GetComponent<AudioSource>().PlayOneShot(itemObtainSound, 1.0f);
+                _item.CollectItem();
+            }
         }
 
     }

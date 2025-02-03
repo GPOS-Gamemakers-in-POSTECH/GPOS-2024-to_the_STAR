@@ -14,6 +14,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
     [SerializeField] private GameObject attackObj2;
     [SerializeField] private GameObject walkingAttackObj;
     [SerializeField] AudioClip goliathAttackSound;
+    [SerializeField] AudioClip goliathWalkSound;
 
     [SerializeField] private GameObject[] Legs;
 
@@ -225,7 +226,10 @@ public class Goliath : MonoBehaviour, EnemyInterface
             case 1:
                 LeftLeg1.transform.position = LeftLeg1.transform.position + VectorAdd(0, -legMovementY) * Time.deltaTime * faster * 20;
                 RightLeg2.transform.position = RightLeg2.transform.position + VectorAdd(0, -legMovementY) * Time.deltaTime * faster * 20;
-                if (timer <= 0) { Shake(0.1f, 0.1f); walkState++; timer = walkCooldown / faster; }
+                if (timer <= 0) {
+                    if (IsPlayerClose()) GetComponent<AudioSource>().PlayOneShot(goliathWalkSound, 1.0f);
+                    Shake(0.1f, 0.1f); walkState++; timer = walkCooldown / faster;
+                }
                 break;
             case 2:
                 if (timer <= 0) { walkState++; timer = walkCooldown / faster; }
@@ -246,7 +250,10 @@ public class Goliath : MonoBehaviour, EnemyInterface
             case 4:
                 LeftLeg2.transform.position = LeftLeg2.transform.position + VectorAdd(0, -legMovementY) * Time.deltaTime * faster * 20;
                 RightLeg1.transform.position = RightLeg1.transform.position + VectorAdd(0, -legMovementY) * Time.deltaTime * faster * 20;
-                if (timer <= 0) { Shake(0.1f, 0.1f); walkState++; timer = walkCooldown / faster; }
+                if (timer <= 0) {
+                    if (IsPlayerClose()) GetComponent<AudioSource>().PlayOneShot(goliathWalkSound, 1.0f);
+                    Shake(0.1f, 0.1f); walkState++; timer = walkCooldown / faster;
+                }
                 break;
             case 5:
                 if (timer <= 0) { walkState++; }

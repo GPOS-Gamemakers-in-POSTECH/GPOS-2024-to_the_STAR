@@ -137,7 +137,10 @@ MonoBehaviour:
   speed: 5
   DashDetect: {fileID: 394705895337042637, guid: 59568ff650581cc49a0a970e3a922300, type: 3}
   playerHitSound: {fileID: 8300000, guid: b3e28f004a1ce0845b6c2a63046d6a00, type: 3}
+  playerDashSound: {fileID: 8300000, guid: 67c036ed53ea1b24b9f90c9242cf27c2, type: 3}
+  itemObtainSound: {fileID: 8300000, guid: 47d0ea21d00cb7a4b96e2744fdbaf5bb, type: 3}
   _lever: {fileID: 0}
+  _item: {fileID: 0}
 --- !u!114 &3169071456490633776
 MonoBehaviour:
   m_ObjectHideFlags: 0

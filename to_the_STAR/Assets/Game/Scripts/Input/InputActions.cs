@@ -100,6 +100,24 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SelectHammer"",
+                    ""type"": ""Button"",
+                    ""id"": ""e37fbbdc-f6c6-4c50-80a1-3eba9e6543dd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectFlamethrower"",
+                    ""type"": ""Button"",
+                    ""id"": ""debede11-bbc2-46af-9bc0-b4b5a1d59988"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -353,6 +371,28 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""WeaponChange"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e98aa86a-2199-423f-9bd5-dfdac7a2f3ea"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""SelectHammer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0ccc90a7-f7af-4abe-b61d-e4f66ca32efa"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""SelectFlamethrower"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -948,6 +988,8 @@ namespace UnityEngine.InputSystem
             m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
             m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
             m_Player_WeaponChange = m_Player.FindAction("WeaponChange", throwIfNotFound: true);
+            m_Player_SelectHammer = m_Player.FindAction("SelectHammer", throwIfNotFound: true);
+            m_Player_SelectFlamethrower = m_Player.FindAction("SelectFlamethrower", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1029,6 +1071,8 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_Dash;
         private readonly InputAction m_Player_Sprint;
         private readonly InputAction m_Player_WeaponChange;
+        private readonly InputAction m_Player_SelectHammer;
+        private readonly InputAction m_Player_SelectFlamethrower;
         public struct PlayerActions
         {
             private @InputActions m_Wrapper;
@@ -1041,6 +1085,8 @@ namespace UnityEngine.InputSystem
             public InputAction @Dash => m_Wrapper.m_Player_Dash;
             public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
             public InputAction @WeaponChange => m_Wrapper.m_Player_WeaponChange;
+            public InputAction @SelectHammer => m_Wrapper.m_Player_SelectHammer;
+            public InputAction @SelectFlamethrower => m_Wrapper.m_Player_SelectFlamethrower;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1074,6 +1120,12 @@ namespace UnityEngine.InputSystem
                 @WeaponChange.started += instance.OnWeaponChange;
                 @WeaponChange.performed += instance.OnWeaponChange;
                 @WeaponChange.canceled += instance.OnWeaponChange;
+                @SelectHammer.started += instance.OnSelectHammer;
+                @SelectHammer.performed += instance.OnSelectHammer;
+                @SelectHammer.canceled += instance.OnSelectHammer;
+                @SelectFlamethrower.started += instance.OnSelectFlamethrower;
+                @SelectFlamethrower.performed += instance.OnSelectFlamethrower;
+                @SelectFlamethrower.canceled += instance.OnSelectFlamethrower;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1102,6 +1154,12 @@ namespace UnityEngine.InputSystem
                 @WeaponChange.started -= instance.OnWeaponChange;
                 @WeaponChange.performed -= instance.OnWeaponChange;
                 @WeaponChange.canceled -= instance.OnWeaponChange;
+                @SelectHammer.started -= instance.OnSelectHammer;
+                @SelectHammer.performed -= instance.OnSelectHammer;
+                @SelectHammer.canceled -= instance.OnSelectHammer;
+                @SelectFlamethrower.started -= instance.OnSelectFlamethrower;
+                @SelectFlamethrower.performed -= instance.OnSelectFlamethrower;
+                @SelectFlamethrower.canceled -= instance.OnSelectFlamethrower;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1292,6 +1350,8 @@ namespace UnityEngine.InputSystem
             void OnDash(InputAction.CallbackContext context);
             void OnSprint(InputAction.CallbackContext context);
             void OnWeaponChange(InputAction.CallbackContext context);
+            void OnSelectHammer(InputAction.CallbackContext context);
+            void OnSelectFlamethrower(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

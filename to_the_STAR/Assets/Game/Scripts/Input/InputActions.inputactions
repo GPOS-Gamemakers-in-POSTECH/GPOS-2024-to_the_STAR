@@ -76,6 +76,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "SelectHammer",
+                    "type": "Button",
+                    "id": "e37fbbdc-f6c6-4c50-80a1-3eba9e6543dd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectFlamethrower",
+                    "type": "Button",
+                    "id": "debede11-bbc2-46af-9bc0-b4b5a1d59988",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -329,6 +347,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "WeaponChange",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e98aa86a-2199-423f-9bd5-dfdac7a2f3ea",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SelectHammer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0ccc90a7-f7af-4abe-b61d-e4f66ca32efa",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SelectFlamethrower",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

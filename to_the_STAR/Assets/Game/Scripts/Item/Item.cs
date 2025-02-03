@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Game.Player;
 
 public class Item : MonoBehaviour
 {
     public int itemId;
     public GameObject popupUI;
-    private bool isPlayerNearby = false;
     private TextMeshPro popupText;
     private ItemStatus ItemStatus;
+    private PlayerMovementController _pmc;
 
     void Start()
     {
@@ -30,12 +31,6 @@ public class Item : MonoBehaviour
         */
     }
 
-    void Update()
-    {
-        if(isPlayerNearby && Input.GetKeyDown(KeyCode.E))
-            CollectItem();
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if(other.CompareTag("Player"))
@@ -43,7 +38,8 @@ public class Item : MonoBehaviour
             popupUI.SetActive(true);
             Debug.Log("Player is nearby Item #" + itemId);
             popupText.text = $"[E] Item #{itemId}";
-            isPlayerNearby = true;
+            _pmc = other.GetComponent<PlayerMovementController>();
+            _pmc._item = this;
         }
     }
 
@@ -52,11 +48,12 @@ public class Item : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             popupUI.SetActive(false);            
-            isPlayerNearby = false;
+            _pmc._item = null;
+            _pmc = null;
         }
     }
 
-    void CollectItem()
+    public void CollectItem()
     {
         PlayerPrefs.SetInt("Item_" + itemId, 1);
         ItemStatus.CollectUI(itemId);

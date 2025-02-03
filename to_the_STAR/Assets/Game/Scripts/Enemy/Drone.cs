@@ -8,6 +8,7 @@ public class Drone : MonoBehaviour, EnemyInterface
     [SerializeField] private EnemyStat stat;
     [SerializeField] private GameObject attackObj;
     [SerializeField] private bool fix = false;
+    [SerializeField] AudioClip turretAttackSound;
 
     float hp;
 
@@ -216,6 +217,7 @@ public class Drone : MonoBehaviour, EnemyInterface
                 if (distanceToPlayer > stat.attackRange && !fix) Move();
                 break;
             case State.Attack:
+                GetComponent<AudioSource>().PlayOneShot(turretAttackSound, 1.0f);
                 _ani.SetTrigger("Attack");
                 Vector2 bulletDir = (playerObj.transform.position - transform.position) / distanceToPlayer;
                 float rotZ = Mathf.Atan2(bulletDir.y, bulletDir.x) * Mathf.Rad2Deg;
