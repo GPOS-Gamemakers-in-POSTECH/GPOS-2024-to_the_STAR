@@ -16,6 +16,7 @@ public class Weapon_Hammer : MonoBehaviour
     bool hammerEnabled = false;
     float hammerCooldown = 0;
     float hammerCharge = 0;
+    float hammerChargeTime = 0; // 스태미나를 다 사용해도 계속 늘어나는 값
     const float hammerDamageConst = 50f;
     const float hammerDamageBase = 25f;
     const float hammerCooldownSet = 2.5f;
@@ -50,6 +51,10 @@ public class Weapon_Hammer : MonoBehaviour
     {
         return hammerCharge / hammerChargeMax;
     }
+    public float getHammerChargeTime()
+    {
+        return Mathf.Min(hammerChargeTime, hammerChargeMax) / hammerChargeMax;
+    }
 
     public bool isEnabledHammer()
     {
@@ -76,11 +81,15 @@ public class Weapon_Hammer : MonoBehaviour
             playerPos = playerTmp;
         }
 
-        if (hammerEnabled && hammerCooldown < 0 && hammerCharge < hammerChargeMax && Input.GetMouseButton(0) && _pmc.GetStamina() > 0)
+        if (hammerEnabled && hammerCooldown < 0 && hammerCharge < hammerChargeMax && Input.GetMouseButton(0))
         {
-            _ani.SetBool("isCharge", true);
-            hammerCharge += Time.deltaTime * 6.66f;
-            _pmc.SetStamina(_pmc.GetStamina() - Time.deltaTime * hammerStamina);
+            if(_pmc.GetStamina() > 0)
+            {
+                _ani.SetBool("isCharge", true);
+                hammerCharge += Time.deltaTime * 6.66f;
+                _pmc.SetStamina(_pmc.GetStamina() - Time.deltaTime * hammerStamina);
+            }
+            hammerChargeTime += Time.deltaTime * 6.66f;
         }
         if(hammerCharge > 0 && Input.GetMouseButtonUp(0))
         {
@@ -93,6 +102,7 @@ public class Weapon_Hammer : MonoBehaviour
             GetComponent<AudioSource>().PlayOneShot(hammerAttackSound, 1.0f);
             hammerCooldown = hammerCooldownSet;
             hammerCharge = 0;
+            hammerChargeTime = 0;
         }
         hammerCooldown -= Time.deltaTime;
     }
