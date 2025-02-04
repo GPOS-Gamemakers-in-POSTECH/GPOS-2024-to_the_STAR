@@ -58,7 +58,13 @@ public class PlayerAttackObj : MonoBehaviour
             EI.getDamage(damage, stunCooldownSet);
             if (attackType == 1) Destroy(lightObj.gameObject);
             Destroy(gameObject);
-        }else if (collision.CompareTag("Map"))
+        }
+        else if (collision.CompareTag("Fragile"))
+        {
+            if(attackType == 0) collision.gameObject.SetActive(false);
+            else { Destroy(lightObj.gameObject); Destroy(gameObject); }
+        }
+        else if (collision.CompareTag("Map"))
         {
             if (attackType == 1) Destroy(lightObj.gameObject);
             Destroy(gameObject);
