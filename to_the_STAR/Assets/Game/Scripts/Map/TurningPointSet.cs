@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TurningPointSet : MonoBehaviour
 {
@@ -11,25 +12,38 @@ public class TurningPointSet : MonoBehaviour
     void Start()
     {
         doorCheck = GameObject.Find("DoorAdminister");
-        for (int i = 0; i < 8; i++)
-        {
-            checks[i] = Instantiate(Checker, transform.position + new Vector3(Mathf.Cos(45*i*Mathf.Deg2Rad), Mathf.Sin(45*i*Mathf.Deg2Rad), 0), Quaternion.identity);
-        }
     }
 
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
-    /* getType에서 반환하는 값
-     * 바깥쪽 코너      안쪽코너
-     * -------------   -------------
-     * | 1       2 |   | 5       6 |  
-     * | 3       4 |   | 7       8 | 
-     * -------------   -------------
-     *                 ////////// 
-     *    ------       ///|------
-     *    |/////       ///|
-     *    |/////       ///|
-     * */
-    public int getType()
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            checks[i] = Instantiate(Checker, transform.position + new Vector3(Mathf.Cos(45 * i * Mathf.Deg2Rad), Mathf.Sin(45 * i * Mathf.Deg2Rad), 0), Quaternion.identity);
+        }
+        type = 0;
+    }
+
+        /* getType에서 반환하는 값
+         * 바깥쪽 코너      안쪽코너
+         * -------------   -------------
+         * | 1       2 |   | 5       6 |  
+         * | 3       4 |   | 7       8 | 
+         * -------------   -------------
+         *                 ////////// 
+         *    ------       ///|------
+         *    |/////       ///|
+         *    |/////       ///|
+         * */
+        public int getType()
     {
         switch (type)
         {
