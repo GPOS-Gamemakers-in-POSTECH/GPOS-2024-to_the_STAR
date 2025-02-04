@@ -19,10 +19,10 @@ public class Weapon_Hammer : MonoBehaviour
     const float hammerDamageConst = 50f;
     const float hammerDamageBase = 25f;
     const float hammerCooldownSet = 2.5f;
-    const float attackDuration = 1.0f;
+    const float attackDuration = 0.2f;
     const float hammerChargeMax = 10.0f;
     const float hammerStamina = 0.66f;
-
+    const float hammerRange = 0.7f;
     const float stunCooldownSet = 3.0f;
 
     Animator _ani;
@@ -87,7 +87,7 @@ public class Weapon_Hammer : MonoBehaviour
             // if (_pmc.GetStamina() == 0) _pmc.SetStaminaCool(true);
             _ani.SetBool("isCharge", false);
             _ani.SetTrigger("Attack_Hammer");
-            GameObject Attack = Instantiate(attackObj, transform.position + playerPos, Quaternion.identity);
+            GameObject Attack = Instantiate(attackObj, transform.position + playerPos * hammerRange, Quaternion.identity);
             Attack.GetComponent<PlayerAttackObj>().init(attackDuration, hammerDamageConst * hammerCharge / 10.0f + hammerDamageBase, new Vector2(0, 0), 0, stunCooldownSet * hammerCharge / 10);
             Camera.GetComponent<ShakeCamera>().singleShakeCamera(0.2f + getHammerCharge() * 0.8f, playerData.getRotateDir());
             GetComponent<AudioSource>().PlayOneShot(hammerAttackSound, 1.0f);
