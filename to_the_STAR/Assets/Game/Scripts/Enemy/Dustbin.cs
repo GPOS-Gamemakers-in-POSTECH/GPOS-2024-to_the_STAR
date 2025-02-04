@@ -11,6 +11,7 @@ public class Dustbin : MonoBehaviour, EnemyInterface
     [SerializeField] private int floor = 0;
     [SerializeField] private EnemyStat stat;
     [SerializeField] private GameObject attackObj;
+    [SerializeField] private AudioClip enemyHitSound;
 
     GameObject player;
     PlayerData playerData;
@@ -56,6 +57,7 @@ public class Dustbin : MonoBehaviour, EnemyInterface
     {
         if (state != State.Dead)
         {
+            GetComponent<AudioSource>().PlayOneShot(enemyHitSound, 1.0f);
             _ani.SetTrigger("Damaged");
             if (hp < damage) hp = 0;
             else hp -= damage;

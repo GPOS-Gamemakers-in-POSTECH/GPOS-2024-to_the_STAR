@@ -55,6 +55,7 @@ MonoBehaviour:
   attackObj: {fileID: 6584552416168620802, guid: abc11612a56a2e94aaeead0f4abf6992, type: 3}
   fix: 0
   turretAttackSound: {fileID: 8300000, guid: cb577c7002ad5b143b8e091a87884a85, type: 3}
+  enemyHitSound: {fileID: 8300000, guid: 7fb8c4acc06302943b263a83300357e4, type: 3}
 --- !u!212 &9176089462198877736
 SpriteRenderer:
   m_ObjectHideFlags: 0

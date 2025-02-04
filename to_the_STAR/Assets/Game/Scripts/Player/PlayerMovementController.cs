@@ -202,6 +202,13 @@ namespace Game.Player
 
             float angle = _rb.rotation * Mathf.Deg2Rad;
             Vector2 tmp = _moveAction.ReadValue<Vector2>();
+            if(tmp.x < 0.1 && tmp.x > -0.1)
+            {
+                bool left = UnityEngine.Input.GetKey("a");
+                bool right = UnityEngine.Input.GetKey("d");
+                if (!left && right) tmp.x = 1;
+                else if (left && !right) tmp.x = -1;
+            }
             _moveVector = new Vector2(tmp.x * Mathf.Cos(angle) - tmp.y * Mathf.Sin(angle),
                                       tmp.x * Mathf.Sin(angle) + tmp.y * Mathf.Cos(angle));
 

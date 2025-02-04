@@ -9,6 +9,7 @@ public class Drone : MonoBehaviour, EnemyInterface
     [SerializeField] private GameObject attackObj;
     [SerializeField] private bool fix = false;
     [SerializeField] AudioClip turretAttackSound;
+    [SerializeField] AudioClip enemyHitSound;
 
     float hp;
 
@@ -47,6 +48,7 @@ public class Drone : MonoBehaviour, EnemyInterface
     {
         if (state != State.Dead)
         {
+            GetComponent<AudioSource>().PlayOneShot(enemyHitSound, 1.0f);
             _ani.SetTrigger("Damaged");
             if (hp < damage) hp = 0;
             else hp -= damage;
