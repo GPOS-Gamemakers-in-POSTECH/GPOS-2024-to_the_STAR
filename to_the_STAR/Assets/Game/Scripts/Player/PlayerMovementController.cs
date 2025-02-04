@@ -260,8 +260,8 @@ namespace Game.Player
             if(GetComponent<PlayerData>().hammerCooldown() > 0.8f){
                 hammerRecoil = 0;
             }
-            if(GetComponent<Weapon_Hammer>().isCharging() == false) _rb.MovePosition(currPosition + _moveVector * (speed * Time.fixedDeltaTime) 
-                * (1 - Mathf.Max(GetComponent<PlayerData>().flamethrowerFever() / 3, 0)) * hammerRecoil);
+            _rb.MovePosition(currPosition + _moveVector * (speed * Time.fixedDeltaTime) 
+                * (1 - Mathf.Max(GetComponent<Weapon_Hammer>().getHammerChargeTime(), 0)) * (1 - Mathf.Max(GetComponent<PlayerData>().flamethrowerFever() / 3, 0)) * hammerRecoil);
             if (usingStamina == false) stamina += Time.fixedDeltaTime;
             if (stamina > staminaMax)
             {
