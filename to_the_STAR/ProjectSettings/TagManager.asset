@@ -8,6 +8,7 @@ TagManager:
   - Map
   - TurningPoint
   - Door
+  - Fragile
   layers:
   - Default
   - TransparentFX

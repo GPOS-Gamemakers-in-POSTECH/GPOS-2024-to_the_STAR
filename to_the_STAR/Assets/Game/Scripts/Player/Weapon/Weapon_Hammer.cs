@@ -16,13 +16,14 @@ public class Weapon_Hammer : MonoBehaviour
     bool hammerEnabled = false;
     float hammerCooldown = 0;
     float hammerCharge = 0;
+    float hammerChargeTime = 0; // 스태미나를 다 사용해도 계속 늘어나는 값
     const float hammerDamageConst = 50f;
     const float hammerDamageBase = 25f;
     const float hammerCooldownSet = 2.5f;
-    const float attackDuration = 1.0f;
+    const float attackDuration = 0.2f;
     const float hammerChargeMax = 10.0f;
     const float hammerStamina = 0.66f;
-
+    const float hammerRange = 0.7f;
     const float stunCooldownSet = 3.0f;
 
     Animator _ani;
@@ -50,6 +51,10 @@ public class Weapon_Hammer : MonoBehaviour
     {
         return hammerCharge / hammerChargeMax;
     }
+    public float getHammerChargeTime()
+    {
+        return Mathf.Min(hammerChargeTime, hammerChargeMax) / hammerChargeMax;
+    }
 
     public bool isEnabledHammer()
     {
@@ -76,23 +81,28 @@ public class Weapon_Hammer : MonoBehaviour
             playerPos = playerTmp;
         }
 
-        if (hammerEnabled && hammerCooldown < 0 && hammerCharge < hammerChargeMax && Input.GetMouseButton(0) && _pmc.GetStamina() > 0)
+        if (hammerEnabled && hammerCooldown < 0 && hammerCharge < hammerChargeMax && Input.GetMouseButton(0))
         {
-            _ani.SetBool("isCharge", true);
-            hammerCharge += Time.deltaTime * 6.66f;
-            _pmc.SetStamina(_pmc.GetStamina() - Time.deltaTime * hammerStamina);
+            if(_pmc.GetStamina() > 0)
+            {
+                _ani.SetBool("isCharge", true);
+                hammerCharge += Time.deltaTime * 6.66f;
+                _pmc.SetStamina(_pmc.GetStamina() - Time.deltaTime * hammerStamina);
+            }
+            hammerChargeTime += Time.deltaTime * 6.66f;
         }
         if(hammerCharge > 0 && Input.GetMouseButtonUp(0))
         {
             // if (_pmc.GetStamina() == 0) _pmc.SetStaminaCool(true);
             _ani.SetBool("isCharge", false);
             _ani.SetTrigger("Attack_Hammer");
-            GameObject Attack = Instantiate(attackObj, transform.position + playerPos, Quaternion.identity);
+            GameObject Attack = Instantiate(attackObj, transform.position + playerPos * hammerRange, Quaternion.identity);
             Attack.GetComponent<PlayerAttackObj>().init(attackDuration, hammerDamageConst * hammerCharge / 10.0f + hammerDamageBase, new Vector2(0, 0), 0, stunCooldownSet * hammerCharge / 10);
             Camera.GetComponent<ShakeCamera>().singleShakeCamera(0.2f + getHammerCharge() * 0.8f, playerData.getRotateDir());
             GetComponent<AudioSource>().PlayOneShot(hammerAttackSound, 1.0f);
             hammerCooldown = hammerCooldownSet;
             hammerCharge = 0;
+            hammerChargeTime = 0;
         }
         hammerCooldown -= Time.deltaTime;
     }
