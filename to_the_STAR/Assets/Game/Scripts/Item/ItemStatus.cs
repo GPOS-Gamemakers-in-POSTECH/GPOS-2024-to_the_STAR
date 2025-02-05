@@ -13,7 +13,7 @@ public class ItemStatus : MonoBehaviour
     public GameObject itemCollectedUI;
     private TextMeshProUGUI itemCollectedText;
 
-    private int totalItemCount = 3; // Number of total items
+    public int totalItemCount = 5; // Number of total items
 
     void Start()
     {    
