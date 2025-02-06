@@ -41,22 +41,26 @@ public class Goliath : MonoBehaviour, EnemyInterface
     private float faster = 0.2f;
 
     private const float maxHp = 1000;
-    private const float detectionRange = 10.0f;
-    private const float detectionCooldown = 3.0f;
+    private const float detectionRange = 15.0f;
+    private const float detectionCooldown = 2.0f;
     private const float attackRange = 2.0f;
+    private const float attack2Range = 9.0f;
     private const float attackMotion1Cooldown = 0.8f;
     private const float attackMotion2Cooldown = 0.05f;
     private const float attack2MotionCooldown = 0.5f;
-    private const float attackDuration = 1.0f;
+    private const float attackDuration = 1.5f;
     private const float attackCooldown = 4.0f;
+    private const float rangedAttackCooldown = 10.0f;
     private const float attackPower = 60.0f;
     private float hp = 1000;
 
     private int direction = 0;
     private int preDir = 0;
     private float attackTimer = 0;
+    private float rangedAttackTimer = 0;
     private float timer = 0;
     private int attackType = 0;
+    private bool rangedAttack = false;
     //private float attack2count = 0;
 
     private const float deadCooldown = 3;
@@ -124,7 +128,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
 
     private bool IsPlayerClose()
     {
-        return (player.transform.position - transform.position).sqrMagnitude <= 1600.0f && abs(player.transform.position.y - transform.position.y) <= 10.0f;
+        return (player.transform.position - transform.position).sqrMagnitude <= 400f && abs(player.transform.position.y - transform.position.y) <= 10.0f;
     }
 
     private void Shake(float mag, float dur)
@@ -135,6 +139,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
     void Awake()
     {
         startY += yCorrection;
+        transform.position = new Vector3(transform.position.x, startY, transform.position.z);
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
         player = GameObject.Find("Player");
@@ -169,7 +174,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
         RaycastHit2D rightRay = Physics2D.Raycast(transform.position, _right, 3.0f * size, LayerMask.GetMask("Map"));
         RaycastHit2D leftRay = Physics2D.Raycast(transform.position, _left, 3.0f * size, LayerMask.GetMask("Map"));
 
-        if (isWalking && ((rightRay.collider != null && rightRay.distance < 2.5f && direction == 1) || (leftRay.collider != null && leftRay.distance < 2.5f && direction == -1)))
+        if (isWalking && ((rightRay.collider != null && rightRay.distance <= 6.0f && direction == 1) || (leftRay.collider != null && leftRay.distance <= 8.0f && direction == -1)))
         {
             preDir = direction;
             timer = Random.Range(3.0f, 5.0f);
@@ -208,6 +213,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
 
         if (timer > 0) timer -= Time.deltaTime;
         if (attackTimer > 0) attackTimer -= Time.deltaTime;
+        if (rangedAttackTimer > 0) rangedAttackTimer -= Time.deltaTime;
     }
 
     private void Move()
@@ -358,6 +364,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
                 {
                     if (attackTimer <= 0)
                     {
+                        rangedAttack = false;
                         isAttacking = false;
                         attackType = Random.Range(1, 2);
                         switch (attackType)
@@ -372,6 +379,22 @@ public class Goliath : MonoBehaviour, EnemyInterface
                         }
                         state = State.Attack;
                     }
+                }else if (distance <= attack2Range && rangedAttackTimer <= 0)
+                {
+                    rangedAttack = true;
+                    isAttacking = false;
+                    attackType = Random.Range(1, 2);
+                    switch (attackType)
+                    {
+                        case 1:
+                            attackTimer = attackMotion1Cooldown / faster / 1.5f;
+                            break;
+                        case 2:
+                            attackTimer = attack2MotionCooldown;
+                            //attack2count = 4;
+                            break;
+                    }
+                    state = State.Attack;
                 }
                 else
                 {
@@ -419,7 +442,8 @@ public class Goliath : MonoBehaviour, EnemyInterface
 
                         state = State.Chasing;
                         isAttacking = false;
-                        attackTimer = attackCooldown;
+                        if (rangedAttack) rangedAttackTimer = rangedAttackCooldown;
+                        else attackTimer = attackCooldown;
                     }
                     else
                     {
