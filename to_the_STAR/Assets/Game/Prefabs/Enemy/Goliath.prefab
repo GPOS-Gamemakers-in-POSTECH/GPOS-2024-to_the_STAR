@@ -226,8 +226,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -451805291
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -602485948, guid: 028e99d2a7d53a643aa401c13f4e2b91, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -280,6 +280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floor: 2
+  startY: 0
   attackObj1: {fileID: 6584552416168620802, guid: cdc072e68b0695d4a8d2900ee57e70eb, type: 3}
   attackObj2: {fileID: 6584552416168620802, guid: 50adc82802e4c4a4da9f6cd0ef008053, type: 3}
   walkingAttackObj: {fileID: 6584552416168620802, guid: 4708911340713e7468772c1ce9d7f37d, type: 3}
