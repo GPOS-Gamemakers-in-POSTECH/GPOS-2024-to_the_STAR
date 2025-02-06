@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6189758314039052747}
   - component: {fileID: 3112582174456149556}
-  - component: {fileID: 8946612131636875722}
   - component: {fileID: 9137585982389861471}
+  - component: {fileID: 2833691749697565661}
   m_Layer: 0
   m_Name: lever
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1454036542817503098}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2121087668, guid: b3843aca0cbb2744dafdab497c28cd78, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4e5e1cda7ff9fad4fabfc6da5763d081, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,7 +86,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &8946612131636875722
+--- !u!114 &9137585982389861471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454036542817503098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 269b279352940cb49977ac1caa996993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 4e5e1cda7ff9fad4fabfc6da5763d081, type: 3}
+  - {fileID: 21300000, guid: 5c4340f4775fd8a4ca5035996713d4af, type: 3}
+  door: 
+  key: 0
+  isTimer: 0
+  initial: 0
+--- !u!61 &2833691749697565661
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,33 +137,16 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.203125}
+  m_Offset: {x: 0.02, y: 0.1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.28, y: 0}
-    oldSize: {x: 0.5, y: 0.40625}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.5, y: 0.40625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.40625}
+  m_Size: {x: 0.7, y: 0.2}
   m_EdgeRadius: 0
---- !u!114 &9137585982389861471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1454036542817503098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 269b279352940cb49977ac1caa996993, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: -2121087668, guid: b3843aca0cbb2744dafdab497c28cd78, type: 3}
-  - {fileID: 1926338387, guid: b3843aca0cbb2744dafdab497c28cd78, type: 3}
-  door: 0
-  key: 0

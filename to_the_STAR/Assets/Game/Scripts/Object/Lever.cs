@@ -52,7 +52,6 @@ public class Lever : MonoBehaviour
     private void works()
     {
         state = !state;
-        _sr.flipX = !_sr.flipX;
         int index = state ? 1 : 0;
         _sr.sprite = sprites[index];
         _doorAdminister = doorAdminister.GetComponent<DoorAdminister>();

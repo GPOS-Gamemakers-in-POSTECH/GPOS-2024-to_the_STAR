@@ -61,8 +61,9 @@ public class PlayerAttackObj : MonoBehaviour
         }
         else if (collision.CompareTag("Fragile"))
         {
-            if(attackType == 0) collision.gameObject.SetActive(false);
-            else { Destroy(lightObj.gameObject); Destroy(gameObject); }
+            if (attackType == 0) collision.gameObject.GetComponent<FragileWall>().BreakDown();
+            else Destroy(lightObj.gameObject);
+            Destroy(gameObject);
         }
         else if (collision.CompareTag("Map"))
         {
