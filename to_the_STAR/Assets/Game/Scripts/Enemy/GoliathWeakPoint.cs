@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class GoliathWeakPoint : MonoBehaviour, EnemyInterface
 {
+    bool p = false;
     Goliath goliath;
-    private void Start()
-    {
-        goliath = transform.parent.GetComponent<Goliath>();
-    }
+    SpriteRenderer _sr;
 
     public int getFloor()
     {
@@ -23,5 +21,25 @@ public class GoliathWeakPoint : MonoBehaviour, EnemyInterface
     public float hpRatio()
     {
         return goliath.hpRatio();
+    }
+
+    public void Dead()
+    {
+        p = true;
+    }
+
+    void Start()
+    {
+        goliath = transform.parent.GetComponent<Goliath>();
+        _sr = GetComponent<SpriteRenderer>();
+    }
+
+    void Update()
+    {
+        if (p)
+        {
+            if (_sr.color.a == 0) gameObject.SetActive(false);
+            _sr.color = new Color(_sr.color.r, _sr.color.g, _sr.color.b, (_sr.color.a - 0.005f) > 0 ? (_sr.color.a - 0.005f) : 0);
+        }
     }
 }

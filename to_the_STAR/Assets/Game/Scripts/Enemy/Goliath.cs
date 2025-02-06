@@ -25,6 +25,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
     GameObject LeftLeg2;
     GameObject RightLeg1;
     GameObject RightLeg2;
+    GameObject weakPoint;
 
     GameObject player;
     PlayerData playerData;
@@ -138,6 +139,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
 
     void Awake()
     {
+        weakPoint = transform.GetChild(0).gameObject;
         startY += yCorrection;
         transform.position = new Vector3(transform.position.x, startY, transform.position.z);
         _rb = GetComponent<Rigidbody2D>();
@@ -495,12 +497,14 @@ public class Goliath : MonoBehaviour, EnemyInterface
     {
         if(timer <= 0)
         {
-            Destroy(LeftLeg1);
-            Destroy(LeftLeg2);
-            Destroy(RightLeg1);
-            Destroy(RightLeg2);
-            Destroy(GetComponentInChildren<Transform>());
-            gameObject.SetActive(false);
+            LeftLeg1.GetComponent<GoliathLeg>().Dead();
+            LeftLeg2.GetComponent<GoliathLeg>().Dead();
+            RightLeg1.GetComponent<GoliathLeg>().Dead();
+            RightLeg2.GetComponent<GoliathLeg>().Dead();
+            weakPoint.GetComponent<GoliathWeakPoint>().Dead();
+
+            if (_sr.color.a == 0) gameObject.SetActive(false);
+            _sr.color = new Color(_sr.color.r, _sr.color.g, _sr.color.b, (_sr.color.a - 0.005f) > 0 ? (_sr.color.a - 0.005f) : 0);
         }
     }
 
