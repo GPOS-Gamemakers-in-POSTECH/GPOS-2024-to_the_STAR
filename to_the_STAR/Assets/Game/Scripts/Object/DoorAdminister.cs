@@ -9,6 +9,7 @@ public class DoorAdminister : MonoBehaviour
     public bool[][] keys;
     public GameObject[] doorToTurningPoints;
     [SerializeField] AudioClip doorOpenSound;
+    [SerializeField] int doorOpenedCount = 1; // 처음에 열려있는 문의 숫자 (1은 튜토리얼 맵 기준)
     private void Start()
     {
         keys = new bool[doors.Length][];
@@ -41,7 +42,11 @@ public class DoorAdminister : MonoBehaviour
         }
         _door.DoorChanged(flag);
         bool after = doors[i].activeSelf;
-        if(before != after) GetComponent<AudioSource>().PlayOneShot(doorOpenSound, 1.0f);
+        if (before != after && doorOpenedCount > 0)
+        {
+            doorOpenedCount--;
+            GetComponent<AudioSource>().PlayOneShot(doorOpenSound, 1.0f);
+        }
         if (doorToTurningPoints[i] != null)
         {
             doorToTurningPoints[i].GetComponent<TurningPointSet>().turningPointChanged(flag);
