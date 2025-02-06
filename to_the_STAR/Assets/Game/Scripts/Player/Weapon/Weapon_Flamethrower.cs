@@ -33,7 +33,7 @@ public class Weapon_Flamethrower : MonoBehaviour
 
     PlayerMovementController _pmc;
     LineRenderer lineRenderer;
-    Animator _ani;
+    Animator[] _ani;
     public void enable()
     {
         flameEnabled = true;
@@ -68,7 +68,7 @@ public class Weapon_Flamethrower : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
         player = GameObject.Find("Player");
-        _ani = GetComponent<Animator>();
+        _ani = GetComponentsInChildren<Animator>();
     }
 
     void Update()
@@ -129,7 +129,8 @@ public class Weapon_Flamethrower : MonoBehaviour
         }
         if (!flameTurnedOn)
         {
-            _ani.SetBool("Attack_Flamethrower", false);
+            for (int i = 0; i < _ani.Length; i++)
+                _ani[i].SetBool("Attack_Flamethrower", false);
             lineRenderer.enabled = false;
             flameFever -= Time.deltaTime;
         }
@@ -140,10 +141,13 @@ public class Weapon_Flamethrower : MonoBehaviour
             float angle = Vector2.SignedAngle(playerPos, mousePos);
             if ((playerPos.x + playerPos.y > 0) ^ (transform.rotation.eulerAngles.z == 180 || transform.rotation.eulerAngles.z == 270)) angle = Mathf.Clamp(angle, -flameDegRange, 90);
             else angle = Mathf.Clamp(angle, -90, flameDegRange);
-            _ani.SetFloat("Flamethrower_Angle", angle);
+            for (int i = 0; i < _ani.Length; i++)
+            {
+                _ani[i].SetBool("Attack_Flamethrower", true);
+                _ani[i].SetFloat("Flamethrower_Angle", angle);
+            }
             angle *= Mathf.Deg2Rad;
-            Vector2 flameMove = VectorRotate(playerPos, angle);
-            _ani.SetBool("Attack_Flamethrower", true);
+            Vector2 flameMove = VectorRotate(playerPos, angle);               
             lineRenderer.enabled = true;
             lineRenderer.SetPosition(0, transform.position + new Vector3(0, 0, 1));
             lineRenderer.SetPosition(1, transform.position + new Vector3(flameMove.x * sightLineLenght, flameMove.y * sightLineLenght, 1));

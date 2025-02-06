@@ -26,7 +26,7 @@ namespace Game.Player
         private InputAction _selectHammer;
         private InputAction _selectFlamethrower;
         private Rigidbody2D _rb;
-        private Animator _ani;
+        private Animator[] _ani;
 
         private GameObject dashAble;
 
@@ -78,13 +78,15 @@ namespace Game.Player
 
         public void turn()
         {
-            _ani.SetTrigger("TurningPoint");
+            for(int i = 0; i < _ani.Length; i++)
+                _ani[i].SetTrigger("TurningPoint");
         }
 
         public void damaged()
         {
             GetComponent<AudioSource>().PlayOneShot(playerHitSound, 1.0f);
-            _ani.SetTrigger("Damaged");
+            for (int i = 0; i < _ani.Length; i++)
+                _ani[i].SetTrigger("Damaged");
         }
 
         public Lever _lever;
@@ -108,7 +110,7 @@ namespace Game.Player
             _selectHammer = GameInputSystem.Instance.PlayerActions.SelectHammer;
             _selectFlamethrower = GameInputSystem.Instance.PlayerActions.SelectFlamethrower;
             _wa = GetComponent<WeaponAdministrator>();
-            _ani = GetComponent<Animator>();
+            _ani = GetComponentsInChildren<Animator>();
         }
 
         private void OnEnable()
@@ -174,7 +176,8 @@ namespace Game.Player
                         GetComponent<AudioSource>().PlayOneShot(playerDashSound, 1.0f);
                         transform.position = dashAble.transform.position;
                         stamina -= 1;
-                        _ani.SetTrigger("Dash");
+                        for (int i = 0; i < _ani.Length; i++)
+                            _ani[i].SetTrigger("Dash");
                         StartCoroutine(invincible());
                     }
                     Destroy(dashAble);
@@ -190,7 +193,8 @@ namespace Game.Player
                         GetComponent<AudioSource>().PlayOneShot(playerDashSound, 1.0f);
                         transform.position = dashAble.transform.position;
                         stamina -= 1;
-                        _ani.SetTrigger("Dash");
+                        for (int i = 0; i < _ani.Length; i++)
+                            _ani[i].SetTrigger("Dash");
                         StartCoroutine(invincible());
                     }
                     Destroy(dashAble);
@@ -234,13 +238,19 @@ namespace Game.Player
             
             if (_moveVector.sqrMagnitude > 0)
             {
-                GetComponent<SpriteRenderer>().flipX = (_moveVector.x + _moveVector.y > 0) ^ (transform.rotation.eulerAngles.z == 180 || transform.rotation.eulerAngles.z == 270);
+                
                 lastMove = _moveVector * dashLength / 10;
-                _ani.SetBool("Move", true);
+                for (int i = 0; i < _ani.Length; i++)
+                {
+                    _ani[i].SetBool("Move", true);
+                    GetComponentsInChildren<SpriteRenderer>()[i].flipX =
+                        (_moveVector.x + _moveVector.y > 0) ^ (transform.rotation.eulerAngles.z == 180 || transform.rotation.eulerAngles.z == 270);
+                }
             }
             else
             {
-                _ani.SetBool("Move", false);
+                for (int i = 0; i < _ani.Length; i++)
+                    _ani[i].SetBool("Move", false);
             }
 
             if (_dashAction.triggered == true && stamina >= 1.0f && dashCooldownCounter < 0 && staminaCool == false)
