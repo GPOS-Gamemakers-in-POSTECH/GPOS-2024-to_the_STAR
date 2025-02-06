@@ -46,30 +46,33 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Player
-    uniqueID: 2664742673
-    locked: 0
-  - name: Latern
-    uniqueID: 2883745703
-    locked: 0
-  - name: PlayerAttack
-    uniqueID: 740624195
-    locked: 0
-  - name: Enemy
-    uniqueID: 3843162005
-    locked: 0
-  - name: EnemyAttack
-    uniqueID: 4018370403
-    locked: 0
-  - name: Lever
-    uniqueID: 1055325545
-    locked: 0
-  - name: Item
-    uniqueID: 2686304413
+  - name: Door
+    uniqueID: 3971096785
     locked: 0
   - name: Map
     uniqueID: 1872666659
     locked: 0
-  - name: Door
-    uniqueID: 3971096785
+  - name: Item
+    uniqueID: 2686304413
+    locked: 0
+  - name: EnemyAttack
+    uniqueID: 4018370403
+    locked: 0
+  - name: Enemy
+    uniqueID: 3843162005
+    locked: 0
+  - name: PlayerAttack
+    uniqueID: 740624195
+    locked: 0
+  - name: Player
+    uniqueID: 2664742673
+    locked: 0
+  - name: Lever
+    uniqueID: 1055325545
+    locked: 0
+  - name: Latern
+    uniqueID: 2883745703
+    locked: 0
+  - name: UI
+    uniqueID: 3941851685
     locked: 0
