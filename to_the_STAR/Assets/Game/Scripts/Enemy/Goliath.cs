@@ -52,7 +52,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
     private const float attackDuration = 1.5f;
     private const float attackCooldown = 4.0f;
     private const float rangedAttackCooldown = 10.0f;
-    private const float attackPower = 60.0f;
+    private const float attackPower = 40.0f;
     private float hp = 1000;
 
     private int direction = 0;
