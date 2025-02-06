@@ -9,7 +9,7 @@ public class PlayerAttackObj : MonoBehaviour
     float damage = 0;
     float stunCooldownSet = 0;
     float age = 0;
-    int attackType = 0; //0: ÇØ¸Ó, 1: È­¿°¹æ»ç±â
+    int attackType = 0; //0: ï¿½Ø¸ï¿½, 1: È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     Vector2 moveVector;
     Transform lightObj;
 
