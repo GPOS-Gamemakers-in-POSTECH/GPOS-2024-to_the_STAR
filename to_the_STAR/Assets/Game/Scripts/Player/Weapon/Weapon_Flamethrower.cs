@@ -18,14 +18,14 @@ public class Weapon_Flamethrower : MonoBehaviour
     float flameFever = 0;
     float flameShotCooldown = 0;
     Vector2 playerPos = new Vector2(1, 0);
-    const float flameDamageConst = 2.5f;
-    const float flameSpeed = 12.0f;
+    const float flameDamageConst = 1.25f;
+    const float flameSpeed = 6.0f;
     const float flameDegRange = 30;
-    const float flameFrequency = 0.2f;
+    const float flameFrequency = 0.1f;
     const float flameFeverMax = 2.5f;
-    const float attackDuration = 2.5f;
+    const float attackDuration = 0.8f;
     const float sightLineLenght = 4.0f;
-    const float flameLightRange = 0.7f;
+    const float flameLightRange = 0.67f;
     const float flameLightIntensity = 0.5f;
     const float flameStamina = 0.5f;
 
