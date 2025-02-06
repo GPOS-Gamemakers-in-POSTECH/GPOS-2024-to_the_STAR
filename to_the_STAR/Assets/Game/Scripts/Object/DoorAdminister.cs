@@ -42,10 +42,10 @@ public class DoorAdminister : MonoBehaviour
         }
         _door.DoorChanged(flag);
         bool after = doors[i].activeSelf;
-        if (before != after && doorOpenedCount > 0)
+        if (before != after)
         {
-            doorOpenedCount--;
-            GetComponent<AudioSource>().PlayOneShot(doorOpenSound, 1.0f);
+            if(doorOpenedCount > 0) doorOpenedCount--;
+            else GetComponent<AudioSource>().PlayOneShot(doorOpenSound, 1.0f);
         }
         if (doorToTurningPoints[i] != null)
         {
