@@ -5,7 +5,8 @@ using TMPro;
 
 public class ItemStatus : MonoBehaviour
 {
-    private int itemCount; // Count how many items player collected
+    public static int itemCount; // Count how many items player collected
+    public static int totalItemCount = 5; // Number of total items
     
     public GameObject itemStatusUI;
     private TextMeshProUGUI itemStatusText;
@@ -13,7 +14,6 @@ public class ItemStatus : MonoBehaviour
     public GameObject itemCollectedUI;
     private TextMeshProUGUI itemCollectedText;
 
-    public int totalItemCount = 5; // Number of total items
 
     void Start()
     {    
