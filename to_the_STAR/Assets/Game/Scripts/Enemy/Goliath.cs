@@ -18,6 +18,8 @@ public class Goliath : MonoBehaviour, EnemyInterface
     [SerializeField] private AudioClip goliathAttackSound;
     [SerializeField] private AudioClip goliathWalkSound;
     [SerializeField] private AudioClip enemyHitSound;
+    [SerializeField] private GameObject attackParticle;
+    [SerializeField] private GameObject walkParticle;
 
     [SerializeField] private GameObject[] Legs;
 
@@ -69,7 +71,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
     private const float legMovementX = 1.6f;
     private const float legMovementY = 0.7f; // 0.5f
     private const float walkCooldown = 0.3f;
-    private const float yCorrection = 3.635f; // y 좌표 보정값은 플레이어 기준..
+    private const float yCorrection = 3.635f; // y ??? ???????? ?÷???? ????..
     private const float size = 1.5f;
 
     private Vector2 playerPosition;
@@ -83,6 +85,8 @@ public class Goliath : MonoBehaviour, EnemyInterface
 
     const float TILE = 4;
     const float ang = 10;
+
+    private ChangeScene ChangeScene;
 
     enum State
     {
@@ -153,10 +157,10 @@ public class Goliath : MonoBehaviour, EnemyInterface
         _right = VectorRotate(_right, transform.rotation.z);
         _left = VectorRotate(_left, transform.rotation.z);
 
-        LeftLeg1 = Instantiate(Legs[0], transform.position + VectorAdd(-0.4583f, -0.4375f, 3) * size, Quaternion.identity); // 왼쪽 다리 뒷부분
-        LeftLeg2 = Instantiate(Legs[0], transform.position + VectorAdd(-0.2916f, -0.4375f, 1) * size, Quaternion.identity); // 왼쪽 다리 앞부분
-        RightLeg1 = Instantiate(Legs[1], transform.position + VectorAdd(0.2916f, -0.4375f, 3) * size, Quaternion.identity); // 오른쪽 다리 뒷부분
-        RightLeg2 = Instantiate(Legs[1], transform.position + VectorAdd(0.4583f, -0.4375f, 1) * size, Quaternion.identity); // 오른쪽 다리 앞부분
+        LeftLeg1 = Instantiate(Legs[0], transform.position + VectorAdd(-0.4583f, -0.4375f, 3) * size, Quaternion.identity); // ???? ??? ??κ?
+        LeftLeg2 = Instantiate(Legs[0], transform.position + VectorAdd(-0.2916f, -0.4375f, 1) * size, Quaternion.identity); // ???? ??? ??κ?
+        RightLeg1 = Instantiate(Legs[1], transform.position + VectorAdd(0.2916f, -0.4375f, 3) * size, Quaternion.identity); // ?????? ??? ??κ?
+        RightLeg2 = Instantiate(Legs[1], transform.position + VectorAdd(0.4583f, -0.4375f, 1) * size, Quaternion.identity); // ?????? ??? ??κ?
 
         LeftLeg1.GetComponent<GoliathLeg>().init(this);
         LeftLeg2.GetComponent<GoliathLeg>().init(this);
@@ -167,6 +171,7 @@ public class Goliath : MonoBehaviour, EnemyInterface
     void OnEnable()
     {
         hp = maxHp;
+        ChangeScene = GameObject.Find("MainUI").GetComponent<ChangeScene>();
     }
 
     void Update()
@@ -234,6 +239,8 @@ public class Goliath : MonoBehaviour, EnemyInterface
                 LeftLeg1.transform.position = LeftLeg1.transform.position + VectorAdd(0, -legMovementY) * Time.deltaTime * faster * 20 * size;
                 RightLeg2.transform.position = RightLeg2.transform.position + VectorAdd(0, -legMovementY) * Time.deltaTime * faster * 20 * size;
                 if (timer <= 0) {
+                    //GameObject walk1 = Instantiate(walkParticle, LeftLeg1.transform.position + VectorAdd(-1.53f, -3.501f), Quaternion.identity);
+                    //GameObject walk2 = Instantiate(walkParticle, RightLeg2.transform.position + VectorAdd(1.53f, -3.501f), Quaternion.identity);
                     GameObject Attack1 = Instantiate(walkingAttackObj, LeftLeg1.transform.position + VectorAdd(-1.02f, -2.34f) * size, Quaternion.identity);
                     GameObject Attack2 = Instantiate(walkingAttackObj, RightLeg2.transform.position + VectorAdd(1.02f, -2.34f) * size, Quaternion.identity);
                     Attack1.GetComponent<EnemyAttackObj>().init(0.2f, attackPower * 0.1f, new Vector3(), EnemyAttackObj.EnemyType.Goliath);
@@ -259,6 +266,8 @@ public class Goliath : MonoBehaviour, EnemyInterface
                 LeftLeg2.transform.position = LeftLeg2.transform.position + VectorAdd(0, -legMovementY) * Time.deltaTime * faster * 20 * size;
                 RightLeg1.transform.position = RightLeg1.transform.position + VectorAdd(0, -legMovementY) * Time.deltaTime * faster * 20 * size;
                 if (timer <= 0) {
+                    //GameObject walk1 = Instantiate(walkParticle, LeftLeg2.transform.position + VectorAdd(-1.53f, -3.501f), Quaternion.identity);
+                    //GameObject walk2 = Instantiate(walkParticle, RightLeg1.transform.position + VectorAdd(1.53f, -3.501f), Quaternion.identity);
                     GameObject Attack1 = Instantiate(walkingAttackObj, LeftLeg2.transform.position + VectorAdd(-1.02f, -2.34f) * size, Quaternion.identity);
                     GameObject Attack2 = Instantiate(walkingAttackObj, RightLeg1.transform.position + VectorAdd(1.02f, -2.34f) * size, Quaternion.identity);
                     Attack1.GetComponent<EnemyAttackObj>().init(0.2f, attackPower * 0.1f, new Vector3(), EnemyAttackObj.EnemyType.Goliath);
@@ -433,6 +442,8 @@ public class Goliath : MonoBehaviour, EnemyInterface
                         Shake(0.15f, 0.5f);
                         if(IsPlayerClose()) GetComponent<AudioSource>().PlayOneShot(goliathAttackSound, 1.0f);
 
+                        //GameObject particle = Instantiate(attackParticle, legCenter, Quaternion.identity);
+
                         GameObject Attack = Instantiate(attackObj1, legCenter, Quaternion.identity);
                         Attack.GetComponent<EnemyAttackObj>().init(0.2f, attackPower, new Vector3(), EnemyAttackObj.EnemyType.Goliath);
 
@@ -502,6 +513,8 @@ public class Goliath : MonoBehaviour, EnemyInterface
             RightLeg1.GetComponent<GoliathLeg>().Dead();
             RightLeg2.GetComponent<GoliathLeg>().Dead();
             weakPoint.GetComponent<GoliathWeakPoint>().Dead();
+
+            ChangeScene.StartEndingScene();
 
             if (_sr.color.a == 0) gameObject.SetActive(false);
             _sr.color = new Color(_sr.color.r, _sr.color.g, _sr.color.b, (_sr.color.a - 0.005f) > 0 ? (_sr.color.a - 0.005f) : 0);

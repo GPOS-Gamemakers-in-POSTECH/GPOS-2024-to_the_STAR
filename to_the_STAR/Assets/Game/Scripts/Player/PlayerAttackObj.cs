@@ -12,6 +12,7 @@ public class PlayerAttackObj : MonoBehaviour
     int attackType = 0; //0: �ظ�, 1: ȭ������
     Vector2 moveVector;
     Transform lightObj;
+    Animator _ani;
 
     public void init(float t, float d, Vector2 m, int tp, float sc)
     {
@@ -28,7 +29,7 @@ public class PlayerAttackObj : MonoBehaviour
     }
     void Start()
     {
-        
+        _ani = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -41,7 +42,7 @@ public class PlayerAttackObj : MonoBehaviour
         {
             transform.localScale = new Vector3(duration / maxDuration + 0.1f, duration / maxDuration + 0.1f, 1);
             lightObj.position = transform.position;
-            GetComponent<Animator>().SetFloat("Age", age);
+            _ani.SetFloat("Age", age);
         }
         if (duration < 0)
         {

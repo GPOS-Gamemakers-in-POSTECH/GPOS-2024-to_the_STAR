@@ -18,14 +18,14 @@ public class Weapon_Flamethrower : MonoBehaviour
     float flameFever = 0;
     float flameShotCooldown = 0;
     Vector2 playerPos = new Vector2(1, 0);
-    const float flameDamageConst = 2.5f;
-    const float flameSpeed = 12.0f;
+    const float flameDamageConst = 1.25f;
+    const float flameSpeed = 6.0f;
     const float flameDegRange = 30;
-    const float flameFrequency = 0.2f;
+    const float flameFrequency = 0.1f;
     const float flameFeverMax = 2.5f;
-    const float attackDuration = 2.5f;
+    const float attackDuration = 0.8f;
     const float sightLineLenght = 4.0f;
-    const float flameLightRange = 0.7f;
+    const float flameLightRange = 0.67f;
     const float flameLightIntensity = 0.5f;
     const float flameStamina = 0.5f;
 
@@ -33,7 +33,7 @@ public class Weapon_Flamethrower : MonoBehaviour
 
     PlayerMovementController _pmc;
     LineRenderer lineRenderer;
-    Animator _ani;
+    Animator[] _ani;
     public void enable()
     {
         flameEnabled = true;
@@ -68,7 +68,7 @@ public class Weapon_Flamethrower : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
         player = GameObject.Find("Player");
-        _ani = GetComponent<Animator>();
+        _ani = GetComponentsInChildren<Animator>();
     }
 
     void Update()
@@ -129,7 +129,8 @@ public class Weapon_Flamethrower : MonoBehaviour
         }
         if (!flameTurnedOn)
         {
-            _ani.SetBool("Attack_Flamethrower", false);
+            for (int i = 0; i < _ani.Length; i++)
+                _ani[i].SetBool("Attack_Flamethrower", false);
             lineRenderer.enabled = false;
             flameFever -= Time.deltaTime;
         }
@@ -140,10 +141,13 @@ public class Weapon_Flamethrower : MonoBehaviour
             float angle = Vector2.SignedAngle(playerPos, mousePos);
             if ((playerPos.x + playerPos.y > 0) ^ (transform.rotation.eulerAngles.z == 180 || transform.rotation.eulerAngles.z == 270)) angle = Mathf.Clamp(angle, -flameDegRange, 90);
             else angle = Mathf.Clamp(angle, -90, flameDegRange);
-            _ani.SetFloat("Flamethrower_Angle", angle);
+            for (int i = 0; i < _ani.Length; i++)
+            {
+                _ani[i].SetBool("Attack_Flamethrower", true);
+                _ani[i].SetFloat("Flamethrower_Angle", angle);
+            }
             angle *= Mathf.Deg2Rad;
-            Vector2 flameMove = VectorRotate(playerPos, angle);
-            _ani.SetBool("Attack_Flamethrower", true);
+            Vector2 flameMove = VectorRotate(playerPos, angle);               
             lineRenderer.enabled = true;
             lineRenderer.SetPosition(0, transform.position + new Vector3(0, 0, 1));
             lineRenderer.SetPosition(1, transform.position + new Vector3(flameMove.x * sightLineLenght, flameMove.y * sightLineLenght, 1));

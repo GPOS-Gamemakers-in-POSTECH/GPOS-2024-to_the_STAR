@@ -227,7 +227,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -451805291
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -602485948, guid: 028e99d2a7d53a643aa401c13f4e2b91, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -287,6 +287,8 @@ MonoBehaviour:
   goliathAttackSound: {fileID: 8300000, guid: 998d86f3423a52a4aaa20467b8e08397, type: 3}
   goliathWalkSound: {fileID: 8300000, guid: d47916a4a059856409a4ca62fea07249, type: 3}
   enemyHitSound: {fileID: 8300000, guid: 7fb8c4acc06302943b263a83300357e4, type: 3}
+  attackParticle: {fileID: 3601051725831562829, guid: 48ca23a425ce60348be4027a10062ad9, type: 3}
+  walkingParticle: {fileID: 3601051725831562829, guid: 48ca23a425ce60348be4027a10062ad9, type: 3}
   Legs:
   - {fileID: 2977414090565635797, guid: e8e3544e01c75864ca87a812841612f0, type: 3}
   - {fileID: 5239440915575926513, guid: 772fd6b4063a6de4cb73bc5fa226ba28, type: 3}

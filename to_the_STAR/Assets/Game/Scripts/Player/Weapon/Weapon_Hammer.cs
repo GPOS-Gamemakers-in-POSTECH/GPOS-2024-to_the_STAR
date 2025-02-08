@@ -26,7 +26,7 @@ public class Weapon_Hammer : MonoBehaviour
     const float hammerRange = 0.7f;
     const float stunCooldownSet = 3.0f;
 
-    Animator _ani;
+    Animator[] _ani;
 
     public void enable()
     {
@@ -65,7 +65,7 @@ public class Weapon_Hammer : MonoBehaviour
         Camera = GameObject.Find("Main Camera");
         playerData = GetComponent<PlayerData>();
         _pmc = GetComponent<PlayerMovementController>();
-        _ani = GetComponent<Animator>();
+        _ani = GetComponentsInChildren<Animator>();
     }
 
     public bool isMouseInputted()
@@ -85,7 +85,8 @@ public class Weapon_Hammer : MonoBehaviour
         {
             if(_pmc.GetStamina() > 0)
             {
-                _ani.SetBool("isCharge", true);
+                for (int i = 0; i < _ani.Length; i++)
+                    _ani[i].SetBool("isCharge", true);
                 hammerCharge += Time.deltaTime * 6.66f;
                 _pmc.SetStamina(_pmc.GetStamina() - Time.deltaTime * hammerStamina);
             }
@@ -94,8 +95,10 @@ public class Weapon_Hammer : MonoBehaviour
         if(hammerCharge > 0 && Input.GetMouseButtonUp(0))
         {
             // if (_pmc.GetStamina() == 0) _pmc.SetStaminaCool(true);
-            _ani.SetBool("isCharge", false);
-            _ani.SetTrigger("Attack_Hammer");
+            for (int i = 0; i < _ani.Length; i++) {
+                _ani[i].SetBool("isCharge", false);
+                _ani[i].SetTrigger("Attack_Hammer");
+            }
             GameObject Attack = Instantiate(attackObj, transform.position + playerPos * hammerRange, Quaternion.identity);
             Attack.GetComponent<PlayerAttackObj>().init(attackDuration, hammerDamageConst * hammerCharge / 10.0f + hammerDamageBase, new Vector2(0, 0), 0, stunCooldownSet * hammerCharge / 10);
             Camera.GetComponent<ShakeCamera>().singleShakeCamera(0.2f + getHammerCharge() * 0.8f, playerData.getRotateDir());
