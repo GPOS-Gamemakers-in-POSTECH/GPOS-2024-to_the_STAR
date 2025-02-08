@@ -80,12 +80,13 @@ public class TurningPointSet : MonoBehaviour
                 }
                 Destroy(checks[i]);
             }
-            if (type == 0) type = -1;
             for(int i = 0; i < doorCheck.GetComponent<TurningPointDoorTable>().DoorTable.Length; i++)
             {
                 if ((doorCheck.GetComponent<TurningPointDoorTable>().LocTable[i] - new Vector2(transform.position.x, transform.position.y)).magnitude < 0.5)
                 {
-                    doorCheck.GetComponent<DoorAdminister>().doorToTurningPoints[doorCheck.GetComponent<TurningPointDoorTable>().DoorTable[i]] = gameObject;
+                    int loc = doorCheck.GetComponent<TurningPointDoorTable>().DoorTable[i];
+                    int pos = doorCheck.GetComponent<DoorAdminister>().doorToTurningPoints[loc][0] == null ? 0 : 1;
+                    doorCheck.GetComponent<DoorAdminister>().doorToTurningPoints[loc][pos] = gameObject;
                     type = doorCheck.GetComponent<TurningPointDoorTable>().ChangedType[i];
                     break;
                 }

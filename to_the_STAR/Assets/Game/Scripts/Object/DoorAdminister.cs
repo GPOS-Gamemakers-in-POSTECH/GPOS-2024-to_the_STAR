@@ -7,20 +7,33 @@ public class DoorAdminister : MonoBehaviour
 {
     public GameObject[] doors;
     public bool[][] keys;
-    public GameObject[] doorToTurningPoints;
+    public GameObject[][] doorToTurningPoints;
     [SerializeField] AudioClip doorOpenSound;
     [SerializeField] int doorOpenedCount = 1; // 처음에 열려있는 문의 숫자 (1은 튜토리얼 맵 기준)
     private void Start()
     {
         keys = new bool[doors.Length][];
-        for(int i = 0; i < doors.Length; i++)
+        int[] count = new int[doors.Length];
+        for (int i = 0; i < doors.Length; i++)
         {
             int l = doors[i].GetComponent<Door>().keys;
+            count[i] = 0;
             keys[i] = new bool[l];
             for(int j = 0; j < l; j++)
             {
                 keys[i][j] = false;
             }
+        }
+        doorToTurningPoints = new GameObject[doors.Length][];
+        int[] table = GetComponent<TurningPointDoorTable>().DoorTable;
+        for (int i = 0; i < table.Length; i++)
+        {
+            count[table[i]]++;
+        }
+        for(int i = 0; i < doors.Length; i++)
+        {
+            doorToTurningPoints[i] = new GameObject[count[i]];
+
         }
     }
 
@@ -49,7 +62,10 @@ public class DoorAdminister : MonoBehaviour
         }
         if (doorToTurningPoints[i] != null)
         {
-            doorToTurningPoints[i].GetComponent<TurningPointSet>().turningPointChanged(flag);
+            for (int j = 0; j < doorToTurningPoints[i].Length; j++)
+            {
+                doorToTurningPoints[i][j].GetComponent<TurningPointSet>().turningPointChanged(flag);
+            }
         }
     }
 }
