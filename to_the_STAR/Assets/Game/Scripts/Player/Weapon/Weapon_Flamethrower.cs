@@ -144,7 +144,8 @@ public class Weapon_Flamethrower : MonoBehaviour
             for (int i = 0; i < _ani.Length; i++)
             {
                 _ani[i].SetBool("Attack_Flamethrower", true);
-                _ani[i].SetFloat("Flamethrower_Angle", angle);
+                int angleNeg = GetComponent<PlayerMovementController>().flipX ? 1 : -1;
+                _ani[i].SetFloat("Flamethrower_Angle", angleNeg * angle);
             }
             angle *= Mathf.Deg2Rad;
             Vector2 flameMove = VectorRotate(playerPos, angle);               

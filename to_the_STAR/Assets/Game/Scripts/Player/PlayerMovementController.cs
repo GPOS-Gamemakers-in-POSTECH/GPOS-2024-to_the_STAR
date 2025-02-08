@@ -15,7 +15,7 @@ namespace Game.Player
         [SerializeField] AudioClip itemObtainSound;
 
         private InputActions.PlayerActions _playerActions;
-        
+
         private Vector2 _moveVector;
         private Vector2 lastMove;
         private InputAction _moveAction;
@@ -46,6 +46,7 @@ namespace Game.Player
 
         private bool usingStamina = false;
         private bool staminaCool = false;
+        public bool flipX { get; private set; } = false;
 
         public Vector2 GetMoveVector()
         {
@@ -243,8 +244,9 @@ namespace Game.Player
                 for (int i = 0; i < _ani.Length; i++)
                 {
                     _ani[i].SetBool("Move", true);
-                    GetComponentsInChildren<SpriteRenderer>()[i].flipX =
-                        (_moveVector.x + _moveVector.y > 0) ^ (transform.rotation.eulerAngles.z == 180 || transform.rotation.eulerAngles.z == 270);
+                    flipX = (_moveVector.x + _moveVector.y > 0) ^ (transform.rotation.eulerAngles.z == 180 || transform.rotation.eulerAngles.z == 270);
+                    GetComponentsInChildren<SpriteRenderer>()[i].flipX = flipX;
+                        
                 }
             }
             else
