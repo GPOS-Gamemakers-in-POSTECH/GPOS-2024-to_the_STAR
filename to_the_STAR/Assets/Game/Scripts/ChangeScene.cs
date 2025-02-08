@@ -10,6 +10,17 @@ public class ChangeScene : MonoBehaviour
         SceneManager.LoadScene("Tutorial");
     }
 
+    public void StartEndingScene()
+    {
+        StartCoroutine(StartEndingSceneWithDelay());
+    }
+
+    private IEnumerator StartEndingSceneWithDelay()
+    {
+        yield return new WaitForSeconds(3.0f);
+        SceneManager.LoadScene("EndingScene");
+    }
+
     public void GameExit()
     {
 #if UNITY_EDITOR
