@@ -1304,7 +1304,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: empty
+  - m_Name: Flamethrower_Angle
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -1838,7 +1838,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 3
-    m_ConditionEvent: empty
+    m_ConditionEvent: Flamethrower_Angle
     m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1697860198251356053}
@@ -2198,7 +2198,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 3
-    m_ConditionEvent: empty
+    m_ConditionEvent: Flamethrower_Angle
     m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4803697035877675316}
