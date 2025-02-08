@@ -641,7 +641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 1074269925}
   fadeDuration: 1
-  nextSceneName: Tutorial
+  nextSceneName: Tutorial 1
 --- !u!1 &1262755034
 GameObject:
   m_ObjectHideFlags: 0
