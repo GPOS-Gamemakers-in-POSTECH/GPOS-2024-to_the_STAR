@@ -11,6 +11,7 @@ public class Item : MonoBehaviour
     private TextMeshPro popupText;
     private ItemStatus ItemStatus;
     private PlayerMovementController _pmc;
+    private WeaponAdministrator WeaponAdministrator;
 
     void Start()
     {
@@ -22,13 +23,9 @@ public class Item : MonoBehaviour
 
         PlayerPrefs.SetInt("Item_" + itemId, 0);
         gameObject.SetActive(true);
-        
-        /*
-        if(PlayerPrefs.GetInt("Item_" + itemId, 0) == 1)
-        {
-            Destroy(gameObject);            
-        }
-        */
+
+        WeaponAdministrator = GameObject.FindObjectOfType<WeaponAdministrator>();
+
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -36,8 +33,12 @@ public class Item : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             popupUI.SetActive(true);
-            Debug.Log("Player is nearby Item #" + itemId);
-            popupText.text = $"[E] Item #{itemId}";
+            if(itemId == 100)
+                popupText.text = $"[E] Hammer";
+            else if (itemId == 101)
+                popupText.text = $"[E] Flamethrower";
+            else
+                popupText.text = $"[E] Item #{itemId}";
             _pmc = other.GetComponent<PlayerMovementController>();
             _pmc._item = this;
         }
@@ -56,9 +57,13 @@ public class Item : MonoBehaviour
     public void CollectItem()
     {
         PlayerPrefs.SetInt("Item_" + itemId, 1);
-        ItemStatus.CollectUI(itemId);
-        //Destroy(gameObject);        
+        ItemStatus.CollectUI(itemId);     
         gameObject.SetActive(false);
-        ItemStatus.IncrementItemCount();
+        if(itemId == 100)
+            WeaponAdministrator.UnlockHammer();
+        else if (itemId == 101) 
+            WeaponAdministrator.UnlockFlamethrower();
+        else
+            ItemStatus.IncrementItemCount();
     }    
 }

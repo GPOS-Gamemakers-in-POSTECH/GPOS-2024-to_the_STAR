@@ -20,6 +20,11 @@ public class WeaponUIManager : MonoBehaviour
 
     GameObject Player;
 
+    void disableWeaponUI()
+    {
+        for (int i = 0; i < n; i++) weapons[i].SetActive(false);
+    }
+
     void setWeapon()
     {
         for (int i = 0; i < n; i++) weapons[i].SetActive(false);
@@ -62,7 +67,7 @@ public class WeaponUIManager : MonoBehaviour
         cooldown = Instantiate(cooldown, transform);
         cooldown.GetComponent<RectTransform>().anchoredPosition = new Vector3(112.5f, -42.5f, 0);
 
-        setWeapon();
+        disableWeaponUI();
     }
 
     float max(float a, float b) { return a > b ? a : b; }

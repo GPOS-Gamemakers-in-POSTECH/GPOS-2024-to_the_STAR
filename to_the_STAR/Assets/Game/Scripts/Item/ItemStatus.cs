@@ -38,7 +38,12 @@ public class ItemStatus : MonoBehaviour
 
     public void CollectUI(int itemId)
     {
-        itemCollectedText.text = $"Item #{itemId} collected!";
+        if(itemId == 100)
+            itemCollectedText.text = $"Hammer Unlocked!";
+        else if (itemId == 101)
+            itemCollectedText.text = $"Flamethrower Unlocked!";
+        else
+            itemCollectedText.text = $"Item #{itemId} collected!";
         itemCollectedUI.SetActive(true);
         StartCoroutine(HideItemCollectedUI());
     }

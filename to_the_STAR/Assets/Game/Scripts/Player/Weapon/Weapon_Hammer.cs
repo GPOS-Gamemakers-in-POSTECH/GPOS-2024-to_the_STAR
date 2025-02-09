@@ -16,7 +16,7 @@ public class Weapon_Hammer : MonoBehaviour
     bool hammerEnabled = false;
     float hammerCooldown = 0;
     float hammerCharge = 0;
-    float hammerChargeTime = 0; // ½ºÅÂ¹Ì³ª¸¦ ´Ù »ç¿ëÇØµµ °è¼Ó ´Ã¾î³ª´Â °ª
+    float hammerChargeTime = 0; // ï¿½ï¿½ï¿½Â¹Ì³ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Øµï¿½ ï¿½ï¿½ï¿½ ï¿½Ã¾î³ªï¿½ï¿½ ï¿½ï¿½
     const float hammerDamageConst = 50f;
     const float hammerDamageBase = 25f;
     const float hammerCooldownSet = 2.5f;
@@ -75,6 +75,7 @@ public class Weapon_Hammer : MonoBehaviour
 
     void Update()
     {
+        if(GamePause.isGamePaused) return; // If the game is Paused
         Vector2 playerTmp = _pmc.GetMoveVector();
         if (playerTmp.x != 0 || playerTmp.y != 0)
         {
