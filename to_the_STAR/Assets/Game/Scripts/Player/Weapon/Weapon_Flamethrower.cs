@@ -18,6 +18,7 @@ public class Weapon_Flamethrower : MonoBehaviour
     float flameFever = 0;
     float flameShotCooldown = 0;
     Vector2 playerPos = new Vector2(1, 0);
+    Vector2 flamethrowerTipPos = new Vector2(0.5f, 0);
     const float flameDamageConst = 1.25f;
     const float flameSpeed = 6.0f;
     const float flameDegRange = 30;
@@ -104,8 +105,9 @@ public class Weapon_Flamethrower : MonoBehaviour
                 Vector2 flameMove = VectorRotate(playerPos, angle);
 
                 GetComponent<AudioSource>().PlayOneShot(flameAttackSound, 1.0f);
-                GameObject Attack = Instantiate(attackObj, transform.position, Quaternion.Euler(transform.eulerAngles));
-                GameObject Light = Instantiate(lightObj, transform.position, Quaternion.identity);
+                Vector3 flameTip = VectorRotate(flamethrowerTipPos, transform.rotation.eulerAngles.z);
+                GameObject Attack = Instantiate(attackObj, transform.position + flameTip, Quaternion.Euler(transform.eulerAngles));
+                GameObject Light = Instantiate(lightObj, transform.position + flameTip, Quaternion.identity);
                 Light.transform.parent = Attack.transform;
                 Light.GetComponent<HardLight2D>().Range = flameLightRange;
                 Light.GetComponent<HardLight2D>().Intensity = flameLightIntensity;
