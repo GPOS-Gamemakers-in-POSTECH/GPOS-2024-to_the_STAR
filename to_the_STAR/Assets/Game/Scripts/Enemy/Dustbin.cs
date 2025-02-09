@@ -12,6 +12,7 @@ public class Dustbin : MonoBehaviour, EnemyInterface
     [SerializeField] private EnemyStat stat;
     [SerializeField] private GameObject attackObj;
     [SerializeField] private AudioClip enemyHitSound;
+    [SerializeField] private AudioClip enemyAttackSound;
 
     GameObject player;
     PlayerData playerData;
@@ -23,7 +24,7 @@ public class Dustbin : MonoBehaviour, EnemyInterface
     private float hp;
 
     private int direction = 0;
-    private int preDir = 0; // º® Ãæµ¹½Ã ±× ¹æÇâÀ¸·Î °¡Áö ¾Ê°Ô ÇÏ±â À§ÇÑ °Í (Ãæµ¹ÇÏÁö ¾Ê¾Ò´Ù¸é 0, Ãæµ¹Çß´Ù¸é Ãæµ¹ÇßÀ» ´ç½ÃÀÇ ÀÌµ¿ ¹æÇâ)
+    private int preDir = 0; // ï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ (ï¿½æµ¹ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò´Ù¸ï¿½ 0, ï¿½æµ¹ï¿½ß´Ù¸ï¿½ ï¿½æµ¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½)
     private float attackTimer = 0;
     private float lookAround = 0;
     private float timer = 0;
@@ -250,6 +251,7 @@ public class Dustbin : MonoBehaviour, EnemyInterface
             move *= direction;
             GameObject Attack = Instantiate(attackObj, transform.position + move, Quaternion.identity);
             Attack.GetComponent<EnemyAttackObj>().init(stat.attackDuration, stat.attackPower, new Vector2(0, 0), EnemyAttackObj.EnemyType.Dustpan);
+            GetComponent<AudioSource>().PlayOneShot(enemyAttackSound, 1.0f);
             attacked = true;
             attackTimer = stat.attackMotion2Cooldown;
         }
