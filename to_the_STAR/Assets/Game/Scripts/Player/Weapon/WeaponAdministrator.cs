@@ -10,6 +10,8 @@ public class WeaponAdministrator : MonoBehaviour
     public bool isHammerUnlocked { get; private set; } = false;
     public bool isFlamethrowerUnlocked { get; private set; } = false;
 
+    private bool debugCheat = false;
+
     enum Weapon
     {
         hammer,
@@ -101,5 +103,17 @@ public class WeaponAdministrator : MonoBehaviour
     {
         isFlamethrowerUnlocked = true;
         SelectFlamethrower();
+    }
+
+    private void Update()
+    {
+        if (debugCheat)
+        {
+            bool flameCheat = UnityEngine.Input.GetKey("i");
+            bool hammerCheat = UnityEngine.Input.GetKey("o");
+
+            if (flameCheat) isFlamethrowerUnlocked = true;
+            if (hammerCheat) isHammerUnlocked = true;
+        }
     }
 }
