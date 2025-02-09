@@ -41,7 +41,7 @@ public class WeaponAdministrator : MonoBehaviour
 
     public void SelectHammer()
     {
-        if (Check())
+        if (Check() && isHammerUnlocked)
         {
             weapon = Weapon.hammer;
             hammer.enable();
@@ -72,7 +72,7 @@ public class WeaponAdministrator : MonoBehaviour
                 flamethrower.enable();
                 weaponUIManager.GetComponent<WeaponUIManager>().weaponChanged();
             }
-            else if (weapon == Weapon.flameThrower)
+            else if (weapon == Weapon.flameThrower && isHammerUnlocked)
             {
                 weapon = Weapon.hammer;
                 hammer.enable();
@@ -85,8 +85,7 @@ public class WeaponAdministrator : MonoBehaviour
 
     public bool Check()
     {
-        if (weapon == Weapon.none) return isHammerUnlocked;
-        else if (weapon == Weapon.hammer) return !hammer.isCharging();
+        if (weapon == Weapon.hammer) return !hammer.isCharging();
         else if (weapon == Weapon.flameThrower) return !flamethrower.isTurnOn();
         else return true;
     }
