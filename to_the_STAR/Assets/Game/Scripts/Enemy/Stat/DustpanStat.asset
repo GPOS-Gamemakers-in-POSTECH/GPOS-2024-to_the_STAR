@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67e9a99206374204b82c28f9b10d9700, type: 3}
   m_Name: DustpanStat
   m_EditorClassIdentifier: 
-  hp: 100
+  hp: 60
   attackPower: 15
   detectionRange: 5
   attackRange: 1
