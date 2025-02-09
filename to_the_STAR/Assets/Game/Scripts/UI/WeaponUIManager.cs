@@ -10,33 +10,44 @@ public class WeaponUIManager : MonoBehaviour
     [SerializeField] GameObject flamethrower_selected;
     [SerializeField] GameObject cooldown;
 
-    int weapon = 1; // 0 : hammer, 1 : flamethrower
+    int weapon = 2; // 0 : hammer, 1 : flamethrower, n + 1: none
     const int n = 2; // number of weapon types
 
     float hammerCooldown = 0.0f;
     float flamethrowerFever = 0.0f;
 
-    GameObject[] weapons = new GameObject[n];
+    GameObject[] weapons = new GameObject[n + 1];
 
     GameObject Player;
 
     void setWeapon()
     {
         for (int i = 0; i < n; i++) weapons[i].SetActive(false);
-        weapons[weapon].SetActive(true);
+        weapons[weapon]?.SetActive(true);
     }
 
     public void weaponChanged()
     {
-        weapon++;
-        weapon %= n;
-        setWeapon();
+        WeaponSelected((weapon + 1) % n);
     }
 
     public void WeaponSelected(int n)
     {
-        weapon = n;
-        setWeapon();
+        if (IsSelectedWeaponEnabled(n))
+        {
+            weapon = n;
+            setWeapon();
+        }
+    }
+
+    private bool IsSelectedWeaponEnabled(int n)
+    {
+        switch (n)
+        {
+            case 0:
+            case 1:
+            default: return true;
+        }
     }
 
     void Start()
@@ -67,6 +78,8 @@ public class WeaponUIManager : MonoBehaviour
             case 1:
                 flamethrowerFever = max(0, Player.GetComponent<PlayerData>().flamethrowerFever());
                 cooldown.GetComponent<Image>().fillAmount = flamethrowerFever;
+                break;
+            case 2:
                 break;
         }
     }

@@ -151,25 +151,15 @@ public class UI : MonoBehaviour
         playerHp = Player.GetComponent<PlayerData>().playerHp();
         Healthbar.fillAmount = playerHp;
 
-        if(whatWeapon == 0)
-        {
-            Weapon_Hammer_Charge.enabled = true;
-            Weapon_Hammer_Cooldown.enabled = true;
-            Weapon_Flamethrower_Fever.enabled = false;
-        }
+        Weapon_Hammer_Charge.enabled = whatWeapon == 0;
+        Weapon_Hammer_Cooldown.enabled = whatWeapon == 0;
+        Weapon_Flamethrower_Fever.enabled = whatWeapon == 1;
 
         hammerCharge = max(0,Player.GetComponent<PlayerData>().hammerCharge());
         Weapon_Hammer_Charge.fillAmount = hammerCharge;
 
         hammerCooldown = max(0,Player.GetComponent<PlayerData>().hammerCooldown());
         Weapon_Hammer_Cooldown.fillAmount = hammerCooldown;
-
-        if(whatWeapon == 1)
-        {
-            Weapon_Hammer_Charge.enabled = false;
-            Weapon_Hammer_Cooldown.enabled = false;
-            Weapon_Flamethrower_Fever.enabled = true;
-        }
 
         //flamethrowerCooldown = max(0, Player.GetComponent<PlayerData>().flamethrowerCooldown());
         //Weapon_Flamethrower_Cooldown.fillAmount = flamethrowerCooldown;
