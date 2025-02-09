@@ -3,7 +3,11 @@ guid: 3ee702f11d1a5214597de4db3970bb09
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - stat: {fileID: 11400000, guid: 4a67ec78ba728564da64705daa5b6a4f, type: 2}
+  - attackObj: {instanceID: 0}
+  - enemyHitSound: {instanceID: 0}
+  - enemyAttackSound: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
