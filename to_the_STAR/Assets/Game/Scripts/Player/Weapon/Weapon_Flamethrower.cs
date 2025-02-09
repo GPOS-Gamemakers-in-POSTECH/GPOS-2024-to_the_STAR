@@ -100,8 +100,8 @@ public class Weapon_Flamethrower : MonoBehaviour
                 mousePos = new Vector2(mousePos.x - player.transform.position.x, mousePos.y - player.transform.position.y);
 
                 float angle = Vector2.SignedAngle(playerPos, mousePos);
-                if ((playerPos.x + playerPos.y > 0) ^ (transform.rotation.eulerAngles.z == 180 || transform.rotation.eulerAngles.z == 270)) angle = Mathf.Clamp(angle, -flameDegRange, 90);
-                else angle = Mathf.Clamp(angle, -90, flameDegRange);
+                if ((playerPos.x + playerPos.y > 0) ^ (transform.rotation.eulerAngles.z == 180 || transform.rotation.eulerAngles.z == 270)) angle = Mathf.Clamp(angle, -flameDegRange, 70);
+                else angle = Mathf.Clamp(angle, -70, flameDegRange);
                 angle *= Mathf.Deg2Rad;
                 Vector2 flameMove = VectorRotate(playerPos, angle);
 
@@ -144,8 +144,8 @@ public class Weapon_Flamethrower : MonoBehaviour
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos = new Vector2(mousePos.x - player.transform.position.x, mousePos.y - player.transform.position.y);
             float angle = Vector2.SignedAngle(playerPos, mousePos);
-            if ((playerPos.x + playerPos.y > 0) ^ (transform.rotation.eulerAngles.z == 180 || transform.rotation.eulerAngles.z == 270)) angle = Mathf.Clamp(angle, -flameDegRange, 90);
-            else angle = Mathf.Clamp(angle, -90, flameDegRange);
+            if ((playerPos.x + playerPos.y > 0) ^ (transform.rotation.eulerAngles.z == 180 || transform.rotation.eulerAngles.z == 270)) angle = Mathf.Clamp(angle, -flameDegRange, 70);
+            else angle = Mathf.Clamp(angle, -70, flameDegRange);
             for (int i = 0; i < _ani.Length; i++)
             {
                 _ani[i].SetBool("Attack_Flamethrower", true);
@@ -153,9 +153,12 @@ public class Weapon_Flamethrower : MonoBehaviour
                 _ani[i].SetFloat("Flamethrower_Angle", angleNeg * angle);
             }
             angle *= Mathf.Deg2Rad;
-            Vector2 flameMove = VectorRotate(playerPos, angle);               
+            Vector2 flameMove = VectorRotate(playerPos, angle);
+            Vector3 flameTip =
+                    VectorRotate(flamethrowerTipPosX, (transform.rotation.eulerAngles.z + (GetComponent<PlayerMovementController>().flipX ? 0 : 180)) * Mathf.Deg2Rad + angle)
+                  + VectorRotate(flamethrowerTipPosY, transform.rotation.eulerAngles.z * Mathf.Deg2Rad + angle);
             lineRenderer.enabled = true;
-            lineRenderer.SetPosition(0, transform.position + new Vector3(0, 0, 1));
+            lineRenderer.SetPosition(0, transform.position + new Vector3(0, 0, 1) + flameTip);
             lineRenderer.SetPosition(1, transform.position + new Vector3(flameMove.x * sightLineLenght, flameMove.y * sightLineLenght, 1));
         }
         if(flameFever < 0)
