@@ -61,7 +61,6 @@ public class GamePause : MonoBehaviour
     private void Pause()
     {
         pauseMenuUI.SetActive(true);
-        GameObject.Find("itemCollectedUI").SetActive(false);
         isGamePaused = true;
 
         Time.timeScale = 0f;
