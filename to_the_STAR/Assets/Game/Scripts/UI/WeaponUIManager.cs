@@ -49,8 +49,8 @@ public class WeaponUIManager : MonoBehaviour
     {
         switch (n)
         {
-            case 0:
-            case 1:
+            case 0: return Player.GetComponent<WeaponAdministrator>().isHammerUnlocked;
+            case 1: return Player.GetComponent<WeaponAdministrator>().isFlamethrowerUnlocked;
             default: return true;
         }
     }

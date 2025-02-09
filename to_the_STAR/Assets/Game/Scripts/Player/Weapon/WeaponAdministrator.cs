@@ -7,8 +7,8 @@ public class WeaponAdministrator : MonoBehaviour
 
     GameObject weaponUIManager;
 
-    bool isHammerUnlocked = false;
-    bool isFlamethrowerUnlocked = false;
+    public bool isHammerUnlocked { get; private set; } = false;
+    public bool isFlamethrowerUnlocked { get; private set; } = false;
 
     enum Weapon
     {
