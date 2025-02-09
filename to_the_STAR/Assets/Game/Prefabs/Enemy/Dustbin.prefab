@@ -54,6 +54,7 @@ MonoBehaviour:
   stat: {fileID: 11400000, guid: 4a67ec78ba728564da64705daa5b6a4f, type: 2}
   attackObj: {fileID: 6584552416168620802, guid: 7dbfc898ca0a55d45ae1dd73c040c10f, type: 3}
   enemyHitSound: {fileID: 8300000, guid: 7fb8c4acc06302943b263a83300357e4, type: 3}
+  enemyAttackSound: {fileID: 8300000, guid: e8ec51350023d6a4999c0045aa8d2fee, type: 3}
 --- !u!212 &1128246488178738972
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -231,7 +232,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 919628924584464322, guid: 79a29461bfbf72c4885eade052467b3b, type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: e8ec51350023d6a4999c0045aa8d2fee, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

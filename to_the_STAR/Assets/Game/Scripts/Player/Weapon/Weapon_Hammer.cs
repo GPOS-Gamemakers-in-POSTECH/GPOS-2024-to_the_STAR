@@ -26,6 +26,8 @@ public class Weapon_Hammer : MonoBehaviour
     const float hammerRange = 0.7f;
     const float stunCooldownSet = 3.0f;
 
+    public WeaponParticle WeaponParticle;
+
     Animator[] _ani;
 
     public void enable()
@@ -104,6 +106,7 @@ public class Weapon_Hammer : MonoBehaviour
             Attack.GetComponent<PlayerAttackObj>().init(attackDuration, hammerDamageConst * hammerCharge / 10.0f + hammerDamageBase, new Vector2(0, 0), 0, stunCooldownSet * hammerCharge / 10);
             Camera.GetComponent<ShakeCamera>().singleShakeCamera(0.2f + getHammerCharge() * 0.8f, playerData.getRotateDir());
             GetComponent<AudioSource>().PlayOneShot(hammerAttackSound, 1.0f);
+            WeaponParticle.playParticle();
             hammerCooldown = hammerCooldownSet;
             hammerCharge = 0;
             hammerChargeTime = 0;
