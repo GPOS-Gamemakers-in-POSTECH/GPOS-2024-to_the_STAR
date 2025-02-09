@@ -85,7 +85,8 @@ public class WeaponAdministrator : MonoBehaviour
 
     public bool Check()
     {
-        if (weapon == Weapon.hammer) return !hammer.isCharging();
+        if (weapon == Weapon.none) return isHammerUnlocked;
+        else if (weapon == Weapon.hammer) return !hammer.isCharging();
         else if (weapon == Weapon.flameThrower) return !flamethrower.isTurnOn();
         else return true;
     }
