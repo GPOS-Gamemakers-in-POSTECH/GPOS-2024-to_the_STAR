@@ -27,7 +27,7 @@ public class WeaponUIManager : MonoBehaviour
 
     void setWeapon()
     {
-        for (int i = 0; i < n; i++) weapons[i].SetActive(false);
+        for (int i = 0; i < n; i++) weapons[i]?.SetActive(false);
         weapons[weapon]?.SetActive(true);
     }
 
