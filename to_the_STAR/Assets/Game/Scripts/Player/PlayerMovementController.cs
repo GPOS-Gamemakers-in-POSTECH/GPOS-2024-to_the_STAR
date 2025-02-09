@@ -27,6 +27,7 @@ namespace Game.Player
         private InputAction _selectFlamethrower;
         private Rigidbody2D _rb;
         private Animator[] _ani;
+        private SpriteRenderer[] _sr;
 
         private GameObject dashAble;
 
@@ -46,6 +47,8 @@ namespace Game.Player
 
         private bool usingStamina = false;
         private bool staminaCool = false;
+
+        private int damageRedCooldown = 0;
         public bool flipX { get; private set; } = false;
 
         public Vector2 GetMoveVector()
@@ -87,7 +90,11 @@ namespace Game.Player
         {
             GetComponent<AudioSource>().PlayOneShot(playerHitSound, 1.0f);
             for (int i = 0; i < _ani.Length; i++)
+            {
                 _ani[i].SetTrigger("Damaged");
+                _sr[i].color = new Color(1f, 0.5f, 0.5f);
+                damageRedCooldown = 30;
+            }
         }
 
         public Lever _lever;
@@ -112,6 +119,7 @@ namespace Game.Player
             _selectFlamethrower = GameInputSystem.Instance.PlayerActions.SelectFlamethrower;
             _wa = GetComponent<WeaponAdministrator>();
             _ani = GetComponentsInChildren<Animator>();
+            _sr = GetComponentsInChildren<SpriteRenderer>();
         }
 
         private void OnEnable()
@@ -263,6 +271,14 @@ namespace Game.Player
                 dashCount = 5;
                 dashCooldownCounter = dashCooldownSet;
             }
+
+            if(damageRedCooldown < 0 && damageRedCooldown > -15)
+            {
+                for (int i = 0; i < _sr.Length; i++)
+                {
+                    _sr[i].color = new Color(1f, 1f, 1f);
+                }
+            }
         }
 
         private void FixedUpdate()
@@ -282,6 +298,7 @@ namespace Game.Player
             }
             dashCount--;
             dashCooldownCounter--;
+            damageRedCooldown--;
         }
 
         private void Interaction()
