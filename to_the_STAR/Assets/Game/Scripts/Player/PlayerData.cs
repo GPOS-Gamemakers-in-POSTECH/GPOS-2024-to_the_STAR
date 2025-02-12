@@ -12,8 +12,8 @@ namespace Game.Player
     
     public class PlayerData : MonoBehaviour
     {
-        float Hp = 100.0f;
-        const float maxHp = 100.0f;
+        float Hp = 300.0f;
+        const float maxHp = 300.0f;
         const float maxStamina = 3.0f;
         bool isInvincible = false;
         Vector3 spawnPoint;
