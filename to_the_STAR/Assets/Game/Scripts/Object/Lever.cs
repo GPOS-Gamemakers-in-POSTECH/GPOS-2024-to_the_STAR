@@ -20,10 +20,13 @@ public class Lever : MonoBehaviour
     bool state;
     bool playerUsed;
 
+    public GameObject popUpUI;
+
     void Start()
     {
         _sr = GetComponent<SpriteRenderer>();
         doorAdminister = GameObject.Find("DoorAdminister");
+        popUpUI.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision) // 플레이어와 충돌한 레버를 플레이어와 연결
@@ -37,6 +40,7 @@ public class Lever : MonoBehaviour
             {
                 player._lever = this;
             }
+            popUpUI.SetActive(true);
         }
     }
 
@@ -46,6 +50,7 @@ public class Lever : MonoBehaviour
         {
             player._lever = null;
             player = null;
+            popUpUI.SetActive(false);
         }
     }
 
