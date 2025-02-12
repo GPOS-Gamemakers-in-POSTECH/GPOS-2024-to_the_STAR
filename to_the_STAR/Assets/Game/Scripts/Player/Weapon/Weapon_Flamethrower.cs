@@ -20,7 +20,7 @@ public class Weapon_Flamethrower : MonoBehaviour
     Vector2 playerPos = new Vector2(1, 0);
     Vector2 flamethrowerTipPosX = new Vector2(0.75f, 0);
     Vector2 flamethrowerTipPosY = new Vector2(0, 0.25f);
-    const float flameDamageConst = 1.25f;
+    const float flameDamageConst = 2.5f;
     const float flameSpeed = 6.0f;
     const float flameDegRange = 30;
     const float flameFrequency = 0.1f;
